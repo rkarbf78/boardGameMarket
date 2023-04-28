@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.boardGameMarket.project.mapper.ProductMapper">
+  
+  
+  	<select id="getProductList" resultType="com.boardGameMarket.project.domain.ProductVO">
+  		
+  	<![CDATA[
+  		SELECT * FROM (
+  			SELECT /*+INDEX_DESC(Product SYS_C007351) */
+  				rownum as rn, product_id, product_name, product_price, product_info,
+  				product_stock, product_sell, product_category_code, product_regDate
+  				from Product
+  				where
+  	]]>
+  	
+  			<if test="keyword != null">
+  				product_name like '%'||#{keyword}||'%' and
+  			</if>
+  			
+  	<![CDATA[
+  				rownum <= #{pageNum}*#{amount}
+  				)
+  				where rn > (#{pageNum} -1) * #{amount}
+  	]]>
+  	
+  	</select>
+  	
+  	
+  	<select id="getProduct" resultType="com.boardGameMarket.project.domain.ProductVO">
+  		SELECT * FROM Product where product_id = #{product_id}
+  	</select>
+  	
+  	
+  	<insert id="product_registration" parameterType="com.boardGameMarket.project.domain.ProductVO">
+  	
+  		<selectKey resultType="int" keyProperty="product_id" order="AFTER">
+  		SELECT MAX(product_id) FROM Product
+  		</selectKey>
+  		
+  		INSERT INTO Product(product_id,product_name,product_price,product_info,product_stock,product_sell,product_category_code,product_regDate)
+  		 values 
+  		 (Product_id_seq.NEXTVAL,#{product_name},#{product_price},#{product_info},#{product_stock},#{product_sell},#{product_category_code},sysdate)
+  	</insert>
+  	
+  	
+  	<insert id="image_registration" parameterType="com.boardGameMarket.project.domain.AttachFileDTO">
+  		INSERT INTO Product_image(product_id,fileName,uploadPath,uuid) values (#{product_id},#{fileName},#{uploadPath},#{uuid})
+  	</insert>
+  	
+  	<select id="getAttachFile" resultType="com.boardGameMarket.project.domain.AttachFileDTO">
+  		SELECT * FROM Product_image where product_id = #{product_id}
+  	</select>
+  	
+  	<select id="categoryList" resultType="com.boardGameMarket.project.domain.CategoryVO">
+  		SELECT * FROM Product_Category order by category_code
+  	</select>
+  	
+  	<select id="productGetTotal" resultType="int">
+  		select count(*) from Product
+  		<if test="keyword != null">
+  			where product_name like '%'||#{keyword}||'%'
+  		</if>
+  	</select>
+  </mapper>

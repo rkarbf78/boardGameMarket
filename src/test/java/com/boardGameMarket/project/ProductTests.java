@@ -53,10 +53,10 @@ public class ProductTests {
 		mapper.product_registration(pVo);
 	}
 	
-//	@Test
+	@Test
 	public void ProductAndImage_registrationTest() {	
 		
-		for(int i =0; i<50; i++) {
+		for(int i =50; i<100; i++) {
 			ProductVO pVo = new ProductVO();
 			
 			pVo.setProduct_name("더미상품 이름"+i);
@@ -89,7 +89,7 @@ public class ProductTests {
 		
 	}
 	
-	@Test
+//	@Test
 	public void Product_getTotalTest() {
 		
 		Criteria cri = new Criteria();

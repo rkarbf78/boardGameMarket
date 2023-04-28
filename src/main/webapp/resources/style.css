@@ -552,6 +552,48 @@ a:active,a:focus {
 	background:#ffd700;
 	color:#fff;
 }
+.site-header-content{
+	margin : 0 auto;
+}
+#searchForm{
+	display : none;
+	float : right;
+	width : 20%;
+	max-width : 260px;
+	min-width : 140px;
+	position: relative;
+	margin-top : -39px;
+	margin-right : 5px;
+}
+.search_input{
+	width : 100%;
+}
+.search_input input[name='keyword']{
+  width: 100%;
+  border: 1px solid #bbb;
+  border-radius: 8px;
+  padding: 2px;
+  font-size: 14px;
+}
+.search_btn{
+	width : 25%;
+	
+	padding : 1px 0;
+}
+.search_btn_icon{
+	width: 17px;
+	top: 7px;
+	right: 8px;
+	margin: 0;
+	position : absolute;
+	cursor: pointer;
+}
+.data_empty{
+	height: 50px;
+    text-align: center;
+    margin: 200px 0 215px 0px;
+    font-size: 25px;
+}
 .site-main .comment-navigation,.site-main .paging-navigation {
 	margin:15px 0 30px;
 	overflow:hidden;

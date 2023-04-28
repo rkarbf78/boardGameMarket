@@ -28,10 +28,10 @@ public class PageDTO {
       this.total = total;
       
       /* 페이지 끝 번호 */
-      this.pageEnd = (int)(Math.ceil(cri.getPageNum()/10.0))*10;
+      this.pageEnd = (int)(Math.ceil(cri.getPageNum()/5.0))*5;
       
       /* 페이지 시작 번호 */
-      this.pageStart = this.pageEnd - 9;
+      this.pageStart = this.pageEnd - 4;
       
       /* 전체 마지막 페이지 번호 */
       int realEnd = (int)(Math.ceil(total*1.0/cri.getAmount()));

@@ -51,7 +51,11 @@ public class ProductController {
 		
 		List<ProductVO> productList = service.getProductList(cri);
 		
-		model.addAttribute("productList",productList);
+		if(!productList.isEmpty()) {
+			model.addAttribute("productList",productList); // 검색시 상품 존재 경우
+		}else {
+			model.addAttribute("productListCheck" , "empty"); // 검색시 상품 존재하지 않을 경우
+		}
 		
 		int total = service.productGetTotal(cri);
 		

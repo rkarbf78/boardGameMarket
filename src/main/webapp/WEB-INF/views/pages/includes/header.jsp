@@ -33,6 +33,26 @@
 				}
 			});
 		});
+		
+		
+		let searchForm = $('#searchForm');
+		
+		//상품 검색 버튼 동작
+		$("#searchForm img").click(function(e){
+		
+			e.preventDefault();
+			
+			//검색 키워드 유효성 검사
+			if(!searchForm.find("input[name='keyword']").val()){
+				alert("키워드를 입력해주세요");
+				return false;
+			}
+			
+			searchForm.find("input[name='pageNum']").val("1");
+			
+			searchForm.submit();
+			
+		});
 	});
 </script>
 
@@ -59,25 +79,35 @@
 			<h1 class="site-title"><a href="mainPage" rel="home">BGM</a></h1>
 			<h2 class="site-description">BOARD GAME MARKET</h2>
 		</div>
-		<nav id="site-navigation" class="main-navigation">
-		<button class="menu-toggle">Menu</button>
-		<a class="skip-link screen-reader-text" href="#content">Skip to content</a>
-		<div class="menu-menu-1-container">
-			<ul id="menu-menu-1" class="menu">
-				<li><a href="/pages/mainPage">Home</a></li>
-				<li><a href="shop.html">Shop</a></li>
-				<li><a href="blog.html">Blog</a></li>
-				<li><a href="elements.html">Elements</a></li>
-				<c:if test="${member.member_role == 1}">
-					<li><a href="/pages/adminPage">관리자 페이지</a>
-						<ul class="sub-menu">
-							<li><a href="">상품 관리</a></li>
-							<li><a href="">상품 등록</a></li>
-							<li><a href="">유저 관리</a></li>
-						</ul>
-					</li>
-				</c:if>
-			</ul>
+		<div class="site-header-content">
+			<nav id="site-navigation" class="main-navigation">
+			<button class="menu-toggle">Menu</button>
+			<a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+			<div class="menu-menu-1-container">
+				<ul id="menu-menu-1" class="menu">
+					<li><a href="/pages/mainPage">Home</a></li>
+					<li><a href="shop.html">Shop</a></li>
+					<li><a href="blog.html">Blog</a></li>
+					<li><a href="elements.html">Elements</a></li>
+					<c:if test="${member.member_role == 1}">
+						<li><a href="/pages/adminPage">관리자 페이지</a>
+							<ul class="sub-menu">
+								<li><a href="">상품 관리</a></li>
+								<li><a href="">상품 등록</a></li>
+								<li><a href="">유저 관리</a></li>
+							</ul>
+						</li>
+					</c:if>
+				</ul>
+			</div>
+			</nav>
+			<form id="searchForm" action="/pages/mainPage" method="get">
+				<div class="search_input">
+					<input type="text" name="keyword" value='<c:out value="${pageMaker.cri.keyword}"></c:out>'  placeholder="검색어 입력">
+					<input type="hidden" name="pageNum" value='<c:out value="${pageMaker.cri.pageNum}"></c:out>'>
+					<input type="hidden" name="amount" value="${pageMaker.cri.amount}">
+					<img class="btn search_btn_icon" src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png">
+				</div>
+			</form>
 		</div>
-		</nav>
 		</header>

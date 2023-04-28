@@ -12,7 +12,7 @@
 			let str = "";
 			let obj = one;
 			
-			let fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
+			let fileCallPath = encodeURIComponent(obj.uploadPath + "/" + obj.uuid + "_" + obj.fileName);
 			str += "<div id='result_card'";
 			str += "data-path='" + obj.uploadPath + "' data-uuid='" + obj.uuid + "' data-filename='" + obj.fileName + "'";
 			str += ">";
@@ -41,6 +41,10 @@
 		margin-top : 10px;
 		margin : auto;
 	}
+	.detail_section_img{
+		width : auto;
+		float : left;
+	}
 </style>
 		<!-- #masthead -->
 		<div id="content" class="site-content">
@@ -48,18 +52,16 @@
 				<main id="main" class="site-main" role="main">
 				<div id="container">
 					<div id="content" role="main">
-						<div itemscope itemtype="http://schema.org/Product" class="product">
-							<div class="form_section">
-								<div class=form_section_title>
+						<div class="detail_section">
+								<div class=detail_section_title>
 									<p>상품 이미지</p>
 								</div>
-								<div class="form_section_content">
+								<div class="detail_section_img">
 									<div id="uploadResult">
 										
 									</div>
 								</div>
-							</div>
-							<div>
+								<div>
 								<h1 class="product_title entry-title">${product.product_name}</h1>
 							
 								<div>
@@ -79,6 +81,8 @@
 									<button type="submit" class="single_add_to_cart_button button alt">Add to cart</button>
 								</form>
 							</div>
+							</div>
+				
 							<!-- .summary -->
 							<div class="woocommerce-tabs wc-tabs-wrapper">
 									<div class="panel entry-content wc-tab" id="tab-description">
@@ -147,8 +151,6 @@
 									</div>
 								</div>
 							</div>
-							
-						</div>
 					</div>
 				</div>
 				</main>
