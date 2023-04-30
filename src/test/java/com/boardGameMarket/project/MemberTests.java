@@ -25,16 +25,16 @@ public class MemberTests {
 	private MemberService service;
 	
 	
-	//@Test
+//	@Test
 	public void member_registrationTest() {
 		MemberVO mVo = new MemberVO();
 		MemberAddressVO mAVo = new MemberAddressVO();
 		mAVo.setMember_address1("address1");
 		mAVo.setMember_address2("address2");
 		mAVo.setMember_address3("address3");
-		mVo.setMember_id("kimkim");
-		mVo.setMember_password("pass1234");
-		mVo.setMember_name("�����");
+		mVo.setMember_id("gang");
+		mVo.setMember_password("1234");
+		mVo.setMember_name("이강균");
 		mVo.setMember_email("aaaa@aaaa.com");
 		mVo.setMember_phone("010-2319-4977");
 		mVo.setMember_role(1);
@@ -45,7 +45,7 @@ public class MemberTests {
 		service.member_registration(mVo);
 	}
 	
-	@Test
+//	@Test
 	public void member_loginTest() {
 		MemberVO mVo = new MemberVO();
 		

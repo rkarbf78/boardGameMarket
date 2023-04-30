@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
     
 <!DOCTYPE html>
@@ -76,7 +77,7 @@
 	<div class="container">
 		<header id="masthead" class="site-header">
 		<div class="site-branding">
-			<h1 class="site-title"><a href="mainPage" rel="home">BGM</a></h1>
+			<h1 class="site-title"><a href="/pages/mainPage" rel="home">BGM</a></h1>
 			<h2 class="site-description">BOARD GAME MARKET</h2>
 		</div>
 		<div class="site-header-content">
@@ -90,7 +91,7 @@
 					<li><a href="blog.html">Blog</a></li>
 					<li><a href="elements.html">Elements</a></li>
 					<c:if test="${member.member_role == 1}">
-						<li><a href="/pages/adminPage">관리자 페이지</a>
+						<li><a href="/pages/admin/adminPage">관리자 페이지</a>
 							<ul class="sub-menu">
 								<li><a href="">상품 관리</a></li>
 								<li><a href="">상품 등록</a></li>
@@ -101,7 +102,7 @@
 				</ul>
 			</div>
 			</nav>
-			<form id="searchForm" action="/pages/mainPage" method="get">
+			<form id="searchForm" action="" method="get"> <!-- action 생략시 현재페이지에 요청함! -->
 				<div class="search_input">
 					<input type="text" name="keyword" value='<c:out value="${pageMaker.cri.keyword}"></c:out>'  placeholder="검색어 입력">
 					<input type="hidden" name="pageNum" value='<c:out value="${pageMaker.cri.pageNum}"></c:out>'>

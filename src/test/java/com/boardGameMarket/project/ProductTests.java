@@ -27,7 +27,6 @@ public class ProductTests {
 	@Setter(onMethod_=@Autowired)
 	private ProductService service;
 	
-	//�̹��� ��� �׽�Ʈ
 //	@Test
 	public void image_registrationTest() {
 		AttachFileDTO aDto = new AttachFileDTO();
@@ -56,7 +55,7 @@ public class ProductTests {
 	@Test
 	public void ProductAndImage_registrationTest() {	
 		
-		for(int i =50; i<100; i++) {
+		for(int i =0; i<100; i++) {
 			ProductVO pVo = new ProductVO();
 			
 			pVo.setProduct_name("더미상품 이름"+i);

@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.boardGameMarket.project.domain.CategoryVO;
+import com.boardGameMarket.project.domain.Criteria;
+import com.boardGameMarket.project.domain.PageDTO;
 import com.boardGameMarket.project.domain.ProductVO;
 import com.boardGameMarket.project.service.ProductService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,7 +21,7 @@ import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
 @Controller
-@RequestMapping("/pages/*")
+@RequestMapping("/pages/admin/*")
 @Log4j
 public class AdminController {
 	
@@ -30,7 +32,6 @@ public class AdminController {
 	public void adminGET() {
 		log.info("관리자 페이지 이동");
 	}
-	
 	
 	@GetMapping("/registerPage")
 	public void registerPage(Model model) throws Exception {
@@ -58,6 +59,30 @@ public class AdminController {
 		service.Product_registration(pVo);
 		rttr.addFlashAttribute("register_result" , pVo.getProduct_name());
 		return "redirect:/pages/mainPage";
+	}
+	
+	@GetMapping("/productListPage")
+	public void mainPage(Model model, Criteria cri) {
+		
+		cri.setAmount(10);
+		
+		List<ProductVO> productList = service.getProductList(cri);
+		
+		if(!productList.isEmpty()) {
+			model.addAttribute("productList",productList); // 검색시 상품 존재 경우
+		}else {
+			model.addAttribute("productListCheck" , "empty"); // 검색시 상품 존재하지 않을 경우
+		}
+		
+		int total = service.productGetTotal(cri);
+		
+		PageDTO pageMaker = new PageDTO(cri, total);
+		
+		model.addAttribute("pageMaker", pageMaker);
+		
+		List<CategoryVO> categoryList = service.categoryList();
+		
+		model.addAttribute("categoryList" , categoryList);
 	}
 	
 }

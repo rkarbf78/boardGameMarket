@@ -43,8 +43,23 @@
 	}
 	.detail_section_img{
 		width : auto;
-		float : left;
+		border : 1px solid #CCCCCC;
 	}
+.detail_section_wrap2{
+	width : 50%;
+	float : right;
+	margin-right : 10px;
+	height: 392.02px;
+}
+.detail_section_wrap1{
+	width : 40%;
+	float : left;
+	margin-left : 10px;
+}
+.detail_section{
+	width : 100%;
+	height: 400px;
+}
 </style>
 		<!-- #masthead -->
 		<div id="content" class="site-content">
@@ -53,43 +68,38 @@
 				<div id="container">
 					<div id="content" role="main">
 						<div class="detail_section">
+							<div class="detail_section_wrap1">
 								<div class=detail_section_title>
 									<p>상품 이미지</p>
 								</div>
 								<div class="detail_section_img">
 									<div id="uploadResult">
-										
 									</div>
 								</div>
-								<div>
-								<h1 class="product_title entry-title">${product.product_name}</h1>
-							
-								<div>
-									<p class="price">
-										<span class="amount">${product.product_price} 원</span>
-									</p>
-								</div>
-								<div>
-									<p>
-										${product.product_info}
-									</p>
-								</div>
-								<form class="cart" method="post" enctype='multipart/form-data'>
-									<div class="quantity">
-										<input type="number" step="1" min="1" max="" name="quantity" value="1" title="Qty" class="input-text qty text" size="4"/>
-									</div>									
-									<button type="submit" class="single_add_to_cart_button button alt">Add to cart</button>
-								</form>
 							</div>
-							</div>
-				
+								<div class="detail_section_wrap2">
+									<div class="detail_section_title">
+										<h1>${product.product_name}</h1>
+									</div>
+									<div class="detail_section_price">
+										<span>${product.product_price} 원</span>
+									</div>
+									<div class="detail_section_s_info">
+										<span>일단 여긴 간단한 정보 1~2인용 이런거 ㅇㅋ?</span>
+									</div>
+									<form class="cart" method="post" enctype='multipart/form-data'>
+										<div class="quantity">
+											<input type="number" step="1" min="1" max="" name="quantity" value="1" title="Qty" class="input-text qty text" size="4"/>
+										</div>									
+										<button type="submit" class="single_add_to_cart_button button alt">Add to cart</button>
+									</form>
+								</div>	
+						</div>
 							<!-- .summary -->
 							<div class="woocommerce-tabs wc-tabs-wrapper">
-									<div class="panel entry-content wc-tab" id="tab-description">
-									<h2>Product Description</h2>
-									<p>
-										Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.
-									</p>
+								<div class="panel entry-content wc-tab" id="tab-description">
+									<h2>상품 정보</h2>
+									<p>${product.product_info}</p>
 								</div>
 								<div class="panel entry-content wc-tab" id="tab-reviews">
 									<div id="reviews">

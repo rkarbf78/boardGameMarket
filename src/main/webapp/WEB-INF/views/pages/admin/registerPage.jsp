@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="includes/header.jsp" %>
+<%@ include file="../includes/header.jsp" %>
 
 <script type="text/javascript">
 
@@ -240,6 +240,13 @@ $(document).ready(function(){
 /* 유효성 검사 경고문구 bottom */
 
 </style>
+	<div class="admin_nav_list">
+		<ul>
+			<li><a href="/pages/admin/productListPage" class="admin_nav_1">상품 관리</a></li>
+			<li><a href="/pages/admin/registerPage" class="admin_nav_2">상품 등록</a></li>
+			<li><a href="" class="admin_nav_3">유저 관리</a></li>
+		</ul>
+	</div>
 		<!-- #masthead -->
 		<div id="content" class="site-content">						
 			<div id="secondary" class="column third">
@@ -309,4 +316,4 @@ $(document).ready(function(){
 		<!-- #content -->
 	</div>
 	<!-- .container -->
-<%@ include file="includes/footer.jsp" %>
+<%@ include file="../includes/footer.jsp" %>

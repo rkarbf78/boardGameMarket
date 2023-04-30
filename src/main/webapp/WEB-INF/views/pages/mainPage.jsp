@@ -34,6 +34,8 @@
 			
 			});
 		
+		
+		//페이지 이동
 		let moveForm = $('#moveForm');
 		
 		$(".page-numbers a").click(function(e){
@@ -72,7 +74,6 @@
 	display : block;
 }
 </style>
-
 		<!-- #masthead -->
 		<div id="content" class="site-content">
 			<div id="primary" class="content-area column full">
