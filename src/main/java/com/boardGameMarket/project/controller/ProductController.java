@@ -66,6 +66,8 @@ public class ProductController {
 	
 	@GetMapping("/detailPage")
 	public void detailPage(@RequestParam("product_id") int product_id , Model model) {
+		
+		System.out.println("프로덕트 아이디 체크" + product_id);
 		ProductVO product = service.getProduct(product_id);
 		model.addAttribute("product",product);
 	}

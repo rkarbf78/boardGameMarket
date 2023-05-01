@@ -9,9 +9,9 @@
   		
   	<![CDATA[
   		SELECT * FROM (
-  			SELECT /*+INDEX_DESC(Product SYS_C007061) */
+  			SELECT /*+INDEX_DESC(Product SYS_C007351) */
   				rownum as rn, product_id, product_name, product_price, product_info,
-  				product_stock, product_sell, product_category_code, product_regDate
+  				product_stock, product_sell, product_category_code, product_updateDate, product_regDate
   				from Product
   				where
   	]]>
@@ -40,9 +40,9 @@
   		SELECT MAX(product_id) FROM Product
   		</selectKey>
   		
-  		INSERT INTO Product(product_id,product_name,product_price,product_info,product_stock,product_sell,product_category_code,product_regDate)
+  		INSERT INTO Product(product_id,product_name,product_price,product_info,product_stock,product_sell,product_category_code,product_updateDate,product_regDate)
   		 values 
-  		 (Product_id_seq.NEXTVAL,#{product_name},#{product_price},#{product_info},#{product_stock},#{product_sell},#{product_category_code},sysdate)
+  		 (Product_id_seq.NEXTVAL,#{product_name},#{product_price},#{product_info},#{product_stock},#{product_sell},#{product_category_code},sysdate,sysdate)
   	</insert>
   	
   	

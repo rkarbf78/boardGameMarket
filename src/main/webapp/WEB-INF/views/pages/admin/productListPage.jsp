@@ -47,6 +47,23 @@
 			moveForm.submit();
 		});
 		
+		//상품 디테일 페이지 이동
+		$('.products_table tbody tr').click(function(e) {
+			
+			e.preventDefault();
+			
+			let addInput = '<input type="hidden" name="product_id" value="'+$(this).find('.find_id').attr("value")+'">';
+			
+			moveForm.append(addInput);
+			
+			moveForm.attr("action","/pages/admin/productDetailPage");
+			
+			moveForm.submit();
+
+		});
+
+
+		
 	});
 </script>
 
@@ -79,16 +96,42 @@
 }
 .list_image{
 	width : auto;
-	height: auto;
+	vertical-align: middle;
 }
 .products_table tr td{
 	text-align : center;
 	vertical-align : middle;
-	width : auto;
+	padding-right: 0;
+	border-left : 1px solid #ccc;
+	border-right : 1px solid #ccc; 
+}
+.th_column_1,.th_column_5{
+	width : 60px;
+}
+.th_column_2,.th_column_3{
+	width : 150px;
+}
+.th_column_6,.th_column_7{
+	width : 100px;
+}
+.th_column_4{
+	width : 120px;
+}
+.th_column_8{
+	width : 130px;
 }
 .products_table tbody tr{
-	height: 140px;
+	height: 120px;
+	cursor: pointer;
 }
+.products_table tbody tr:hover{
+	background:#ffff99;
+}
+.products_table {
+	width: auto;
+	margin : 0 auto;
+}
+
 
 </style>
 	<div class="admin_nav_list">
@@ -106,35 +149,38 @@
 	                    	<table class="products_table">
 	                    		<thead>
 	                    			<tr>
-										<td class="th_column_1">상품 번호</td>
-										<td class="th_column_2">상품 이미지</td>
+										<td class="th_column_1">번호</td>
+										<td class="th_column_2">이미지</td>
 	                    				<td class="th_column_3">상품 이름</td>
-	                    				<td class="th_column_4">상품 가격</td>
-	                    				<td class="th_column_5">상품 재고</td>
-	                    				<td class="th_column_6">상품 판매량</td>
+	                    				<td class="th_column_4">가격</td>
+	                    				<td class="th_column_5">재고</td>
+	                    				<td class="th_column_6">판매량</td>
 	                    				<td class="th_column_7">카테고리</td>
 	                    				<td class="th_column_8">등록 날짜</td>
 	                    			</tr>
 	                    		</thead>	
 	                    		<c:forEach items="${productList}" var="list">
-	                    		<tr>
-	                    			<td><c:out value="${list.product_id}"></c:out></td>
-	                    			<td>
-	                    				<div class="list_image_wrap" data-product_id="${list.image.product_id}" data-path="${list.image.uploadPath}" data-uuid="${list.image.uuid}" data-filename="${list.image.fileName}">											
-											<img class="list_image">
-										</div>
-									</td>
-	                    			<td><c:out value="${list.product_name}"></c:out></td>
-	                    			<td><c:out value="￦ ${list.product_price}"></c:out></td>
-	                    			<td><c:out value="${list.product_stock}"></c:out></td>
-	                    			<td><c:out value="${list.product_sell}"></c:out></td>
-	                    			<c:forEach items="${categoryList}" var="category">
-	                    				<c:if test="${list.product_category_code == category.category_code}">
-	                    					<td><c:out value="${category.category_name}"></c:out></td>
-	                    				</c:if>
-	                    			</c:forEach>
-	                    			<td><fmt:formatDate value="${list.product_regDate}" pattern="yyyy-MM-dd"/></td>
-	                    		</tr>
+	                    				<tr>
+	                    					<td>
+	                    						<input class="find_id" type="hidden" value='<c:out value="${list.product_id}"/>'>
+	                    						<c:out value="${list.product_id}"></c:out>
+	                    					</td>
+	                    					<td>
+	                    						<div class="list_image_wrap" data-product_id="${list.image.product_id}" data-path="${list.image.uploadPath}" data-uuid="${list.image.uuid}" data-filename="${list.image.fileName}">											
+													<img class="list_image">
+												</div>
+											</td>
+			                    			<td><c:out value="${list.product_name}"></c:out></td>
+			                    			<td><c:out value="￦ ${list.product_price}"></c:out></td>
+			                    			<td><c:out value="${list.product_stock}"></c:out></td>
+			                    			<td><c:out value="${list.product_sell}"></c:out></td>
+			                    			<c:forEach items="${categoryList}" var="category">
+			                    				<c:if test="${list.product_category_code == category.category_code}">
+			                    					<td><c:out value="${category.category_name}"></c:out></td>
+			                    				</c:if>
+			                    			</c:forEach>
+			                    			<td><fmt:formatDate value="${list.product_regDate}" pattern="yyyy-MM-dd"/></td>
+			                    		</tr>
 	                    		</c:forEach>
 	                    	</table>
 					</div>
@@ -159,7 +205,7 @@
 							</ul>
 						</div>
 					</nav>
-					<form id="moveForm" action="/pages/admin/productListPage" method="get">
+					<form id="moveForm" action="" method="get">  <!-- action 생략시 현재페이지에 요청함! -->
 						<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
 						<input type="hidden" name="amount" value="${pageMaker.cri.amount}">
 						<input type="hidden" name="keyword" value="${pageMaker.cri.keyword}">					

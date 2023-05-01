@@ -39,7 +39,7 @@ public class UploadController {
 	@Setter(onMethod_=@Autowired)
 	private ProductService service;
 	
-	// Ã·ºÎÆÄÀÏ ¾÷·Îµå
+	// Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Îµï¿½
 		@PostMapping(value = "/uploadAjaxAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 		public ResponseEntity<AttachFileDTO> uploadAjaxActionPOST(MultipartFile uploadFile) {
 			File checkfile = new File(uploadFile.getOriginalFilename());
@@ -57,53 +57,53 @@ public class UploadController {
 			}
 			
 			String uploadFolder = "C:\\upload";
-			//³¯Â¥ Æú´õ °æ·Î
+			//ï¿½ï¿½Â¥ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			Date date = new Date();
 			String str = sdf.format(date);
 			String datePath = str.replace("-", File.separator);
-			//Æú´õ »ý¼º
+			//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			File uploadPath = new File(uploadFolder,datePath);
 			if(uploadPath.exists()==false) {
 				uploadPath.mkdirs();
 			}
-			//ÀÌ¹ÌÁö Á¤º¸ ´ã´Â °´Ã¼
+			//ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼
 			AttachFileDTO attach = new AttachFileDTO();
-			//ÆÄÀÏ ÀÌ¸§
+			//ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½
 			String uploadFileName = uploadFile.getOriginalFilename();
 			
-			//view´Ü¿¡ º¸³»±âÀ§ÇØ °´Ã¼ Ã¤¿ì±â 1,2
+			//viewï¿½Ü¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ Ã¤ï¿½ï¿½ï¿½ 1,2
 			attach.setFileName(uploadFileName);
 			attach.setUploadPath(datePath);
 			
-			//uuid Àû¿ë
+			//uuid ï¿½ï¿½ï¿½ï¿½
 			String uuid = UUID.randomUUID().toString();
 			
-			//view´Ü¿¡ º¸³»±âÀ§ÇØ °´Ã¼ Ã¤¿ì±â 3
+			//viewï¿½Ü¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ Ã¤ï¿½ï¿½ï¿½ 3
 			attach.setUuid(uuid);
 			
 			uploadFileName = uuid + "_" + uploadFileName;
-			//ÆÄÀÏ À§Ä¡, ÆÄÀÏ ÀÌ¸§À» ÇÕÄ£ File °´Ã¼
+			//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡, ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½Ä£ File ï¿½ï¿½Ã¼
 			File saveFile = new File(uploadPath,uploadFileName);
-			//ÆÄÀÏ ÀúÀå
+			//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			try {
 				uploadFile.transferTo(saveFile);
-				//½æ³×ÀÏ »ý¼º
+				//ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				File thumbnailFile = new File(uploadPath, "s_" + uploadFileName);
 				BufferedImage bo_image = ImageIO.read(saveFile);
-				//½æ³×ÀÏ ºñÀ²
+				//ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				double ratio = 3;
-				//½æ³×ÀÏ ºñÀ² ³ÐÀÌ ³ôÀÌ
+				//ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				int width = (int) (bo_image.getWidth()/ratio);
 				int height = (int) (bo_image.getHeight()/ratio);
 				
-				/* ¶óÀÌºê·¯¸® »ç¿ë¾ÈÇÏ°í ½æ³×ÀÏ ÀÛ¾÷ÇÏ´Â ·ÎÁ÷
+				/* ï¿½ï¿½ï¿½Ìºê·¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Û¾ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½
 				BufferedImage bt_image = new BufferedImage(width, height, BufferedImage.TYPE_3BYTE_BGR);
 				Graphics2D graphic = bt_image.createGraphics();
 				graphic.drawImage(bo_image, 0, 0, width, height, null);
 				ImageIO.write(bt_image, "jpg", thumbnailFile); */
 				
-				//¶óÀÌºê·¯¸® »ç¿ë½Ã °£´ÜÇØÁü
+				//ï¿½ï¿½ï¿½Ìºê·¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				Thumbnails.of(saveFile).size(width, height).toFile(thumbnailFile);
 				
 			}catch(Exception e) {
@@ -115,7 +115,7 @@ public class UploadController {
 				
 		}
 		
-		//ÀÌ¹ÌÁö Ãâ·Â
+		//ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 		@GetMapping("/display")
 		public ResponseEntity<byte[]> getImage(String fileName){
 			log.info("getImage()...." + fileName);
@@ -131,16 +131,16 @@ public class UploadController {
 			return result;
 		}
 		
-		//ÀÌ¹ÌÁö »èÁ¦
+		//ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		@PostMapping("/deleteFile")
 		public ResponseEntity<String> deleteFile(String fileName){
 			log.info("deleteFile..." + fileName);
 			File file = null;
 			try {
-				//½æ³×ÀÏ ÆÄÀÏ »èÁ¦
+				//ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				file = new File("c:\\upload\\" + URLDecoder.decode(fileName,"UTF-8"));
 				file.delete();
-				//¿øº» ÆÄÀÏ »èÁ¦
+				//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				String originFileName = file.getAbsolutePath().replace("s_", "");
 				log.info("originFileName : " + originFileName);
 				file = new File(originFileName);
@@ -152,10 +152,10 @@ public class UploadController {
 			return new ResponseEntity<String>("success",HttpStatus.OK);
 		}
 		
-		//ÀÌ¹ÌÁö Á¤º¸ ¹ÝÈ¯
+		//ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
 		@GetMapping(value="/getAttachFile" , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 		public ResponseEntity<AttachFileDTO> getAttachFile(int product_id){
-			return new ResponseEntity(service.getAttachFile(product_id),HttpStatus.OK);
+			return new ResponseEntity<>(service.getAttachFile(product_id),HttpStatus.OK);
 		}
 		
 }

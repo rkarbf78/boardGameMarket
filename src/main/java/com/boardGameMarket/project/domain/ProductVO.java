@@ -14,6 +14,7 @@ public class ProductVO {
 	private int product_stock;
 	private int product_sell;
 	private int product_category_code;
+	private Date product_updateDate;
 	private Date product_regDate;
 	private AttachFileDTO image;
 	

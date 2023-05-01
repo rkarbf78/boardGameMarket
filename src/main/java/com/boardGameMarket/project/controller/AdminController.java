@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.boardGameMarket.project.domain.CategoryVO;
@@ -84,5 +85,17 @@ public class AdminController {
 		
 		model.addAttribute("categoryList" , categoryList);
 	}
+	
+	@GetMapping("/productDetailPage")
+	public void detailPage(@RequestParam("product_id") int product_id, Criteria cri, Model model) {
+		System.out.println("도대체 뭐냐아아아아아아아아" + cri);
+		ProductVO product = service.getProduct(product_id);
+		model.addAttribute("product",product);
+		List<CategoryVO> categoryList = service.categoryList();
+		model.addAttribute("categoryList" , categoryList);
+		model.addAttribute("cri",cri);
+		
+	}
+
 	
 }

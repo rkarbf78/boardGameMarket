@@ -47,6 +47,27 @@
 			moveForm.submit();
 		});
 		
+		//상품 디테일 페이지 이동
+		$('.entry-thumbnail').click(function(e) {
+			
+			console.log("뭐냐이게");
+			
+			e.preventDefault();
+			
+			let testid = $(".find_id").val();
+			
+			console.log(testid);
+			
+			let addInput = '<input type="hidden" name="product_id" value="'+$(this).find('.find_id').attr("value")+'">';
+			
+			moveForm.append(addInput);
+			
+			moveForm.attr("action","/pages/detailPage");
+			
+			moveForm.submit();
+
+		});
+		
 	});
 </script>
 
@@ -82,10 +103,11 @@
 						<div class="grid portfoliogrid">
 						<c:forEach var="list" items="${productList}">
 							<article class="hentry">
-								<header class="entry-header">
+								<header class="entry-header">				
 									<div class="image_wrap" data-product_id="${list.image.product_id}" data-path="${list.image.uploadPath}" data-uuid="${list.image.uuid}" data-filename="${list.image.fileName}">
-										<div class="entry-thumbnail">	
-											<a href="detailPage?product_id=${list.product_id}" class="moveDetail"><img></a>
+										<div class="entry-thumbnail">
+											<input class="find_id" type="hidden" value='<c:out value="${list.product_id}"/>'>	
+											<img class="product_image">
 										</div>
 									</div>
 									<div class="entry-info">
@@ -117,7 +139,7 @@
 							</ul>
 						</div>
 					</nav>
-					<form id="moveForm" action="/pages/mainPage" method="get">
+					<form id="moveForm" action="" method="get">  <!-- action 생략시 현재페이지에 요청함! -->
 						<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
 						<input type="hidden" name="amount" value="${pageMaker.cri.amount}">
 						<input type="hidden" name="keyword" value="${pageMaker.cri.keyword}">					

@@ -75,7 +75,7 @@ $(document).ready(function(){
 			product_category_check = true;
 		}
 		if(product_name_check && product_price_check && product_info_check && product_stock_check && product_sell_check && product_category_check){
-			$("#register_form").attr("action","/pages/register");
+			$("#register_form").attr("action","/pages/admin/register");
 			$("#register_form").submit();
 		}
 		return false;
