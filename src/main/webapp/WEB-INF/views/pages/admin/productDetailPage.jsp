@@ -40,37 +40,22 @@ $(document).ready(function(){
 		$("#moveForm").submit();
 	});
 	
+	$("#modify_button").click(function(e){
+		e.preventDefault();
+		$("#moveForm").attr("action","/pages/admin/productModifyPage");
+		$("#moveForm").submit();
+	})
+	
 	
 	
 });
 </script>
 <style type="text/css">
 #result_card img {
-	max-width : 100%;
-	height : auto;
-	display : block;
-	padding : 5px;
-	margin-top : 10px;
-	margin : auto;
+	width : 100%;
 }
-#result_card {
-	position : relative;
-}
-.imgDeleteBtn {
-	position : absolute;
-	top : 0;
-	right : 5%;
-	background-color : #ef7d7d;
-	color : wheat;
-	font-weight : 900;
-	width : 30px;
-	height : 30px;
-	border-radius : 50%;
-	line-height : 26px;
-	text-align : center;
-	border : none;
-	display : block;
-	cursor : pointer;
+#uploadResult{
+	width : 250px;
 }
 .category_select{
 	width : 30%;
@@ -84,19 +69,6 @@ $(document).ready(function(){
 .category_select_wrap{
 	margin-top : 2px
 }
-
-/* 유효성 검사 경고문구 top */
-.check_warn{
-	display : none;
-	padding-top : 2px;
-	text-align : center;
-	color : red;
-	font-weight : 300;
-}
-#product_category_warn{
-	text-align : left;
-}
-/* 유효성 검사 경고문구 bottom */
 #modify_button{
 	background : #3366ff; 
 	border : 1px solid #3366ff;
@@ -105,7 +77,6 @@ $(document).ready(function(){
 	background : #ff3333;
 	border : 1px solid #ff3333;
 }
-
 </style>
 	<div class="admin_nav_list">
 		<ul>
@@ -191,7 +162,8 @@ $(document).ready(function(){
 							<form id="moveForm" action="" method="get">  <!-- action 생략시 현재페이지에 요청함! -->
 								<input type="hidden" name="pageNum" value="${cri.pageNum}">
 								<input type="hidden" name="amount" value="${cri.amount}">
-								<input type="hidden" name="keyword" value="${cri.keyword}">				
+								<input type="hidden" name="keyword" value="${cri.keyword}">
+								<input type="hidden" name="product_id" value="${product.product_id}">				
 							</form>	
 						<div class="done">								
 							Your message has been sent. Thank you!

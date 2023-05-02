@@ -1,8 +1,11 @@
 package com.boardGameMarket.project.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.boardGameMarket.project.domain.Criteria;
 import com.boardGameMarket.project.domain.MemberAddressVO;
 import com.boardGameMarket.project.domain.MemberVO;
 import com.boardGameMarket.project.mapper.MemberMapper;
@@ -31,5 +34,21 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public MemberVO member_login(MemberVO mVo) {
 		return mapper.member_login(mVo);
+	}
+
+	@Override
+	public List<MemberVO> getMemberList(Criteria cri) {
+		List<MemberVO> memberList = mapper.getMemberList(cri);
+		return memberList;
+	}
+
+	@Override
+	public int memberGetTotal(Criteria cri) {
+		return mapper.memberGetTotal(cri);
+	}
+
+	@Override
+	public MemberAddressVO getMemberAddress(String member_id) {
+		return mapper.getMemberAddress(member_id);
 	}
 }

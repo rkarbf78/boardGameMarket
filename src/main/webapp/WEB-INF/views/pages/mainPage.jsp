@@ -50,8 +50,6 @@
 		//상품 디테일 페이지 이동
 		$('.entry-thumbnail').click(function(e) {
 			
-			console.log("뭐냐이게");
-			
 			e.preventDefault();
 			
 			let testid = $(".find_id").val();

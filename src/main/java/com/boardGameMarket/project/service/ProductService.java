@@ -13,11 +13,13 @@ public interface ProductService {
 	
 	public ProductVO getProduct(int product_id);
 	
-	public void Product_registration(ProductVO pVo);
+	public int Product_registration(ProductVO pVo);
 	
 	public AttachFileDTO getAttachFile(int product_id);
 	
 	public List<CategoryVO> categoryList();
 	
 	public int productGetTotal(Criteria cri);
+	
+	public int product_modify(ProductVO pVo);
 }

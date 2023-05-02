@@ -5,43 +5,6 @@
 <script>
 	$(document).ready(function(){
 		
-		if(${modify_result == 1}){
-			alert("수정이 완료되었습니다.");
-		}
-		if(${register_result == 1}){
-			alert("등록이 완료되었습니다.");
-		}
-		
-		//list에 담긴 이미지 꺼내기 작업
-		$(".list_image_wrap").each(function(i,obj){
-			
-			//초기화
-			const bobj = $(obj);
-			
-			//이미지 데이터 있을시
-			if(bobj.data("product_id")){
-				
-				const uploadPath = bobj.data("path");
-				
-				const uuid = bobj.data("uuid");
-				
-				const fileName = bobj.data("filename");
-				
-				
-				//썸네일 화질 너무 구려서 원본으로 바꿔놨음
-				const fileCallPath = encodeURIComponent(uploadPath + "/" + uuid + "_" + fileName);
-				
-				$(this).find("img").attr('src','/pages/display?fileName=' + fileCallPath);
-				
-			} else {
-				
-				$(this).find("img").attr('src','/resources/img/noimg.jpg');
-				
-			}
-			
-			});
-		
-		
 		//페이지 이동
 		let moveForm = $('#moveForm');
 		
@@ -151,42 +114,33 @@
 		<!-- #masthead -->
 		<div id="content" class="site-content">
 			<div id="primary" class="content-area column full">
-					<c:if test="${productListCheck != 'empty'}">
-						<div class="products_table_wrap">
-	                    	<table class="products_table">
+					<c:if test="${memberListCheck != 'empty'}">
+						<div class="members_table_wrap">
+	                    	<table class="members_table">
 	                    		<thead>
 	                    			<tr>
-										<td class="th_column_1">번호</td>
-										<td class="th_column_2">이미지</td>
-	                    				<td class="th_column_3">상품 이름</td>
-	                    				<td class="th_column_4">가격</td>
-	                    				<td class="th_column_5">재고</td>
-	                    				<td class="th_column_6">판매량</td>
-	                    				<td class="th_column_7">카테고리</td>
-	                    				<td class="th_column_8">등록 날짜</td>
+										<td class="th_column_1">아이디</td>
+										<td class="th_column_2">이름</td>
+	                    				<td class="th_column_3">이메일</td>
+	                    				<td class="th_column_4">전화번호</td>
+	                    				<td class="th_column_5">주소</td>
+	                    				<td class="th_column_6">권한</td>
+	                    				<td class="th_column_7">가입일</td>
+	                    				<td class="th_column_8">최근 정보 변경일</td>
 	                    			</tr>
 	                    		</thead>	
-	                    		<c:forEach items="${productList}" var="list">
+	                    		<c:forEach items="${memberList}" var="list">
 	                    				<tr>
 	                    					<td>
 	                    						<input class="find_id" type="hidden" value='<c:out value="${list.product_id}"/>'>
-	                    						<c:out value="${list.product_id}"></c:out>
+	                    						<c:out value="${list.member_id}"></c:out>
 	                    					</td>
-	                    					<td>
-	                    						<div class="list_image_wrap" data-product_id="${list.image.product_id}" data-path="${list.image.uploadPath}" data-uuid="${list.image.uuid}" data-filename="${list.image.fileName}">											
-													<img class="list_image">
-												</div>
-											</td>
-			                    			<td><c:out value="${list.product_name}"></c:out></td>
-			                    			<td><c:out value="￦ ${list.product_price}"></c:out></td>
-			                    			<td><c:out value="${list.product_stock}"></c:out></td>
-			                    			<td><c:out value="${list.product_sell}"></c:out></td>
-			                    			<c:forEach items="${categoryList}" var="category">
-			                    				<c:if test="${list.product_category_code == category.category_code}">
-			                    					<td><c:out value="${category.category_name}"></c:out></td>
-			                    				</c:if>
-			                    			</c:forEach>
-			                    			<td><fmt:formatDate value="${list.product_regDate}" pattern="yyyy-MM-dd"/></td>
+			                    			<td><c:out value="${list.member_name}"></c:out></td>
+			                    			<td><c:out value="${list.member_email}"></c:out></td>
+			                    			<td><c:out value="${list.member_phone}"></c:out></td>
+			                    			<td><c:out value="${list.member_address}"></c:out></td>
+			                    			<td><fmt:formatDate value="${list.member_updateDate}" pattern="yyyy-MM-dd"/></td>
+			                    			<td><fmt:formatDate value="${list.member_regDate}" pattern="yyyy-MM-dd"/></td>
 			                    		</tr>
 	                    		</c:forEach>
 	                    	</table>
@@ -218,9 +172,9 @@
 						<input type="hidden" name="keyword" value="${pageMaker.cri.keyword}">					
 					</form>	
 					</c:if>
-					<c:if test="${productListCheck == 'empty'}">
+					<c:if test="${membeListCheck == 'empty'}">
 						<div class="data_empty">
-							등록된 상품이 없습니다.
+							등록된 회원이 없습니다.
 						</div>
 					</c:if>			
 

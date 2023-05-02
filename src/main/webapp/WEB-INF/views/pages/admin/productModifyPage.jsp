@@ -10,13 +10,19 @@ $(document).ready(function(){
 	let categoryList = JSON.parse('${categoryList}');
 
 	let category_select = $(".category_select");
-
-	for(i of categoryList) {
-		category_select.append("<option value='"+i.category_code+"'>" + i.category_name + "</option>");		
+	
+	for(let i of categoryList) {	
+		if(${product.product_category_code} === i.category_code){
+			category_select.append("<option selected value='"+i.category_code+"'>" + i.category_name + "</option>");
+		}else{
+			category_select.append("<option value='"+i.category_code+"'>" + i.category_name + "</option>");	
+		}
 	}
+
+	
 	
 	// 상품 등록 버튼
-	$("#register_button").click(function(){
+	$("#modify_button").click(function(){
 		
 		let product_name_check = false;
 		let product_price_check = false;
@@ -75,10 +81,43 @@ $(document).ready(function(){
 			product_category_check = true;
 		}
 		if(product_name_check && product_price_check && product_info_check && product_stock_check && product_sell_check && product_category_check){
-			$("#register_form").attr("action","/pages/admin/register");
-			$("#register_form").submit();
+			$("#modify_form").append("<input type='hidden' name='product_id' value='"+${product.product_id}+"'>");
+			$("#modify_form").attr("action","/pages/admin/productModify");
+			$("#modify_form").submit();
 		}
 		return false;
+	});
+	
+	// 이미지 불러오기
+	let product_id = '<c:out value="${product.product_id}"/>';
+	let uploadResult = $("#uploadResult");
+	
+	$.getJSON("/pages/getAttachFile",{product_id:product_id}).done(function(one){
+
+		let str = "";
+		let obj = one;
+		
+		let fileCallPath = encodeURIComponent(obj.uploadPath + "/" + obj.uuid + "_" + obj.fileName);
+		str += "<div id='result_card'";
+		str += "data-path='" + obj.uploadPath + "' data-uuid='" + obj.uuid + "' data-filename='" + obj.fileName + "'";
+		str += ">";
+		str += "<img src='/pages/display?fileName=" + fileCallPath +"'>";
+		str += "<div class='imgDeleteBtn' data-file='" + fileCallPath + "'>X</div>";
+		str += "<input type='hidden' name='image.fileName' value='" + obj.fileName + "'>";
+		str += "<input type='hidden' name='image.uuid' value='" + obj.uuid + "'>";
+		str += "<input type='hidden' name='image.uploadPath' value='" + obj.uploadPath + "'>";
+		str += "</div>";
+		
+		uploadResult.html(str);
+	
+	}).fail(function(){
+		
+		let str = "";
+		str += "<div id='result_card'>";
+		str += "<img src='/resources/img/noimg.jpg'>";
+		str += "</div>";
+		
+		uploadResult.html(str);
 	});
 	
 	
@@ -133,6 +172,7 @@ $(document).ready(function(){
 			
 			uploadResult.append(str);
 		}
+
 		
 		if(!fileCheck(fileObj.name,fileObj.size)){
 			return false;
@@ -140,6 +180,8 @@ $(document).ready(function(){
 		
 		//view로 데이터 보내기위한 로직
 		formData.append("uploadFile",fileObj);
+		
+		
 		$.ajax({
 			url:'/pages/uploadAjaxAction',
 			processData : false,
@@ -159,24 +201,7 @@ $(document).ready(function(){
 	
 	//파일 삭제 메서드
 	function deleteFile(){
-		let targetFile = $(".imgDeleteBtn").data("file");
-		let targetDiv = $("#result_card");
-		$.ajax({
-			url : '/pages/deleteFile',
-			data : {fileName : targetFile},
-			dataType : 'text',
-			type : 'POST',
-			success : function(result){
-				console.log(result);
-				
-				targetDiv.remove();
-				$("input[type='file']").val("");
-			},
-			error : function(result){
-				console.log(result);
-				alert("파일을 삭제하지 못했습니다.");
-			}
-		});
+		$("#result_card").remove();
 	}
 	
 	//이미지 삭제 버튼 동작
@@ -248,8 +273,8 @@ $(document).ready(function(){
 			<div id="secondary" class="column third">
 				<div class="widget-area">
 					<aside class="widget">
-						<h4 class="widget-title">상품 등록</h4>
-						<form class="wpcf7" method="post" action="" id="register_form">
+						<h4 class="widget-title">상품 수정</h4>
+						<form class="wpcf7" method="post" action="" id="modify_form">
 							<div class="form">
 								<div class="img_wrap">
 									<div class="form_section_title">
@@ -263,39 +288,39 @@ $(document).ready(function(){
 								</div>
 								<div class="name_wrap">
 									<label>상품이름</label>
-									<input type="text" name="product_name" placeholder="Name *">
+									<input type="text" name="product_name" value="${product.product_name}">
 									<span class="check_warn product_name_warn">상품이름을 입력해주세요.</span>
 								</div>
 								<div class="price_wrap">
 									<label>상품가격</label>
-									<input type="text" name="product_price">
+									<input type="text" name="product_price" value="${product.product_price}">
 									<span class="check_warn product_price_warn">상품가격을 입력해주세요.</span>
 								</div>
 								<div class="info_wrap">
 									<label>상품정보</label>
-									<textarea name="product_info" rows="5"></textarea>
+									<textarea name="product_info" rows="5">${product.product_info}</textarea>
 									<span class="check_warn product_info_warn">상품정보를 입력해주세요.</span>
 								</div>
 								<div class="category_wrap">
 									<label>상품 카테고리</label>
 									<div class="category_select_wrap">
 									<select class="category_select" name="product_category_code">
-										<option selected value ="none">선택</option>
+										<option value ="none">선택</option>
 									</select>
 									</div>
 									<span class="check_warn product_category_warn" id="product_category_warn">상품 카테고리를 선택해주세요.</span>
 								</div>
 								<div class="stock_wrap">
 									<label>상품재고</label>
-									<input type="text" name="product_stock">
+									<input type="text" name="product_stock" value="${product.product_stock}">
 									<span class="check_warn product_stock_warn">상품재고를 입력해주세요.</span>
 								</div>
 								<div class="sell_wrap">
 									<label>판매수량</label>
-									<input type="text" name="product_sell">
+									<input type="text" name="product_sell" value="${product.product_sell}">
 									<span class="check_warn product_sell_warn">상품 판매수량을 입력해주세요.</span>
 								</div>
-								<input type="button" id="register_button" class="register_button" value="등록">
+								<input type="button" id="modify_button" class="modify_button" value="수정 등록">
 							</div>
 						</form>
 						<div class="done">								

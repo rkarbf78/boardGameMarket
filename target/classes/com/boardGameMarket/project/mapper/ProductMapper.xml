@@ -64,4 +64,16 @@
   			where product_name like '%'||#{keyword}||'%'
   		</if>
   	</select>
+  	
+  	<update id="product_modify" parameterType="com.boardGameMarket.project.domain.ProductVO">
+  		update Product set product_name = #{product_name}, product_price = #{product_price}, product_info = #{product_info}, product_stock = #{product_stock}, product_sell = #{product_sell}, product_category_code = #{product_category_code}, product_updateDate = sysdate where product_id = #{product_id}
+  	</update>
+  	
+  	<delete id="deleteImage" parameterType="int">
+  		delete from Product_Image where product_id = #{product_id}
+  	</delete>
+  	
+  	
+  	
+  	
   </mapper>

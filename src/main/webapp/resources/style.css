@@ -694,6 +694,16 @@ a:active,a:focus {
 	text-transform:uppercase;
 	text-align:center;
 }
+#result_card img {
+	max-width : 100%;
+	height : auto;
+	display : block;
+	padding : 5px;
+	margin : 0;
+}
+#result_card {
+	position : relative;
+}
 .widget-title a {
 		text-decoration: none;
 }
@@ -2423,6 +2433,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 .widget-title {
 	color: #222222;
+	text-align : center;
+	margin-bottom : 30px;
 }
 .site-title a, .site-description {
 	color: #222222;

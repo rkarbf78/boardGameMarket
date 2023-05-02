@@ -13,13 +13,17 @@ public interface ProductMapper {
 	
 	public ProductVO getProduct(int product_id);
 
-	public void product_registration(ProductVO pVo);
+	public int product_registration(ProductVO pVo);
 	
 	public void image_registration(AttachFileDTO aDto);
 
 	public AttachFileDTO getAttachFile(int product_id);
 	
+	public void deleteImage(int product_id);
+	
 	public List<CategoryVO> categoryList();
 	
 	public int productGetTotal(Criteria cri);
+	
+	public int product_modify(ProductVO pVo);
 }

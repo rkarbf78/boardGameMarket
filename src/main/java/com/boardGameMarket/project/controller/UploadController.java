@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.boardGameMarket.project.domain.AttachFileDTO;
-import com.boardGameMarket.project.mapper.ProductMapper;
 import com.boardGameMarket.project.service.ProductService;
 
 import lombok.Setter;
@@ -39,9 +38,11 @@ public class UploadController {
 	@Setter(onMethod_=@Autowired)
 	private ProductService service;
 	
-	// ÷������ ���ε�
+		//첨부 파일 업로드
 		@PostMapping(value = "/uploadAjaxAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 		public ResponseEntity<AttachFileDTO> uploadAjaxActionPOST(MultipartFile uploadFile) {
+			
+			//이미지 파일체크
 			File checkfile = new File(uploadFile.getOriginalFilename());
 			String type = null;
 			
@@ -57,53 +58,59 @@ public class UploadController {
 			}
 			
 			String uploadFolder = "C:\\upload";
-			//��¥ ���� ���
+			
+			//날짜 폴더 경로
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			Date date = new Date();
 			String str = sdf.format(date);
 			String datePath = str.replace("-", File.separator);
-			//���� ����
+			
+			//폴더 생성
 			File uploadPath = new File(uploadFolder,datePath);
 			if(uploadPath.exists()==false) {
 				uploadPath.mkdirs();
 			}
-			//�̹��� ���� ��� ��ü
+			//이미지 정보 객체
 			AttachFileDTO attach = new AttachFileDTO();
-			//���� �̸�
+			//파일 이름
 			String uploadFileName = uploadFile.getOriginalFilename();
 			
-			//view�ܿ� ���������� ��ü ä��� 1,2
+			//veiw 로 보내기위해 set
 			attach.setFileName(uploadFileName);
 			attach.setUploadPath(datePath);
 			
-			//uuid ����
+			//uuid  적용 파일 이름
 			String uuid = UUID.randomUUID().toString();
 			
-			//view�ܿ� ���������� ��ü ä��� 3
+			uploadFileName = uuid + "_" + uploadFileName;
+			
+			//veiw 로 보내기위해 set
 			attach.setUuid(uuid);
 			
-			uploadFileName = uuid + "_" + uploadFileName;
-			//���� ��ġ, ���� �̸��� ��ģ File ��ü
+			
+			
+			//파일 위치, 파일 이름을 합친 File 객체
 			File saveFile = new File(uploadPath,uploadFileName);
-			//���� ����
+		
+			//파일 저장
 			try {
 				uploadFile.transferTo(saveFile);
-				//����� ����
+				//썸네일 생성
 				File thumbnailFile = new File(uploadPath, "s_" + uploadFileName);
 				BufferedImage bo_image = ImageIO.read(saveFile);
-				//����� ����
+				//비율
 				double ratio = 3;
-				//����� ���� ���� ����
+				//넓이 높이 설정
 				int width = (int) (bo_image.getWidth()/ratio);
 				int height = (int) (bo_image.getHeight()/ratio);
 				
-				/* ���̺귯�� �����ϰ� ����� �۾��ϴ� ����
+				/* 라이브러리 사용 안한 방법
 				BufferedImage bt_image = new BufferedImage(width, height, BufferedImage.TYPE_3BYTE_BGR);
 				Graphics2D graphic = bt_image.createGraphics();
 				graphic.drawImage(bo_image, 0, 0, width, height, null);
 				ImageIO.write(bt_image, "jpg", thumbnailFile); */
 				
-				//���̺귯�� ���� ��������
+				//라이브러리 사용한 방법
 				Thumbnails.of(saveFile).size(width, height).toFile(thumbnailFile);
 				
 			}catch(Exception e) {
@@ -115,10 +122,9 @@ public class UploadController {
 				
 		}
 		
-		//�̹��� ���
+		//이미지 출력
 		@GetMapping("/display")
 		public ResponseEntity<byte[]> getImage(String fileName){
-			log.info("getImage()...." + fileName);
 			File file = new File("c:\\upload\\" + fileName);
 			ResponseEntity<byte[]> result = null;
 			try {
@@ -131,16 +137,16 @@ public class UploadController {
 			return result;
 		}
 		
-		//�̹��� ����
+		//이미지파일 삭제
 		@PostMapping("/deleteFile")
 		public ResponseEntity<String> deleteFile(String fileName){
 			log.info("deleteFile..." + fileName);
 			File file = null;
 			try {
-				//����� ���� ����
+				//썸네일 파일 삭제
 				file = new File("c:\\upload\\" + URLDecoder.decode(fileName,"UTF-8"));
 				file.delete();
-				//���� ���� ����
+				//원본 파일 삭제
 				String originFileName = file.getAbsolutePath().replace("s_", "");
 				log.info("originFileName : " + originFileName);
 				file = new File(originFileName);
@@ -152,7 +158,7 @@ public class UploadController {
 			return new ResponseEntity<String>("success",HttpStatus.OK);
 		}
 		
-		//�̹��� ���� ��ȯ
+		//이미지 가져오기
 		@GetMapping(value="/getAttachFile" , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 		public ResponseEntity<AttachFileDTO> getAttachFile(int product_id){
 			return new ResponseEntity<>(service.getAttachFile(product_id),HttpStatus.OK);

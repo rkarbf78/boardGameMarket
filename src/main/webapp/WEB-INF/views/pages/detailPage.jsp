@@ -49,7 +49,6 @@
 	width : 50%;
 	float : right;
 	margin-right : 10px;
-	height: 392.02px;
 }
 .detail_section_wrap1{
 	width : 40%;

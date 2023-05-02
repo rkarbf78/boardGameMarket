@@ -55,11 +55,10 @@ public class AdminController {
 	}
 	
 	@PostMapping("/register")
-	public String ProductRegister(ProductVO pVo, RedirectAttributes rttr) {
-		log.info("Product Post..." + pVo);
-		service.Product_registration(pVo);
-		rttr.addFlashAttribute("register_result" , pVo.getProduct_name());
-		return "redirect:/pages/mainPage";
+	public String productRegister(ProductVO pVo, RedirectAttributes rttr) {
+		int result = service.Product_registration(pVo);
+		rttr.addFlashAttribute("register_result" , result);
+		return "redirect:/pages/admin/productListPage";
 	}
 	
 	@GetMapping("/productListPage")
@@ -88,7 +87,6 @@ public class AdminController {
 	
 	@GetMapping("/productDetailPage")
 	public void detailPage(@RequestParam("product_id") int product_id, Criteria cri, Model model) {
-		System.out.println("도대체 뭐냐아아아아아아아아" + cri);
 		ProductVO product = service.getProduct(product_id);
 		model.addAttribute("product",product);
 		List<CategoryVO> categoryList = service.categoryList();
@@ -96,6 +94,37 @@ public class AdminController {
 		model.addAttribute("cri",cri);
 		
 	}
-
+	
+	@GetMapping("/productModifyPage")
+	public void modifyPage(@RequestParam("product_id") int product_id, Criteria cri, Model model) throws Exception {
+		ProductVO product = service.getProduct(product_id);
+		model.addAttribute("product",product);
+		model.addAttribute("cri",cri);
+		
+		//json 형식 데이터로 카테고리리스트 보내기 Jackson-databind 라이브러리 사용.
+		//추후 상위 카테고리에 따라 선택할 수 있는 하위 카테고리가 달라져야 한다는점을 위해 이방식을 선택.
+		//하지만 실제로 이 프로젝트에선 하위 카테고리를 만들지 않을 예정이기때문에 이 방식을 고수하지 않아도 괜찮음.
+		//경험상 이 방식으로 진행함.
+		ObjectMapper objm = new ObjectMapper();
+		
+		List<CategoryVO> categoryList = service.categoryList();
+		
+		//기존 List를 String타입의 json형식 데이터로 변환
+		String jsonCategoryList = objm.writeValueAsString(categoryList);
+		
+		model.addAttribute("categoryList",jsonCategoryList);
+		
+		log.info("제이슨으로 변경전....." + categoryList);
+		log.info("변경 후....." + jsonCategoryList);
+	}
+	
+	@PostMapping("/productModify")
+	public String productModify(ProductVO pVo , RedirectAttributes rttr) {
+		int result = service.product_modify(pVo);
+		rttr.addFlashAttribute("modify_result" , result);
+		return "redirect:/pages/admin/productListPage";
+	}
+	
+	
 	
 }

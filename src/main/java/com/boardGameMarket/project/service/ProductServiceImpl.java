@@ -45,17 +45,19 @@ public class ProductServiceImpl implements ProductService {
 
 	@Transactional
 	@Override
-	public void Product_registration(ProductVO pVo) {
-		mapper.product_registration(pVo);
+	public int Product_registration(ProductVO pVo) {
+		int result = mapper.product_registration(pVo);
 		
 		//이미지 없는경우
 		if(pVo.getImage() == null) {
-			return;
+			return result;
 		}
 		
 		AttachFileDTO attach = pVo.getImage();
 		attach.setProduct_id(pVo.getProduct_id());
 		mapper.image_registration(attach);
+		
+		return result;
 	}
 
 
@@ -76,6 +78,26 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public int productGetTotal(Criteria cri) {
 		return mapper.productGetTotal(cri);
+	}
+
+	@Transactional
+	@Override
+	public int product_modify(ProductVO pVo) {
+		int result = mapper.product_modify(pVo);
+		
+		if(result ==1 && pVo.getImage() != null) {
+			mapper.deleteImage(pVo.getProduct_id());
+			//이미지 없는경우
+			if(pVo.getImage() == null) {
+				return result;
+			}
+			
+			AttachFileDTO attach = pVo.getImage();
+			attach.setProduct_id(pVo.getProduct_id());
+			mapper.image_registration(attach);
+			
+		}
+		return result;
 	}
 
 	

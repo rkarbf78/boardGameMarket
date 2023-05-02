@@ -4,6 +4,40 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.boardGameMarket.project.mapper.MemberMapper">
   
+  	<select id="getMemberList" resultType="com.boardGameMarket.project.domain.MemberVO">
+  		
+  	<![CDATA[
+  		SELECT * FROM (
+  			SELECT /*+INDEX_DESC(Product SYS_C007333) */
+  				rownum as rn, member_id, member_name, member_email, member_phone,
+  				member_role,member_updateDate, member_regDate
+  				from Member
+  				where
+  	]]>
+  	
+  			<if test="keyword != null">
+  				member_name like '%'||#{keyword}||'%' and
+  			</if>
+  			
+  	<![CDATA[
+  				rownum <= #{pageNum}*#{amount}
+  				)
+  				where rn > (#{pageNum} -1) * #{amount}
+  	]]>
+  	
+  	</select>
+  	
+  	<select id="memberGetTotal" resultType="int">
+  		select count(*) from Member
+  		<if test="keyword != null">
+  			where member_name like '%'||#{keyword}||'%'
+  		</if>
+  	</select>
+  	
+  	<select id="getMemberAddress" resultType="com.boardGameMarket.project.domain.MemberAddressVO">
+  		SELECT * FROM MemberAddress member_id = #{member_id}
+  	</select>
+  
  	<insert id="member_registration" parameterType="com.boardGameMarket.project.domain.MemberVO">
  		INSERT INTO Member(member_id,member_password,member_name,member_email,member_phone,member_role,member_regDate,member_updateDate)
  		 values(#{member_id},#{member_password},#{member_name},#{member_email},#{member_phone},#{member_role},sysdate,sysdate)
