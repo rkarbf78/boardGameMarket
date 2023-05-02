@@ -125,6 +125,13 @@ public class AdminController {
 		return "redirect:/pages/admin/productListPage";
 	}
 	
+	@PostMapping("/productRemove")
+	public String productRemove(ProductVO pVo , RedirectAttributes rttr) {
+		int result = service.product_remove(pVo.getProduct_id());
+		rttr.addFlashAttribute("remove_result",result);
+		return "redirect:/pages/admin/productListPage";
+		
+	}
 	
 	
 }

@@ -73,6 +73,10 @@
   		delete from Product_Image where product_id = #{product_id}
   	</delete>
   	
+  	<delete id="product_remove" parameterType="int">
+  		delete from Product where product_id = #{product_id}
+  	</delete>
+  	
   	
   	
   	

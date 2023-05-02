@@ -26,4 +26,6 @@ public interface ProductMapper {
 	public int productGetTotal(Criteria cri);
 	
 	public int product_modify(ProductVO pVo);
+	
+	public int product_remove(int product_id);
 }

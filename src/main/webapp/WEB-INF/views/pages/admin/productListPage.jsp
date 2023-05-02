@@ -11,6 +11,9 @@
 		if(${register_result == 1}){
 			alert("등록이 완료되었습니다.");
 		}
+		if(${remove_result == 1}){
+			alert("삭제가 완료되었습니다.");
+		}
 		
 		//list에 담긴 이미지 꺼내기 작업
 		$(".list_image_wrap").each(function(i,obj){

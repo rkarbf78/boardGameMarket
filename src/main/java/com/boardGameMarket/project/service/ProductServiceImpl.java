@@ -1,5 +1,7 @@
 package com.boardGameMarket.project.service;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,6 +102,21 @@ public class ProductServiceImpl implements ProductService {
 		return result;
 	}
 
-	
-	
+	@Transactional
+	@Override
+	public int product_remove(int product_id) {
+		
+		AttachFileDTO image = mapper.getAttachFile(product_id);
+		
+		if(image != null) {
+			
+			Path path = Paths.get("C:\\upload", image.getUploadPath(), image.getUuid() + "_" + image.getFileName());
+			path.toFile().delete();		
+			mapper.deleteImage(product_id);
+		}
+		
+		int result = mapper.product_remove(product_id);
+		
+		return result;
+	}
 }

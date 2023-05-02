@@ -44,7 +44,14 @@ $(document).ready(function(){
 		e.preventDefault();
 		$("#moveForm").attr("action","/pages/admin/productModifyPage");
 		$("#moveForm").submit();
-	})
+	});
+	
+	$("#remove_button").click(function(e){
+		e.preventDefault();
+		$("#moveForm").attr("action","/pages/admin/productRemove");
+		$("#moveForm").attr("method","POST");
+		$("#moveForm").submit();
+	});
 	
 	
 	
