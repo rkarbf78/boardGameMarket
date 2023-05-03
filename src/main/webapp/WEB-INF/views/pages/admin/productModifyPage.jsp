@@ -265,7 +265,7 @@ $(document).ready(function(){
 		<ul>
 			<li><a href="/pages/admin/productListPage" class="admin_nav_1">상품 관리</a></li>
 			<li><a href="/pages/admin/registerPage" class="admin_nav_2">상품 등록</a></li>
-			<li><a href="" class="admin_nav_3">유저 관리</a></li>
+			<li><a href="/pages/admin/memberListPage" class="admin_nav_3">회원 관리</a></li>
 		</ul>
 	</div>
 		<!-- #masthead -->

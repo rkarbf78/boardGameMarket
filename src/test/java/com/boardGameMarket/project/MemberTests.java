@@ -38,9 +38,9 @@ public class MemberTests {
 		mVo.setMember_email("aaaa@aaaa.com");
 		mVo.setMember_phone("010-2319-4977");
 		mVo.setMember_role(1);
-		mVo.setAddress(mAVo);
-		mVo.setRegDate(new Date());
-		mVo.setUpdateDate(new Date());
+		mVo.setMember_address(mAVo);
+		mVo.setMember_regDate(new Date());
+		mVo.setMember_updateDate(new Date());
 		
 		service.member_registration(mVo);
 	}

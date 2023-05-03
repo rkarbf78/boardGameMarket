@@ -141,6 +141,10 @@
 	width: auto;
 	margin : 0 auto;
 }
+.admin_page_name{
+	text-align : center;
+}
+
 
 
 </style>
@@ -148,12 +152,13 @@
 		<ul>
 			<li><a href="/pages/admin/productListPage" class="admin_nav_1">상품 관리</a></li>
 			<li><a href="/pages/admin/registerPage" class="admin_nav_2">상품 등록</a></li>
-			<li><a href="" class="admin_nav_3">유저 관리</a></li>
+			<li><a href="/pages/admin/memberListPage" class="admin_nav_3">회원 관리</a></li>
 		</ul>
 	</div>
 		<!-- #masthead -->
 		<div id="content" class="site-content">
 			<div id="primary" class="content-area column full">
+				<h4 class="admin_page_name">상품 관리 페이지</h4>
 					<c:if test="${productListCheck != 'empty'}">
 						<div class="products_table_wrap">
 	                    	<table class="products_table">

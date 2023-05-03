@@ -22,4 +22,10 @@ public interface MemberMapper {
 	
 	public MemberAddressVO getMemberAddress(String member_id);
 	
+	public MemberVO getMember(String member_id);
+	
+	public int member_remove(String member_id);
+	
+	public void member_address_remove(String member_id);
+	
 }

@@ -17,6 +17,9 @@ public class Criteria {
     /* 검색 키워드 */
     private String keyword;
     
+	/* 카테고리 코드 */
+    private int product_category_code;
+    
     /* Criteria 생성자 */
     public Criteria(int pageNum, int amount) {
         this.pageNum = pageNum;

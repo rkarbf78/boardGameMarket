@@ -35,7 +35,7 @@
   	</select>
   	
   	<select id="getMemberAddress" resultType="com.boardGameMarket.project.domain.MemberAddressVO">
-  		SELECT * FROM MemberAddress member_id = #{member_id}
+  		SELECT * FROM Member_Address where member_id = #{member_id}
   	</select>
   
  	<insert id="member_registration" parameterType="com.boardGameMarket.project.domain.MemberVO">
@@ -55,5 +55,17 @@
   	<select id="member_login" resultType="com.boardGameMarket.project.domain.MemberVO">
   		SELECT member_id, member_name, member_role FROM Member WHERE member_id = #{member_id} and member_password = #{member_password}
   	</select>
+  	
+  	<select id="getMember" resultType="com.boardGameMarket.project.domain.MemberVO">
+  		SELECT * FROM Member where member_id = #{member_id}
+  	</select>
+  	
+  	<delete id="member_remove">
+  		DELETE FROM Member where member_id = #{member_id}
+  	</delete>
+  	
+  	<delete id="member_address_remove">
+  		DELETE FROM Member_Address where member_id = #{member_id}
+  	</delete>
   	
   </mapper>

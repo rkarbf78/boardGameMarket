@@ -5,6 +5,10 @@
 <script>
 	$(document).ready(function(){
 		
+		if(${remove_result == 1}){
+			alert("삭제가 완료되었습니다.");
+		}
+		
 		//페이지 이동
 		let moveForm = $('#moveForm');
 		
@@ -18,15 +22,15 @@
 		});
 		
 		//상품 디테일 페이지 이동 , 페이지넘버,어마운트,키워드,아이디 같이 보냄
-		$('.products_table tbody tr').click(function(e) {
+		$('.members_table tbody tr').click(function(e) {
 			
 			e.preventDefault();
 			
-			let addInput = '<input type="hidden" name="product_id" value="'+$(this).find('.find_id').attr("value")+'">';
+			let addInput = '<input type="hidden" name="member_id" value="'+$(this).find('.find_id').attr("value")+'">';
 			
 			moveForm.append(addInput);
 			
-			moveForm.attr("action","/pages/admin/productDetailPage");
+			moveForm.attr("action","/pages/admin/memberDetailPage");
 			
 			moveForm.submit();
 
@@ -68,38 +72,44 @@
 	width : auto;
 	vertical-align: middle;
 }
-.products_table tr td{
+.members_table tr td{
 	text-align : center;
 	vertical-align : middle;
 	padding-right: 0;
 	border-left : 1px solid #ccc;
 	border-right : 1px solid #ccc; 
 }
-.th_column_1,.th_column_5{
-	width : 60px;
-}
-.th_column_2,.th_column_3{
+.th_column_1{
 	width : 150px;
 }
-.th_column_6,.th_column_7{
+.th_column_2{
 	width : 100px;
 }
+.th_column_3{
+	width : 150px;
+}
 .th_column_4{
-	width : 120px;
+	width : 300px;
 }
-.th_column_8{
-	width : 130px;
+.th_column_5{
+	width : 100px;
 }
-.products_table tbody tr{
-	height: 120px;
+.th_column_6{
+	width : 100px;
+}
+.members_table tbody tr{
+	height: auto;
 	cursor: pointer;
 }
-.products_table tbody tr:hover{
+.members_table tbody tr:hover{
 	background:#ffff99;
 }
-.products_table {
+.members_table {
 	width: auto;
 	margin : 0 auto;
+}
+.admin_page_name{
+	text-align : center;
 }
 
 
@@ -108,12 +118,13 @@
 		<ul>
 			<li><a href="/pages/admin/productListPage" class="admin_nav_1">상품 관리</a></li>
 			<li><a href="/pages/admin/registerPage" class="admin_nav_2">상품 등록</a></li>
-			<li><a href="" class="admin_nav_3">유저 관리</a></li>
+			<li><a href="/pages/admin/memberListPage" class="admin_nav_3">회원 관리</a></li>
 		</ul>
 	</div>
 		<!-- #masthead -->
 		<div id="content" class="site-content">
 			<div id="primary" class="content-area column full">
+				<h4 class="admin_page_name">회원 관리 페이지</h4>
 					<c:if test="${memberListCheck != 'empty'}">
 						<div class="members_table_wrap">
 	                    	<table class="members_table">
@@ -121,26 +132,30 @@
 	                    			<tr>
 										<td class="th_column_1">아이디</td>
 										<td class="th_column_2">이름</td>
-	                    				<td class="th_column_3">이메일</td>
-	                    				<td class="th_column_4">전화번호</td>
-	                    				<td class="th_column_5">주소</td>
-	                    				<td class="th_column_6">권한</td>
-	                    				<td class="th_column_7">가입일</td>
-	                    				<td class="th_column_8">최근 정보 변경일</td>
+	                    				<td class="th_column_3">전화번호</td>
+	                    				<td class="th_column_4">주소</td>
+	                    				<td class="th_column_5">권한</td>
+	                    				<td class="th_column_6">가입일</td>
 	                    			</tr>
 	                    		</thead>	
 	                    		<c:forEach items="${memberList}" var="list">
 	                    				<tr>
 	                    					<td>
-	                    						<input class="find_id" type="hidden" value='<c:out value="${list.product_id}"/>'>
+	                    						<input class="find_id" type="hidden" value='<c:out value="${list.member_id}"/>'>
 	                    						<c:out value="${list.member_id}"></c:out>
 	                    					</td>
 			                    			<td><c:out value="${list.member_name}"></c:out></td>
-			                    			<td><c:out value="${list.member_email}"></c:out></td>
 			                    			<td><c:out value="${list.member_phone}"></c:out></td>
-			                    			<td><c:out value="${list.member_address}"></c:out></td>
-			                    			<td><fmt:formatDate value="${list.member_updateDate}" pattern="yyyy-MM-dd"/></td>
-			                    			<td><fmt:formatDate value="${list.member_regDate}" pattern="yyyy-MM-dd"/></td>
+			                    			<td><c:out value="${list.member_address.member_address1}"></c:out></td>
+			                    			<c:choose>
+			                    				<c:when test="${list.member_role == 1}">
+			                    					<td><c:out value="관리자"></c:out></td>
+			                    				</c:when>
+			                    				<c:otherwise>
+			                    					<td><c:out value="일반회원"></c:out></td>
+			                    				</c:otherwise>
+			                    			</c:choose>
+			    	               			<td><fmt:formatDate value="${list.member_regDate}" pattern="yyyy-MM-dd"/></td>
 			                    		</tr>
 	                    		</c:forEach>
 	                    	</table>

@@ -13,8 +13,8 @@ public class MemberVO {
 	private String member_email;
 	private String member_phone;
 	private int member_role;
-	private Date regDate;
-	private Date updateDate;
-	private MemberAddressVO address;
+	private Date member_regDate;
+	private Date member_updateDate;
+	private MemberAddressVO member_address;
 	
 }

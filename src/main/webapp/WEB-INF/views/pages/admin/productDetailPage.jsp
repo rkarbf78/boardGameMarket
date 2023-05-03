@@ -89,7 +89,7 @@ $(document).ready(function(){
 		<ul>
 			<li><a href="/pages/admin/productListPage" class="admin_nav_1">상품 관리</a></li>
 			<li><a href="/pages/admin/registerPage" class="admin_nav_2">상품 등록</a></li>
-			<li><a href="" class="admin_nav_3">유저 관리</a></li>
+			<li><a href="/pages/admin/memberListPage" class="admin_nav_3">회원 관리</a></li>
 		</ul>
 	</div>
 		<!-- #masthead -->
@@ -112,17 +112,14 @@ $(document).ready(function(){
 								<div class="name_wrap">
 									<label>상품이름</label>
 									<input type="text" name="product_name" value="${product.product_name}" readonly>
-									<span class="check_warn product_name_warn">상품이름을 입력해주세요.</span>
 								</div>
 								<div class="price_wrap">
 									<label>상품가격</label>
 									<input type="text" name="product_price" value="${product.product_price}" readonly>
-									<span class="check_warn product_price_warn">상품가격을 입력해주세요.</span>
 								</div>
 								<div class="info_wrap">
 									<label>상품정보</label>
 									<textarea name="product_info" rows="5" readonly>${product.product_info}</textarea>
-									<span class="check_warn product_info_warn">상품정보를 입력해주세요.</span>
 								</div>
 								<div class="category_wrap">
 									<label>상품 카테고리</label>
@@ -134,21 +131,17 @@ $(document).ready(function(){
 													${category.category_name}
 												</c:if>
 											</c:forEach>
-											
 										</option>
 									</select>
 									</div>
-									<span class="check_warn product_category_warn" id="product_category_warn">상품 카테고리를 선택해주세요.</span>
 								</div>
 								<div class="stock_wrap">
 									<label>상품재고</label>
 									<input type="text" name="product_stock" value="${product.product_stock}" readonly>
-									<span class="check_warn product_stock_warn">상품재고를 입력해주세요.</span>
 								</div>
 								<div class="sell_wrap">
 									<label>판매수량</label>
 									<input type="text" name="product_sell" value="${product.product_sell}" readonly>
-									<span class="check_warn product_sell_warn">상품 판매수량을 입력해주세요.</span>
 								</div>
 								<div class="updateDate_wrap">
 									<label>최근 수정 날짜</label>

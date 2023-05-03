@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.boardGameMarket.project.domain.Criteria;
 import com.boardGameMarket.project.domain.MemberAddressVO;
@@ -21,7 +22,7 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public void member_registration(MemberVO mVo) {
 		mapper.member_registration(mVo);
-		MemberAddressVO address = mVo.getAddress();
+		MemberAddressVO address = mVo.getMember_address();
 		address.setMember_id(mVo.getMember_id());
 		mapper.member_address_registration(address);
 	}
@@ -51,4 +52,19 @@ public class MemberServiceImpl implements MemberService {
 	public MemberAddressVO getMemberAddress(String member_id) {
 		return mapper.getMemberAddress(member_id);
 	}
+
+	@Override
+	public MemberVO getMember(String member_id) {
+		return mapper.getMember(member_id);
+	}
+	
+	@Transactional
+	@Override
+	public int member_remove(String member_id) {
+		mapper.member_address_remove(member_id);
+		int result = mapper.member_remove(member_id);
+		return result;
+	}
+	
+	
 }
