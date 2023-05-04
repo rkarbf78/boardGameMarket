@@ -155,6 +155,15 @@
 												<!-- #respond -->
 											</div>
 										</div>
+										<div class="button_section">
+											<form id="moveForm" action="/pages/mainPage" method="get"> 
+											 	<input type="hidden" name="pageNum" value="${cri.pageNum}">
+												<input type="hidden" name="amount" value="${cri.amount}">
+												<input type="hidden" name="keyword" value="${cri.keyword}">
+												<input type="hidden" name="page_category_code" value="${page_category_code}">
+												<input type="submit" id="list_button" value="목록">											
+											</form>	
+										</div>
 										<div class="clear">
 										</div>
 									</div>

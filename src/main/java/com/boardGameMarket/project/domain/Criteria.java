@@ -18,7 +18,10 @@ public class Criteria {
     private String keyword;
     
 	/* 카테고리 코드 */
-    private int product_category_code;
+    private int page_category_code;
+    
+	/* 정렬 기준 */
+    private String order_by;
     
     /* Criteria 생성자 */
     public Criteria(int pageNum, int amount) {

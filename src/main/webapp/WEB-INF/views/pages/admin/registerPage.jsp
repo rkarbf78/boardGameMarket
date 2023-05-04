@@ -6,15 +6,11 @@
 
 $(document).ready(function(){
 	
-	//서버로 부터 전달받은 JSON 데이터를 Javascript 객체로 변환해주는 코드
-	let categoryList = JSON.parse('${categoryList}');
+	//처음 이방식을 사용했으나 다른 페이지들은 model을 통해 데이터를 전달하여
+	//header에서 카테고리 데이터를 읽지 못하는 일이 발생함. 그래서 통일시키기위해 변경 2023.05.04
+	/* 서버로 부터 전달받은 JSON 데이터를 Javascript 객체로 변환해주는 코드
+	let categoryList = JSON.parse('${categoryList}');*/
 
-	let category_select = $(".category_select");
-
-	for(i of categoryList) {
-		category_select.append("<option value='"+i.category_code+"'>" + i.category_name + "</option>");		
-	}
-	
 	// 상품 등록 버튼
 	$("#register_button").click(function(){
 		
@@ -281,6 +277,9 @@ $(document).ready(function(){
 									<div class="category_select_wrap">
 									<select class="category_select" name="product_category_code">
 										<option selected value ="none">선택</option>
+										<c:forEach items="${categoryList}" var="category">
+											<option value ="${category.category_code}">${category.category_name}</option>
+										</c:forEach>
 									</select>
 									</div>
 									<span class="check_warn product_category_warn" id="product_category_warn">상품 카테고리를 선택해주세요.</span>

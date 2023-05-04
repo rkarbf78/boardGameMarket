@@ -24,6 +24,8 @@
 
 <script>
 	$(document).ready(function(){
+		
+		
 		$("#logout_button").click(function(){
 			$.ajax({
 				type : "POST",
@@ -40,6 +42,8 @@
 		
 		//상품 검색 버튼 동작
 		$("#searchForm img").click(function(e){
+			
+			console.log(${page_category_code});
 		
 			e.preventDefault();
 			
@@ -82,20 +86,21 @@
 		</div>
 		<div class="site-header-content">
 			<nav id="site-navigation" class="main-navigation">
-			<button class="menu-toggle">Menu</button>
-			<a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+			<button class="menu-toggle">메뉴</button>
 			<div class="menu-menu-1-container">
 				<ul id="menu-menu-1" class="menu">
-					<li><a href="/pages/mainPage">Home</a></li>
-					<li><a href="shop.html">Shop</a></li>
-					<li><a href="blog.html">Blog</a></li>
-					<li><a href="elements.html">Elements</a></li>
+					<li><a href="/pages/mainPage">전체상품</a></li>
+					<c:forEach items="${categoryList}" var="category">
+					<li class="cate_li">
+						<a href="/pages/mainPage?page_category_code=${category.category_code}">${category.category_name}</a>	
+					</li>
+					</c:forEach>
 					<c:if test="${member.member_role == 1}">
 						<li><a href="/pages/admin/adminPage">관리자 페이지</a>
 							<ul class="sub-menu">
-								<li><a href="">상품 관리</a></li>
-								<li><a href="">상품 등록</a></li>
-								<li><a href="">유저 관리</a></li>
+								<li><a href="/pages/admin/productListPage">상품관리</a></li>
+								<li><a href="/pages/admin/registerPage">상품등록</a></li>
+								<li><a href="/pages/admin/memberListPage">회원관리</a></li>
 							</ul>
 						</li>
 					</c:if>

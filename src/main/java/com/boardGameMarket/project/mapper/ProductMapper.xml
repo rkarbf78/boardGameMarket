@@ -5,9 +5,12 @@
   <mapper namespace="com.boardGameMarket.project.mapper.ProductMapper">
   	
   	<sql id = "criteria">
-  		<trim prefix="(" suffix=") AND">
-  			
-  		</trim>
+  			<if test="keyword != null">
+  				product_name like '%'||#{keyword}||'%' and
+  			</if>
+  			<if test="page_category_code != 0">
+  				product_category_code = ${page_category_code} and
+  			</if>
   	</sql>
   
   	<select id="getProductList" resultType="com.boardGameMarket.project.domain.ProductVO">
@@ -21,16 +24,16 @@
   				where
   	]]>
   	
-  			<if test="keyword != null">
-  				product_name like '%'||#{keyword}||'%' and
-  			</if>
-  			
+  				<include refid="criteria"></include>
+  		
   	<![CDATA[
   				rownum <= #{pageNum}*#{amount}
   				)
   				where rn > (#{pageNum} -1) * #{amount}
   	]]>
-  	
+  				<if test="order_by != '' and order_by != null">
+  					${order_by}
+  				</if>
   	</select>
   	
   	
@@ -65,9 +68,9 @@
   	
   	<select id="productGetTotal" resultType="int">
   		select count(*) from Product
-  		<if test="keyword != null">
-  			where product_name like '%'||#{keyword}||'%'
-  		</if>
+  		<trim prefix="where" suffixOverrides="and">
+  			<include refid="criteria"></include>	
+  		</trim>
   	</select>
   	
   	<update id="product_modify" parameterType="com.boardGameMarket.project.domain.ProductVO">

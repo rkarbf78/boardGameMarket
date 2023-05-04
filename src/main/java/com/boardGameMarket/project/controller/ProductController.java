@@ -28,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.boardGameMarket.project.domain.AttachFileDTO;
+import com.boardGameMarket.project.domain.CategoryVO;
 import com.boardGameMarket.project.domain.Criteria;
 import com.boardGameMarket.project.domain.PageDTO;
 import com.boardGameMarket.project.domain.ProductVO;
@@ -49,6 +50,8 @@ public class ProductController {
 	@GetMapping("/mainPage")
 	public void mainPage(Model model, Criteria cri) {
 		
+		System.out.println(cri);
+				
 		List<ProductVO> productList = service.getProductList(cri);
 		
 		if(!productList.isEmpty()) {
@@ -57,18 +60,33 @@ public class ProductController {
 			model.addAttribute("productListCheck" , "empty"); // 검색시 상품 존재하지 않을 경우
 		}
 		
+		List<CategoryVO> categoryList = service.categoryList();
+		
+		model.addAttribute("categoryList" , categoryList);
+		
 		int total = service.productGetTotal(cri);
 		
 		PageDTO pageMaker = new PageDTO(cri, total);
 		
 		model.addAttribute("pageMaker", pageMaker);
+		
+		int page_category_code = cri.getPage_category_code();
+		
+		model.addAttribute("page_category_code" , page_category_code);
+		
 	}
 	
 	@GetMapping("/detailPage")
-	public void detailPage(@RequestParam("product_id") int product_id , Model model) {
+	public void detailPage(int product_id , Model model , Criteria cri) {
 		
-		System.out.println("프로덕트 아이디 체크" + product_id);
 		ProductVO product = service.getProduct(product_id);
+		
+		int page_category_code = cri.getPage_category_code();
+		
+		model.addAttribute("page_category_code" , page_category_code);
+		
+		model.addAttribute("cri",cri);
+		
 		model.addAttribute("product",product);
 	}
 

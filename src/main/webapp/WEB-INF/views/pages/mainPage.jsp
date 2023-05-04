@@ -5,6 +5,15 @@
 <script>
 	$(document).ready(function(){
 		
+		/* 카테고리 선택한 메인페이지에서 검색시 
+		header.jsp에 있는 검색 이벤트 발생시 카테고리값 유지하기위해 메인에 작성
+		header.jsp에 작성하면 다른 페이지에서 값이없다고 오류발생하기 떄문 */
+		let searchForm = $('#searchForm');
+		
+		if(${page_category_code != null}){
+			searchForm.append("<input type='hidden' name='page_category_code' value="+${page_category_code}+">");	
+		}
+		
 		//list에 담긴 이미지 꺼내기 작업
 		$(".image_wrap").each(function(i,obj){
 			
@@ -66,6 +75,17 @@
 
 		});
 		
+		$(".product_order_by a").click(function(e){
+			e.preventDefault();
+			
+			let addInput = '<input type="hidden" name="order_by" value="'+$(this).attr("href")+'">';
+			
+			moveForm.append(addInput);
+						
+			moveForm.submit();
+
+		});
+		
 	});
 </script>
 
@@ -73,6 +93,7 @@
 .image_wrap {
 	width : 100%;
 	height : 100%;
+	cursor: pointer;
 }
 .image_wrap img {
 	max-width : 85%;
@@ -92,7 +113,17 @@
 #searchForm{
 	display : block;
 }
+
 </style>
+
+<div class="product_order_by">
+		<ul>
+			<li><a href="order by product_regDate asc" class="order_nav_1">신상품순</a></li>
+			<li><a href="order by product_sell asc" class="order_nav_2">인기상품순</a></li>
+			<li><a href="order by product_price desc" class="order_nav_3">높은가격순</a></li>
+			<li><a href="order by product_price asc" class="order_nav_4">낮은가격순</a></li>
+		</ul>
+	</div>
 		<!-- #masthead -->
 		<div id="content" class="site-content">
 			<div id="primary" class="content-area column full">
@@ -109,8 +140,19 @@
 										</div>
 									</div>
 									<div class="entry-info">
-										<h2 class="entry-title">${list.product_name}</h2>
-										<p>${list.product_price} 원</p>
+										<div class="entry-title">
+											<h4>${list.product_name}</h4>
+										</div>
+										<div class="entry-category">
+											<c:forEach items="${categoryList}" var="category">
+												<c:if test="${list.product_category_code == category.category_code}">
+													<p>${category.category_name}</p>
+												</c:if>
+											</c:forEach>
+										</div>
+										<div class="entry-price">
+											<p>${list.product_price} 원</p>
+										</div>
 									</div>				
 								</header>	
 							</article>	
@@ -140,7 +182,8 @@
 					<form id="moveForm" action="" method="get">  <!-- action 생략시 현재페이지에 요청함! -->
 						<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
 						<input type="hidden" name="amount" value="${pageMaker.cri.amount}">
-						<input type="hidden" name="keyword" value="${pageMaker.cri.keyword}">					
+						<input type="hidden" name="keyword" value="${pageMaker.cri.keyword}">
+						<input type="hidden" name="page_category_code" value="${page_category_code}">											
 					</form>	
 					</c:if>
 					<c:if test="${productListCheck == 'empty'}">
