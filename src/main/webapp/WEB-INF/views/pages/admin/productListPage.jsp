@@ -78,16 +78,6 @@
 </script>
 
 <style>
-.image_wrap {
-	width : 100%;
-	height : 100%;
-}
-.image_wrap img {
-	max-width : 85%;
-	height : auto;
-	display : block;
-	margin : 0 auto;	
-}
 .pageMaker{
 	list-style: none;
 	display: inline-block;

@@ -73,7 +73,8 @@
 <c:if test="${member != null}">
 	<div class="user_info">
 		<span>회원 : ${member.member_name}</span>
-		<a href="/pages/logout" id="logout_button">로그아웃</a>
+		<a id="logout_button">로그아웃</a>
+		<a href="/pages/cart/cartPage/${member.member_id}" id="cart_button">장바구니</a>
 	</div>
 </c:if>
 

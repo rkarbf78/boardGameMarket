@@ -113,21 +113,25 @@ public class AdminController {
 		model.addAttribute("product",product);
 		model.addAttribute("cri",cri);
 		
-		//json 형식 데이터로 카테고리리스트 보내기 Jackson-databind 라이브러리 사용.
-		//추후 상위 카테고리에 따라 선택할 수 있는 하위 카테고리가 달라져야 한다는점을 위해 이방식을 선택.
-		//하지만 실제로 이 프로젝트에선 하위 카테고리를 만들지 않을 예정이기때문에 이 방식을 고수하지 않아도 괜찮음.
-		//경험상 이 방식으로 진행함.
-		ObjectMapper objm = new ObjectMapper();
+		/* 최초에 이방식을 사용했으나 어차피 하위카테고리는 없기때문에 다른 페이지들과 통일 시켜
+		 * 충돌 없애기위해 변경함 2023.05.04
+		 * //json 형식 데이터로 카테고리리스트 보내기 Jackson-databind 라이브러리 사용. //추후 상위 카테고리에 따라 선택할 수
+		 * 있는 하위 카테고리가 달라져야 한다는점을 위해 이방식을 선택. //하지만 실제로 이 프로젝트에선 하위 카테고리를 만들지 않을 예정이기때문에
+		 * 이 방식을 고수하지 않아도 괜찮음. //경험상 이 방식으로 진행함. ObjectMapper objm = new ObjectMapper();
+		 * 
+		 * List<CategoryVO> categoryList = p_service.categoryList();
+		 * 
+		 * //기존 List를 String타입의 json형식 데이터로 변환 String jsonCategoryList =
+		 * objm.writeValueAsString(categoryList);
+		 * 
+		 * model.addAttribute("categoryList",jsonCategoryList);
+		 * log.info("제이슨으로 변경전....." + categoryList);
+		 * log.info("변경 후....." + jsonCategoryList);
+		 */
 		
 		List<CategoryVO> categoryList = p_service.categoryList();
 		
-		//기존 List를 String타입의 json형식 데이터로 변환
-		String jsonCategoryList = objm.writeValueAsString(categoryList);
-		
-		model.addAttribute("categoryList",jsonCategoryList);
-		
-		log.info("제이슨으로 변경전....." + categoryList);
-		log.info("변경 후....." + jsonCategoryList);
+		model.addAttribute("categoryList" , categoryList);
 	}
 	
 	@PostMapping("/productModify")

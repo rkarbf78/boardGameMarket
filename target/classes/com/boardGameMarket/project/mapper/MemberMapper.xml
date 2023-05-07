@@ -8,64 +8,65 @@
   		
   	<![CDATA[
   		SELECT * FROM (
-  			SELECT /*+INDEX_DESC(Product SYS_C007333) */
+  			SELECT /*+INDEX_DESC(Product SYS_C007108) */
   				rownum as rn, member_id, member_name, member_email, member_phone,
   				member_role,member_updateDate, member_regDate
-  				from Member
-  				where
+  				FROM Member
+  				WHERE
   	]]>
   	
   			<if test="keyword != null">
-  				member_name like '%'||#{keyword}||'%' and
+  				member_name LIKE '%'||#{keyword}||'%' AND
   			</if>
   			
   	<![CDATA[
   				rownum <= #{pageNum}*#{amount}
   				)
-  				where rn > (#{pageNum} -1) * #{amount}
+  				WHERE rn > (#{pageNum} -1) * #{amount}
   	]]>
   	
   	</select>
   	
   	<select id="memberGetTotal" resultType="int">
-  		select count(*) from Member
+  		SELECT COUNT(*) FROM Member
   		<if test="keyword != null">
-  			where member_name like '%'||#{keyword}||'%'
+  			WHERE member_name LIKE '%'||#{keyword}||'%'
   		</if>
   	</select>
   	
   	<select id="getMemberAddress" resultType="com.boardGameMarket.project.domain.MemberAddressVO">
-  		SELECT * FROM Member_Address where member_id = #{member_id}
+  		SELECT * FROM Member_Address WHERE member_id = #{member_id}
   	</select>
   
  	<insert id="member_registration" parameterType="com.boardGameMarket.project.domain.MemberVO">
  		INSERT INTO Member(member_id,member_password,member_name,member_email,member_phone,member_role,member_regDate,member_updateDate)
- 		 values(#{member_id},#{member_password},#{member_name},#{member_email},#{member_phone},#{member_role},sysdate,sysdate)
+ 		 VALUES(#{member_id},#{member_password},#{member_name},#{member_email},#{member_phone},#{member_role},sysdate,sysdate)
  	</insert>
  	
  	<insert id="member_address_registration" parameterType="com.boardGameMarket.project.domain.MemberAddressVO">
  		INSERT INTO Member_Address(member_id,member_address1,member_address2,member_address3)
- 		 values (#{member_id},#{member_address1},#{member_address2},#{member_address3})
+ 		 VALUES(#{member_id},#{member_address1},#{member_address2},#{member_address3})
  	</insert> 
   
   	<select id="idCheck" resultType="int">
-		SELECT count(*) FROM Member where member_id = #{member_id}  	
+		SELECT COUNT(*) FROM Member WHERE member_id = #{member_id}  	
   	</select>
   	
   	<select id="member_login" resultType="com.boardGameMarket.project.domain.MemberVO">
-  		SELECT member_id, member_name, member_role FROM Member WHERE member_id = #{member_id} and member_password = #{member_password}
+  		SELECT member_id, member_name, member_role 
+  		FROM Member WHERE member_id = #{member_id} AND member_password = #{member_password}
   	</select>
   	
   	<select id="getMember" resultType="com.boardGameMarket.project.domain.MemberVO">
-  		SELECT * FROM Member where member_id = #{member_id}
+  		SELECT * FROM Member WHERE member_id = #{member_id}
   	</select>
   	
   	<delete id="member_remove">
-  		DELETE FROM Member where member_id = #{member_id}
+  		DELETE FROM Member WHERE member_id = #{member_id}
   	</delete>
   	
   	<delete id="member_address_remove">
-  		DELETE FROM Member_Address where member_id = #{member_id}
+  		DELETE FROM Member_Address WHERE member_id = #{member_id}
   	</delete>
   	
   </mapper>

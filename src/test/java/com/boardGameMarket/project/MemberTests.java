@@ -25,24 +25,27 @@ public class MemberTests {
 	private MemberService service;
 	
 	
-//	@Test
+	@Test
 	public void member_registrationTest() {
-		MemberVO mVo = new MemberVO();
-		MemberAddressVO mAVo = new MemberAddressVO();
-		mAVo.setMember_address1("address1");
-		mAVo.setMember_address2("address2");
-		mAVo.setMember_address3("address3");
-		mVo.setMember_id("gang");
-		mVo.setMember_password("1234");
-		mVo.setMember_name("이강균");
-		mVo.setMember_email("aaaa@aaaa.com");
-		mVo.setMember_phone("010-2319-4977");
-		mVo.setMember_role(1);
-		mVo.setMember_address(mAVo);
-		mVo.setMember_regDate(new Date());
-		mVo.setMember_updateDate(new Date());
 		
-		service.member_registration(mVo);
+		for(int i=0; i<100; i++) {
+			MemberVO mVo = new MemberVO();
+			MemberAddressVO mAVo = new MemberAddressVO();
+			mAVo.setMember_address1("address1"+i);
+			mAVo.setMember_address2("address2"+i);
+			mAVo.setMember_address3("address3"+i);
+			mVo.setMember_id("gang"+i);
+			mVo.setMember_password("1234");
+			mVo.setMember_name("이강균"+i);
+			mVo.setMember_email("aaaa@aaaa.com");
+			mVo.setMember_phone("010-2319-4977");
+			mVo.setMember_role(0);
+			mVo.setMember_address(mAVo);
+			mVo.setMember_regDate(new Date());
+			mVo.setMember_updateDate(new Date());
+			
+			service.member_registration(mVo);	
+		}
 	}
 	
 //	@Test

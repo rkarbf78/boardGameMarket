@@ -6,10 +6,10 @@
   	
   	<sql id = "criteria">
   			<if test="keyword != null">
-  				product_name like '%'||#{keyword}||'%' and
+  				product_name LIKE '%'||#{keyword}||'%' AND
   			</if>
   			<if test="page_category_code != 0">
-  				product_category_code = ${page_category_code} and
+  				product_category_code = ${page_category_code} AND
   			</if>
   	</sql>
   
@@ -17,11 +17,11 @@
   		
   	<![CDATA[
   		SELECT * FROM (
-  			SELECT /*+INDEX_DESC(Product SYS_C007351) */
+  			SELECT /*+INDEX_DESC(Product SYS_C007127) */
   				rownum as rn, product_id, product_name, product_price, product_info,
   				product_stock, product_sell, product_category_code, product_updateDate, product_regDate
-  				from Product
-  				where
+  				FROM Product
+  				WHERE
   	]]>
   	
   				<include refid="criteria"></include>
@@ -29,7 +29,7 @@
   	<![CDATA[
   				rownum <= #{pageNum}*#{amount}
   				)
-  				where rn > (#{pageNum} -1) * #{amount}
+  				WHERE rn > (#{pageNum} -1) * #{amount}
   	]]>
   				<if test="order_by != '' and order_by != null">
   					${order_by}
@@ -38,51 +38,56 @@
   	
   	
   	<select id="getProduct" resultType="com.boardGameMarket.project.domain.ProductVO">
-  		SELECT * FROM Product where product_id = #{product_id}
+  		SELECT * FROM Product WHERE product_id = #{product_id}
   	</select>
   	
   	
   	<insert id="product_registration" parameterType="com.boardGameMarket.project.domain.ProductVO">
   	
-  		<selectKey resultType="int" keyProperty="product_id" order="AFTER">
-  		SELECT MAX(product_id) FROM Product
+  		<selectKey resultType="int" keyProperty="product_id" order="BEFORE">
+  			SELECT Product_id_seq.NEXTVAL from dual
   		</selectKey>
   		
-  		INSERT INTO Product(product_id,product_name,product_price,product_info,product_stock,product_sell,product_category_code,product_updateDate,product_regDate)
-  		 values 
-  		 (Product_id_seq.NEXTVAL,#{product_name},#{product_price},#{product_info},#{product_stock},#{product_sell},#{product_category_code},sysdate,sysdate)
+  		INSERT INTO Product(product_id,product_name,product_price,product_info,product_stock,
+  							product_sell,product_category_code,product_updateDate,product_regDate)
+  		 VALUES 
+  		 (#{product_id},#{product_name},#{product_price},#{product_info},#{product_stock},
+  		 #{product_sell},#{product_category_code},sysdate,sysdate)
   	</insert>
   	
   	
   	<insert id="image_registration" parameterType="com.boardGameMarket.project.domain.AttachFileDTO">
-  		INSERT INTO Product_image(product_id,fileName,uploadPath,uuid) values (#{product_id},#{fileName},#{uploadPath},#{uuid})
+  		INSERT INTO Product_image(product_id,fileName,uploadPath,uuid)
+  		 VALUES (#{product_id},#{fileName},#{uploadPath},#{uuid})
   	</insert>
   	
   	<select id="getAttachFile" resultType="com.boardGameMarket.project.domain.AttachFileDTO">
-  		SELECT * FROM Product_image where product_id = #{product_id}
+  		SELECT * FROM Product_image WHERE product_id = #{product_id}
   	</select>
   	
   	<select id="categoryList" resultType="com.boardGameMarket.project.domain.CategoryVO">
-  		SELECT * FROM Product_Category order by category_code
+  		SELECT * FROM Product_Category ORDER BY category_code
   	</select>
   	
   	<select id="productGetTotal" resultType="int">
-  		select count(*) from Product
-  		<trim prefix="where" suffixOverrides="and">
+  		SELECT COUNT(*) FROM Product
+  		<trim prefix="WHERE" suffixOverrides="AND">
   			<include refid="criteria"></include>	
   		</trim>
   	</select>
   	
   	<update id="product_modify" parameterType="com.boardGameMarket.project.domain.ProductVO">
-  		update Product set product_name = #{product_name}, product_price = #{product_price}, product_info = #{product_info}, product_stock = #{product_stock}, product_sell = #{product_sell}, product_category_code = #{product_category_code}, product_updateDate = sysdate where product_id = #{product_id}
+  		UPDATE Product SET product_name = #{product_name}, product_price = #{product_price}, product_info = #{product_info},
+  						   product_stock = #{product_stock}, product_sell = #{product_sell}, product_category_code = #{product_category_code}, product_updateDate = sysdate
+  		WHERE product_id = #{product_id}
   	</update>
   	
   	<delete id="deleteImage" parameterType="int">
-  		delete from Product_Image where product_id = #{product_id}
+  		DELETE FROM Product_Image WHERE product_id = #{product_id}
   	</delete>
   	
   	<delete id="product_remove" parameterType="int">
-  		delete from Product where product_id = #{product_id}
+  		DELETE FROM Product WHERE product_id = #{product_id}
   	</delete>
   	
   	

@@ -30,6 +30,39 @@
 			
 			uploadResult.html(str);
 		});
+		
+		//카트 부분 서버로 전송할 데이터
+		const cartForm = {
+				member_id : '${member.member_id}',
+				product_id : '${product.product_id}',
+				product_count : ''
+		}
+		
+		//결과값에 따른 창 띄우기 메서드
+		function cartAlert(result){
+			if(result == '0'){
+				alert("장바구니에 추가하지 못했습니다.");
+			}else if(result == "1"){
+				alert("장바구니에 추가되었습니다.");
+			}else if(result == "2"){
+				alert("상품이 이미 장바구니에 있습니다.");
+			}else if(result =="5"){
+				alert("로그인이 필요합니다.");
+			}
+		}
+		
+		//장바구니 추가 버튼
+		$(".btn_cart").click(function(e){
+			cartForm.product_count = $(".quantity_input").val();
+			$.ajax({
+				url: '/pages/cart/add',
+				type: 'POST',
+				data: cartForm,
+				success: function(result){
+					cartAlert(result);
+				}
+			});
+		});
 	});
 </script>
 <style type="text/css">
@@ -86,12 +119,16 @@
 									<div class="detail_section_s_info">
 										<span>일단 여긴 간단한 정보 1~2인용 이런거 ㅇㅋ?</span>
 									</div>
-									<form class="cart" method="post" enctype='multipart/form-data'>
+									<div class="cart">
 										<div class="quantity">
-											<input type="number" step="1" min="1" max="" name="quantity" value="1" title="Qty" class="input-text qty text" size="4"/>
-										</div>									
-										<button type="submit" class="single_add_to_cart_button button alt">Add to cart</button>
-									</form>
+											주문수량
+											<input type="number" step="1" min="1" max="" name="quantity" value="1" title="Qty" class="quantity_input" size="4"/>
+										</div>
+										<div class="cart_btn_set">
+											<button class="btn_cart">장바구니 담기</button>
+											<button class="btn_buy">바로구매</button>
+										</div>										
+									</div>
 								</div>	
 						</div>
 							<!-- .summary -->

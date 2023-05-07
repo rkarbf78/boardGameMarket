@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.boardGameMarket.project.mapper.CartMapper">
+  	
+  	<insert id="addCart" parameterType="com.boardGameMarket.project.domain.CartDTO">
+  		
+  		<selectKey resultType="int" keyProperty="cart_id" order="BEFORE">
+  			SELECT Product_Cart_seq.NEXTVAL from dual
+  		</selectKey>
+  		
+  		INSERT INTO Product_Cart(cart_id,member_id,product_id,product_count)
+  		VALUES(#{cart_id},#{member_id},#{product_id},#{product_count})
+  	</insert>
+  
+  	<delete id="deleteCart">
+  		DELETE FROM Product_Cart WHERE cart_id = #{cart_id}
+  	</delete>
+  	
+  	<update id="modifyCount" parameterType="com.boardGameMarket.project.domain.CartDTO">
+  		UPDATE Product_Cart SET product_count = #{product_count} WHERE cart_id = #{cart_id}
+  	</update>
+  	
+  	<select id="getCartList" resultType="com.boardGameMarket.project.domain.CartDTO">
+  		SELECT c.cart_id, c.member_id, c.product_id, c.product_count, p.product_name, p.product_price
+  		FROM Product_Cart c LEFT OUTER JOIN Product p on c.product_id = p.product_id
+  		WHERE member_id = #{member_id}
+  	</select>
+  	
+  	<select id="checkCart" resultType="com.boardGameMarket.project.domain.CartDTO">
+  		SELECT * FROM Product_Cart WHERE member_id = #{member_id} and product_id = #{product_id}
+  	</select>
+  	
+  </mapper>
