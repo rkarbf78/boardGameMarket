@@ -2,7 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ include file="includes/header.jsp" %>
 
+<!-- 다음주소 api -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
 <script>
 
 	var emailCode = ""; //이메일전송 인증번호 저장위한 변수

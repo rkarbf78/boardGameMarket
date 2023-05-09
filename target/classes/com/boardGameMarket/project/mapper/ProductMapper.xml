@@ -17,7 +17,7 @@
   		
   	<![CDATA[
   		SELECT * FROM (
-  			SELECT /*+INDEX_DESC(Product SYS_C007127) */
+  			SELECT /*+INDEX_DESC(Product SYS_C007391) */
   				rownum as rn, product_id, product_name, product_price, product_info,
   				product_stock, product_sell, product_category_code, product_updateDate, product_regDate
   				FROM Product
@@ -31,9 +31,6 @@
   				)
   				WHERE rn > (#{pageNum} -1) * #{amount}
   	]]>
-  				<if test="order_by != '' and order_by != null">
-  					${order_by}
-  				</if>
   	</select>
   	
   	
@@ -45,7 +42,7 @@
   	<insert id="product_registration" parameterType="com.boardGameMarket.project.domain.ProductVO">
   	
   		<selectKey resultType="int" keyProperty="product_id" order="BEFORE">
-  			SELECT Product_id_seq.NEXTVAL from dual
+  			SELECT Product_id_seq.NEXTVAL FROM dual
   		</selectKey>
   		
   		INSERT INTO Product(product_id,product_name,product_price,product_info,product_stock,

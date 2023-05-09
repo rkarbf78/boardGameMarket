@@ -19,15 +19,16 @@ import com.boardGameMarket.project.service.CartService;
 import lombok.Setter;
 
 @Controller
-@RequestMapping("/pages/cart/*")
+@RequestMapping("/pages/*")
 public class CartController {
 	
 	@Setter(onMethod_=@Autowired)
 	private CartService service;
 	
 	
+	//장바구니 추가 비동기
 	@ResponseBody
-	@PostMapping("/add")
+	@PostMapping("/cart/add")
 	public String addCart(CartDTO cart, HttpServletRequest request) {
 		
 		HttpSession session = request.getSession();
@@ -42,13 +43,34 @@ public class CartController {
 		return result + "";
 	}
 	
+	//장바구니 목록 가져오기
 	@GetMapping("/cartPage/{member_id}")
 	public String cartPage(@PathVariable("member_id") String member_id, Model model) {
 		
 		model.addAttribute("cartInfo",service.getCartList(member_id));
 		
-		return "/pages/cart/cartPage";
+		return "/pages/cartPage";
 	
 	}
+	
+	//장바구니 수량수정
+	@PostMapping("/cart/modify")
+	public String cartModify(CartDTO cart) {
+		service.modifyCount(cart);
+		
+		return "redirect:/pages/cartPage/"+cart.getMember_id();
+	}
+	
+	//장바구니 상품삭제
+	@PostMapping("/cart/delete")
+	public String cartDelete(CartDTO cart) {
+		
+		service.deleteCart(cart.getCart_id());
+		
+		return "redirect:/pages/cartPage/" + cart.getMember_id();
+		
+	}
+	
+	
 	
 }

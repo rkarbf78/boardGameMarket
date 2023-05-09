@@ -20,5 +20,7 @@ public interface CartMapper {
 	
 	//카트 확인
 	public CartDTO checkCart(CartDTO cart);
-
+	
+	//카트 주문 제거하기
+	public int delete_order_cart(CartDTO cart);
 }

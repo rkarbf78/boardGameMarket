@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="../includes/header.jsp" %>
+<%@ include file="includes/header.jsp" %>
 
 
 <script>
@@ -95,6 +95,50 @@
 			$(".priceTotalFinal_span").text(priceTotalFinal);
 	
 		}
+			
+		
+		//상품 수량 수정
+		$(".product_count_modify_btn").click(function(){
+			let cart_id = $(this).data("cart_id");
+			let product_count = $(this).parent("td").find("input").val();
+			$(".modify_cart_id").val(cart_id);
+			$(".modify_product_count").val(product_count);
+			$(".quantity_modify_form").submit();
+		});
+		
+		//상품 삭제 버튼
+		$(".delete_btn").click(function(e){
+			e.preventDefault();
+			const cart_id = $(this).data("cart_id");
+			$(".delete_cart_id").val(cart_id);
+			$(".cart_delete_form").submit();
+		});
+		
+		//주문 페이지 이동
+		$(".order_btn").click(function(){
+			let form_contents = '';
+			let orderNumber = 0;
+			$(".cart_info_td").each(function(idx,data){
+				
+				if($(data).find(".cart_checkbox_input").is(":checked") === true){
+
+					let product_id = $(data).find(".product_id_input").val();
+					let product_count = $(data).find(".product_count_input").val();
+					
+					let product_id_input = "<input name='orders[" + orderNumber + "].product_id' type='hidden' value='" + product_id + "'>";
+					form_contents += product_id_input;
+					
+					let product_count_input = "<input name='orders[" + orderNumber + "].product_count' type='hidden' value='" + product_count + "'>";
+					form_contents += product_count_input;
+					
+					orderNumber++;
+				}
+			});
+			
+			$(".order_form").html(form_contents);
+			$(".order_form").submit();
+			
+		});
 				
 	});
 </script>
@@ -185,6 +229,9 @@
 	width : auto;
 	vertical-align: middle;
 }
+.quantity_input{
+	width : 45%;
+}
 
 
 </style>
@@ -219,6 +266,7 @@
 									<input type="hidden" class="product_price_input" value="${ci.product_price}">
 									<input type="hidden" class="product_count_input" value="${ci.product_count}">
 									<input type="hidden" class="product_price_total_input" value="${ci.product_price_total}">
+									<input type="hidden" class="product_id_input" value="${ci.product_id}">
 								</td>
 								<td class="td_width_2">
 									<div class="image_wrap" data-product_id="${ci.image.product_id}" data-path="${ci.image.uploadPath}" data-uuid="${ci.image.uuid}" data-filename="${ci.image.fileName}">											
@@ -231,12 +279,12 @@
 								</td>
 								<td>
 									<div class="product_count">
-										${ci.product_count}
+										<input type="number" step="1" min="1" max="" name="quantity" value="${ci.product_count}" title="Qty" class="quantity_input" size="4"/>
 									</div>
-									<a class="product_count_modify_btn">변경</a>
+									<a class="product_count_modify_btn" data-cart_id="${ci.cart_id}">변경</a>
 								</td>
 								<td>${ci.product_price_total}</td>
-								<td><button>삭제</button></td>
+								<td><button class="delete_btn" data-cart_id="${ci.cart_id}">삭제</button></td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -278,6 +326,28 @@
 			</div>
 			<!-- 구매 버튼 영역 -->
 			<div class="content_btn_section">
-				<a>주문하기</a>
+				<a class="order_btn">주문하기</a>
 			</div>
-<%@ include file="../includes/footer.jsp" %>
+			<!-- 수량 조정 form -->
+			<div class="cart_count_modify_form">
+				<form action="/pages/cart/modify" method="post" class="quantity_modify_form">
+					<input type="hidden" name="cart_id" class="modify_cart_id">
+					<input type="hidden" name="product_count" class="modify_product_count">
+					<input type="hidden" name="member_id" value="${member.member_id}">
+				</form>
+			</div>
+			<!-- 상품 삭제 form -->
+			<div class="cart_delete_form_div">
+				<form action="/pages/cart/delete" method="post" class="cart_delete_form">
+					<input type="hidden" name="cart_id" class="delete_cart_id">
+					<input type="hidden" name="member_id" value="${member.member_id}">
+				</form>
+			</div>
+			<!-- 상품 주문 form -->
+			<div class="cart_order">
+				<form action="/pages/orderPage/${member.member_id}" method="get" class="order_form">
+					
+				</form>	
+			</div>
+			
+<%@ include file="includes/footer.jsp" %>

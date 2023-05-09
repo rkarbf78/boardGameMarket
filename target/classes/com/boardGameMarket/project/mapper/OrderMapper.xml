@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.boardGameMarket.project.mapper.OrderMapper">
+  
+  <select id="get_product_info" resultType="com.boardGameMarket.project.domain.OrderPageElementDTO">
+  	SELECT product_id, product_name, product_price
+  	FROM Product where product_id = #{product_id}
+  </select>
+  
+  <select id="get_order_info" resultType="com.boardGameMarket.project.domain.OrderElementDTO">
+  	SELECT product_id, product_price FROM Product WHERE product_id = #{product_id}
+  </select>
+  
+  <insert id="order_registration" parameterType="com.boardGameMarket.project.domain.OrderDTO">
+  	INSERT INTO Product_Order(order_id, receiver, member_id, member_address1, member_address2, member_address3, order_state, delivery_price)
+  	VALUES(#{order_id}, #{receiver}, #{member_id}, #{member_address1}, #{member_address2}, #{member_address3}, '배송준비', #{delivery_price})
+  </insert>	
+ 
+ <insert id="order_element_registration" parameterType="com.boardGameMarket.project.domain.OrderElementDTO">
+ 	<selectKey resultType="int" keyProperty="order_element_id" order="BEFORE">
+  			SELECT Product_Order_Element_seq.NEXTVAL FROM dual
+  	</selectKey>
+ 	INSERT INTO Product_Order_Element(order_element_id, order_id, product_id, product_count, product_price)
+ 	VALUES(#{order_element_id}, #{order_id}, #{product_id}, #{product_count}, #{product_price})
+ </insert>
+  	
+  <update id="deduction_stock">
+  	UPDATE Product SET product_stock = #{product_stock} WHERE product_id = #{product_id}
+  </update>
+  
+  </mapper>

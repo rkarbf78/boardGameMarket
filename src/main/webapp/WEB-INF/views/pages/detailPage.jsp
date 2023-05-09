@@ -63,6 +63,13 @@
 				}
 			});
 		});
+		
+		/* 바로구매 버튼 */
+		$(".btn_buy").click(function(){
+			let product_count = $(".quantity_input").val();
+			$(".order_form").find("input[name='orders[0].product_count']").val(product_count);
+			$(".order_form").submit();
+		});
 	});
 </script>
 <style type="text/css">
@@ -200,6 +207,13 @@
 												<input type="hidden" name="page_category_code" value="${page_category_code}">
 												<input type="submit" id="list_button" value="목록">											
 											</form>	
+										</div>
+										<!-- 주문 form -->
+										<div class="order_section">
+											<form action="/pages/order/orderPage/${member.member_id}" method="get" class="order_form">
+												<input type="hidden" name="orders[0].product_id" value="${product.product_id}">
+												<input type="hidden" name="orders[0].product_count" value="">
+											</form>
 										</div>
 										<div class="clear">
 										</div>

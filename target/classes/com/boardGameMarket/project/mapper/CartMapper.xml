@@ -32,4 +32,8 @@
   		SELECT * FROM Product_Cart WHERE member_id = #{member_id} and product_id = #{product_id}
   	</select>
   	
+  	<delete id="delete_order_cart">
+  		DELETE FROM Product_Cart WHERE member_id = #{member_id} and product_id = #{product_id}
+  	</delete>
+  	
   </mapper>
