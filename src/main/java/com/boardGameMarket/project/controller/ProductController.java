@@ -89,6 +89,11 @@ public class ProductController {
 		
 		model.addAttribute("product",product);
 	}
+	
+	@GetMapping("/apitest")
+	public String apitest() {
+		return "/pages/apitest";
+	}
 
 	
 	

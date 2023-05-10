@@ -66,6 +66,7 @@ public class AdminController {
 		
 	}
 	
+	
 	@PostMapping("/register")
 	public String productRegister(ProductVO pVo, RedirectAttributes rttr) {
 		int result = p_service.Product_registration(pVo);

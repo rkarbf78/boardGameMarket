@@ -51,7 +51,7 @@ public class OrderController {
 		
 		o_service.order(odd);
 		
-		return "redirect:/mainPage";
+		return "redirect:/pages/mainPage";
 	}
 	
 	

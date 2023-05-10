@@ -57,9 +57,7 @@ public class OrderServiceImpl implements OrderService{
 	@Override
 	@Transactional
 	public void order(OrderDTO odd) {
-		/* 회원정보 가져오기 */
-		MemberVO member = m_mapper.getMember(odd.getMember_id());
-		
+			
 		/* 주문 정보 */
 		List<OrderElementDTO> odedList = new ArrayList<OrderElementDTO>();
 		
@@ -75,12 +73,6 @@ public class OrderServiceImpl implements OrderService{
 		odd.get_order_price_info();
 		
 		/* DB주문, 주문상품, 배송정보 넣기 */
-		Date date = new Date();
-		SimpleDateFormat format = new SimpleDateFormat("_yyyyMMddmm");
-		
-		/* 오더아이디는 멤버아이디 + 날짜 */
-		String order_id = member.getMember_id() + format.format(date);
-		odd.setOrder_id(order_id);
 		
 		/* element DB에 넣기 (order 를 먼저 넣어야 id 참조키로 사용가능함)*/
 		o_mapper.order_registration(odd);
@@ -88,7 +80,7 @@ public class OrderServiceImpl implements OrderService{
 		for(OrderElementDTO odeds : odd.getOrders()) {
 			
 			//order_id 세팅
-			odeds.setOrder_id(order_id);
+			odeds.setOrder_id(odd.getOrder_id());
 			
 			//orderElement DB에 넣기
 			o_mapper.order_element_registration(odeds);
