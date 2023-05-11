@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.boardGameMarket.project.mapper.ReplyMapper">
+  
+  	<insert id="reply_registration">
+  	
+  		<selectKey resultType="int" keyProperty="reply_id" order="BEFORE">
+  			SELECT Product_Reply_seq.NEXTVAL FROM dual
+  		</selectKey>
+  	
+  		INSERT INTO Product_Reply(reply_id, product_id, member_id, content, rating, updateDate, regDate)
+  		VALUES (#{reply_id}, #{product_id}, #{member_id}, #{content}, #{rating}, sysdate, sysdate)
+  	</insert>
+  	
+  	<select id="reply_check" resultType="integer">
+  		SELECT reply_id FROM Product_Reply
+  		WHERE member_id = #{member_id} AND product_id = #{product_id}
+  	</select>
+ 
+ 	<!-- 댓글 페이징 -->
+  	<select id="getReplyList" resultType="com.boardGameMarket.project.domain.ReplyDTO">
+  	
+  		<![CDATA[
+		SELECT * FROM(  		
+			SELECT rownum as rn, reply_id, product_id, member_id, content, rating, updateDate, regDate
+			FROM Product_Reply
+			WHERE rownum <= #{pageNum} * #{amount} AND product_id = #{product_id}	
+			order by regDate desc  	
+  			)
+  		where rn > (#{pageNum} -1) * #{amount}
+  		]]>	
+  		
+  	</select>
+  	
+  	<select id="getReplyTotal" resultType="int">
+  		SELECT count(*)
+  		FROM Product_Reply
+  		WHERE product_id = #{product_id}
+  	
+  	</select>
+ 
+  
+  </mapper>

@@ -63,6 +63,107 @@
 				}
 			});
 		});
+		//댓글 부분 서버로 전송할 데이터
+		const replyForm = {
+				member_id : '${member.member_id}',
+				product_id : '${product.product_id}',
+				content : '',
+				rating : 0
+		}
+		
+		//댓글 등록 버튼
+		$(".btn_reply").click(function(e){
+		
+			replyForm.content = $("#comment").val();
+			replyForm.rating = $("#rating").val();
+			console.log(replyForm);
+			$.ajax({
+				url: '/pages/reply/register',
+				type: 'POST',
+				data: replyForm,
+				success: function(result){
+					alert(result);
+				}
+			});
+		});
+		
+		//댓글 불러오기
+		
+		$.getJSON("/pages/reply/list" , {product_id : ${product.product_id}}, function(obj){
+			
+			if(obj.reply_list.length === 0){
+				$(".reply_not_div").html('<span>등록된 리뷰가 없습니다.</span>');
+				$(".reply_content_ul").html('');
+				$(".pageMaker").html('');
+			}else{
+				$(".reply_not_div").html('');
+				
+				const list = obj.reply_list;
+				const pi = obj.page_info;
+				const member_id = '${member.member_id}';
+				
+				
+				/* 댓글 리스트 만드는 부분 */
+				
+				let reply_list = '';
+				
+				$(list).each(function(idx,data){
+					reply_list += '<li>';
+					reply_list += '<div class="comment_wrap">';
+					reply_list += '<h3>등록된 리뷰</h3>';					
+					reply_list += '<div class="reply_top">';
+					/* 아이디 */
+					reply_list += '<span class="id_span">'+ data.member_id+'</span>';
+					/* 날짜 */
+					reply_list += '<span class="date_span">'+ data.regDate +'</span>';
+					/* 평점 */
+					reply_list += '<span class="rating_span">평점 : <span class="rating_value_span">'+ data.rating +'</span>점</span>';
+					if(data.member_id === member_id){
+						reply_list += '<a class="update_reply_btn" href="'+ data.reply_id +'">수정</a><a class="delete_reply_btn" href="'+ obj.reply_id +'">삭제</a>';
+					}
+					reply_list += '</div>'; //<div class="reply_top">
+					reply_list += '<div class="reply_bottom">';
+					reply_list += '<div class="reply_bottom_txt">'+ data.content +'</div>';
+					reply_list += '</div>';//<div class="reply_bottom">
+					reply_list += '</div>';//<div class="comment_wrap">
+					reply_list += '</li>';
+				});
+				
+				$(".reply_content_ul").html(reply_list);
+				
+				/* 페이지 버튼 만드는 부분 */
+				
+				let reply_pageMaker = '';
+				
+				if(pi.prev){
+					let prev_num = pi.pageStart -1;
+					reply_pageMaker += '<li class="prev page-numbers">';
+					reply_pageMaker += '<a href="'+ prev_num +'">이전</a>';
+					reply_pageMaker += '</li>';	
+				}
+				/* numbre btn */
+				for(let i = pi.pageStart; i < pi.pageEnd+1; i++){
+					reply_pageMaker += '<li class="page-numbers ';
+					if(pi.cri.pageNum === i){
+						reply_pageMaker += 'current';
+					}
+					reply_pageMaker += '">';
+					reply_pageMaker += '<a href="'+i+'">'+i+'</a>';
+					reply_pageMaker += '</li>';
+				}
+				/* next */
+				if(pi.next){
+					let next_num = pi.pageEnd +1;
+					reply_pageMaker += '<li class="next page-numbers">';
+					reply_pageMaker += '<a href="'+ next_num +'">다음</a>';
+					reply_pageMaker += '</li>';	
+				}
+				
+				$(".pageMaker").html(reply_pageMaker);
+				
+			}
+			
+		});
 		
 		/* 바로구매 버튼 */
 		$(".btn_buy").click(function(){
@@ -70,6 +171,20 @@
 			$(".order_form").find("input[name='orders[0].product_count']").val(product_count);
 			$(".order_form").submit();
 		});
+		
+		/* 별점 컨트롤 */
+		$(".comment-form-rating .fa").each(function(idx,data){
+			$(this).click(function(){
+				$(".comment-form-rating .fa").removeClass("fa-star").addClass("fa-star-o");
+				for(var i=0; i<=idx; i++){
+					$(".comment-form-rating .fa").eq(i).removeClass("fa-star-o").addClass("fa-star");
+				}
+				$(".comment-form").find("input[name='rating']").val(idx+1);
+			});
+		});
+		
+		
+		
 	});
 </script>
 <style type="text/css">
@@ -99,6 +214,116 @@
 	width : 100%;
 	height: 400px;
 }
+.comment-form-rating .fa{
+	letter-spacing: -3px;
+	cursor: pointer;
+}
+.pageMaker{
+	list-style: none;
+	display: inline-block;
+	margin : 0 auto;
+	position : relative;
+}
+.pageMaker li{
+	display : inline;
+}
+ /* 리뷰쓰기 버튼 */
+  .reply_button_wrap{
+  	padding : 10px;
+  }
+  .reply_button_wrap button{
+	background-color: #365fdd;
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+    padding: 5px 12px;
+    cursor: pointer;  
+  }
+  .reply_button_wrap button:hover{
+  	background-color: #1347e7;
+  }
+  
+  /* 리뷰 영역 */
+  	.content_bottom{
+  		width: 80%;
+  		margin : auto;
+  	}
+	.reply_content_ul{
+		list-style: none;
+	}
+	.comment_wrap{
+		position: relative;
+    	border-bottom: 1px dotted #d4d4d4;
+    	padding: 14px 0 10px 0;	
+    	font-size: 12px;
+	}
+		/* 리뷰 머리 부분 */
+		.reply_top{
+			padding-bottom: 10px;
+		}
+		.id_span{
+			padding: 0 15px 0 3px;
+		    font-weight: bold;		
+		}
+		.date_span{
+			padding: 0 15px 0;
+		}
+		/* 리뷰 컨텐트 부분 */
+		.reply_bottom{
+			padding-bottom: 10px;
+		}
+		
+	
+	/* 리뷰 선 */
+	.reply_line{
+		width : 80%;
+		margin : auto;
+		border-top:1px solid #c6c6cf;  	
+	}
+	
+	/* 리뷰 제목 */
+	.reply_subject h2{
+		padding: 15px 0 5px 5px;
+	}
+	.reply_not_div{
+  	text-align: center;
+  }
+  .reply_not_div span{
+	display: block;
+    margin-top: 30px;
+    margin-bottom: 20px; 
+  }
+  
+  /* 리뷰 수정 삭제 버튼 */
+  .update_reply_btn{
+ 	font-weight: bold;
+    background-color: #b7b399;
+    display: inline-block;
+    width: 40px;
+    text-align: center;
+    height: 20px;
+    line-height: 20px;
+    margin: 0 5px 0 30px;
+    border-radius: 6px;
+    color: white; 
+    cursor: pointer;
+  }
+  .delete_reply_btn{
+ 	font-weight: bold;
+    background-color: #e7578f;
+    display: inline-block;
+    width: 40px;
+    text-align: center;
+    height: 20px;
+    line-height: 20px;
+    border-radius: 6px;
+    color: white; 
+  	cursor: pointer;
+  } 
+  
+  .comment_wrap h3{
+  	margin-bottom : 20px;
+  }
 </style>
 		<!-- #masthead -->
 		<div id="content" class="site-content">
@@ -146,59 +371,74 @@
 								</div>
 								<div class="panel entry-content wc-tab" id="tab-reviews">
 									<div id="reviews">
-										<div id="comments">
-											<h2>2 Reviews for Beige Jacket</h2>
-											<ol class="commentlist">
-												<li itemprop="review" itemscope itemtype="http://schema.org/Review" class="comment">
-												<div id="comment-3" class="comment_container">
-													<img alt='' src='http://0.gravatar.com/avatar/c7cab278a651f438795c2a9ebf02b5ae?s=60&#038;d=mm&#038;r=g' srcset='http://0.gravatar.com/avatar/c7cab278a651f438795c2a9ebf02b5ae?s=120&amp;d=mm&amp;r=g 2x' class='avatar avatar-60 photo' height='60' width='60'/>
-													<div class="comment-text">	
-														<p class="meta">
-															<strong itemprop="author">Steve</strong> &ndash; <time itemprop="datePublished" datetime="2013-06-07T15:54:25+00:00">June 7, 2013</time>:
-														</p>
-														<div itemprop="description" class="description">
-															<p>
-																I like the logo but not the color.
-															</p>
-														</div>
-													</div>
-												</div>
-												</li>
-											</ol>
-										</div>
+										<c:if test="${member != null}">
 										<div id="review_form_wrapper">
 											<div id="review_form">
 												<div id="respond" class="comment-respond">
 													<h3 style="margin-bottom:10px;" id="reply-title" class="comment-reply-title">Add a review <small><a rel="nofollow" id="cancel-comment-reply-link" href="/demo-moschino/product/woo-logo-2/#respond" style="display:none;">Cancel reply</a></small></h3>
-													<form action="#" method="post" id="commentform" class="comment-form" novalidate>
 														<p class="comment-form-rating">
-															<label for="rating">Your Rating</label>
-															<select name="rating" id="rating">
-																<option value="">Rate&hellip;</option>
-																<option value="5">Perfect</option>
-																<option value="4">Good</option>
-																<option value="3">Average</option>
-																<option value="2">Not that bad</option>
-																<option value="1">Very Poor</option>
-															</select>
+															<label>별점선택</label>
+															<i class="fa fa-star"></i>
+															<i class="fa fa-star"></i>
+															<i class="fa fa-star"></i>
+															<i class="fa fa-star"></i>
+															<i class="fa fa-star"></i>
 														</p>
-														<p class="comment-form-comment">
-															<label for="comment">Your Review</label><textarea id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea>
-														</p>
-														<p class="comment-form-author">
-															<label for="author">Name <span class="required">*</span></label><input id="author" name="author" type="text" value="" size="30" aria-required="true"/>
-														</p>
-														<p class="comment-form-email">
-															<label for="email">Email <span class="required">*</span></label><input id="email" name="email" type="text" value="" size="30" aria-required="true"/>
-														</p>
-														<p class="form-submit">
-															<input name="submit" type="submit" id="submit" class="submit" value="Submit"/><input type='hidden' name='comment_post_ID' value='60' id='comment_post_ID'/>															
-														</p>
-													</form>
+															<input type="hidden" id="rating" name="rating" value="5">
+															<p class="comment-form-comment">
+																<label for="comment">Your Review</label><textarea id="comment" name="comment" cols="45" rows="3" aria-required="true"></textarea>
+															</p>
+															<p class="form-submit">
+																<button class="btn_reply">댓글 등록</button>
+															</p>
+													   
 												</div>
 												<!-- #respond -->
 											</div>
 										</div>
+										</c:if>
+										<div class="reply_not_div">
+										
+										</div>
+										<ul class="reply_content_ul">
+											<li>
+												<div class="comment_wrap">
+													<h3>등록된 리뷰</h3>
+													<div class="reply_top">
+														<span class="id_span">sjinjin7</span>
+														<span class="date_span">2021-10-11</span>
+														<span class="rating_span">평점 : <span class="rating_value_span">4</span>점</span>
+														<a class="update_reply_btn">수정</a><a class="delete_reply_btn">삭제</a>
+													</div>
+													<div class="reply_bottom">
+														<div class="reply_bottom_txt">
+															사실 기대를 많이하고 읽기시작했는데 읽으면서 가가 쓴것이 맞는지 의심들게합니다 문체도그렇고 간결하지 않네요 제가 기대가 크던 작았던간에 책장이 사실 안넘겨집니다.
+														</div>
+													</div>
+												</div>
+											</li>
+										</ul>
+											<nav class="pagination">
+												<div class="pageMaker_wrap">
+													<ul class="pageMaker">
+														<c:if test="${pageMaker.prev}">
+															<li class="prev page-numbers">
+																<a href="${pageMaker.pageStart - 1}">이전</a>
+															</li>
+														</c:if>	
+														<c:forEach begin="${pageMaker.pageStart}" end="${pageMaker.pageEnd}" var="num">
+															<li class="page-numbers ${pageMaker.cri.pageNum == num ? "current" : ""}">
+																<a href="${num}">${num}</a>
+														</c:forEach>
+														
+														<c:if test="${pageMaker.next}">
+															<li class="next page-numbers">
+																<a href="${pageMaker.pageEnd + 1}">다음</a>
+															</li>
+														</c:if>
+													</ul>
+												</div>
+											</nav>
 										<div class="button_section">
 											<form id="moveForm" action="/pages/mainPage" method="get"> 
 											 	<input type="hidden" name="pageNum" value="${cri.pageNum}">
@@ -210,7 +450,7 @@
 										</div>
 										<!-- 주문 form -->
 										<div class="order_section">
-											<form action="/pages/order/orderPage/${member.member_id}" method="get" class="order_form">
+											<form action="/pages/orderPage/${member.member_id}" method="get" class="order_form">
 												<input type="hidden" name="orders[0].product_id" value="${product.product_id}">
 												<input type="hidden" name="orders[0].product_count" value="">
 											</form>

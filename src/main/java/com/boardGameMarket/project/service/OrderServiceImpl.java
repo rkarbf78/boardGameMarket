@@ -1,8 +1,6 @@
 package com.boardGameMarket.project.service;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.boardGameMarket.project.domain.CartDTO;
-import com.boardGameMarket.project.domain.MemberVO;
 import com.boardGameMarket.project.domain.OrderDTO;
 import com.boardGameMarket.project.domain.OrderElementDTO;
 import com.boardGameMarket.project.domain.OrderPageElementDTO;

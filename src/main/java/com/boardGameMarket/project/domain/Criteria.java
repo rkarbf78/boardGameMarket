@@ -23,6 +23,9 @@ public class Criteria {
 	/* 정렬 기준 */
     private String order_by;
     
+	/* 상품 번호 (댓글 기능에서 필요해서 추가함) */
+    private int product_id;
+    
     /* Criteria 생성자 */
     public Criteria(int pageNum, int amount) {
         this.pageNum = pageNum;
