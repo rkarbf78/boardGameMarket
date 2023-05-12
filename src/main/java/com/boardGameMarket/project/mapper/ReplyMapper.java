@@ -18,4 +18,13 @@ public interface ReplyMapper {
 	
 	/* 댓글 총 갯수(페이징) */
 	public int getReplyTotal(int product_id);
+	
+	/* 댓글 수정 */
+	public int reply_modify(ReplyDTO dto);
+	
+	/* 작성자 댓글 가져오기 */
+	public ReplyDTO getReply(int reply_id);
+	
+	/* 댓글 삭제 */
+	public int reply_remove(int reply_id);
 }

@@ -348,7 +348,7 @@
 								<div class="id_wrap">
 									<div class="id_name">아이디</div>
 									<div class="id_input_box">
-										<input type="text" name="member_id" class="id_input">
+										<input type="text" name="member_id" class="id_input" oninput="this.value = this.value.replace(/[ㄱ-ㅎㅏ-ㅣ가-힣]/g, '');">
 									</div>
 									<span class="id_input_re_1">사용 가능한 아이디입니다.</span>
 									<span class="id_input_re_2">아이디가 이미 존재합니다.</span>
@@ -380,7 +380,7 @@
 								<div class="phone_wrap">
 									<div class = "phone_name">전화번호</div>
 									<div class="phone_input_box">
-										<input type="text" name="member_phone" class="phone_input">
+										<input type="text" name="member_phone" class="phone_input" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="- 빼고 입력해 주세요">
 									</div>
 									<span class="final_phone_ck">전화번호를 입력해주세요.</span>
 								</div>

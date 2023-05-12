@@ -29,10 +29,10 @@ public class ReplyTests {
 			
 			ReplyDTO reply = new ReplyDTO();
 			
-			reply.setProduct_id(1);
+			reply.setProduct_id(108);
 			reply.setMember_id("user");
 			reply.setContent("댓글 테스트"+i);
-			reply.setRating(3.0);
+			reply.setRating((int)(Math.random()*5+1));
 			
 			mapper.reply_registration(reply);
 			

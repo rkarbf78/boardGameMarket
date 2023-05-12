@@ -38,8 +38,21 @@
   		SELECT count(*)
   		FROM Product_Reply
   		WHERE product_id = #{product_id}
-  	
   	</select>
- 
+  	
+  	<update id="reply_modify" parameterType="com.boardGameMarket.project.domain.ReplyDTO">
+  		UPDATE Product_Reply SET content = #{content}, rating = #{rating}, updateDate = sysdate
+  		WHERE reply_id = #{reply_id}	
+  	</update>
+  	
+  	<select id="getReply" resultType="com.boardGameMarket.project.domain.ReplyDTO">
+  		SELECT * FROM Product_Reply WHERE reply_id = #{reply_id}
+  	</select>
+  	
+  	<delete id="reply_remove">
+  		DELETE FROM Product_Reply 
+  		WHERE reply_id = #{reply_id}
+  	</delete>
+
   
   </mapper>

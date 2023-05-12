@@ -39,8 +39,29 @@ public class ReplyController {
 		}		
 	}
 	
+	/* 댓글 리스트 비동기식으로 주고받기위한 메서드 */
 	@GetMapping(value="/list",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ReplyPageDTO replyList(Criteria cri) {
 		return service.replyList(cri);
 	}
+	
+	/* 댓글 수정 */
+	@PostMapping(value="/modify",produces="application/text;charset=utf8")
+	public String replyModify(ReplyDTO dto) {
+		service.reply_modify(dto);
+		return "댓글 수정이 완료되었습니다.";
+	}
+	
+	/* 댓글 삭제 */
+	@PostMapping(value="/remove",produces="application/text;charset=utf8")
+	public String replyDelete(int reply_id) {
+		
+		service.reply_remove(reply_id);
+		
+		return "댓글 삭제가 완료되었습니다.";
+		
+		
+	}
+	
+	
 }

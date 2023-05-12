@@ -15,4 +15,13 @@ public interface ReplyService {
 	/* 댓글 페이징 */
 	public ReplyPageDTO replyList(Criteria cri);
 	
+	/* 댓글 수정 */
+	public int reply_modify(ReplyDTO dto);
+	
+	/* 작성자 댓글 가져오기 */
+	public ReplyDTO getReply(int reply_id);
+	
+	/* 댓글 삭제 */
+	public int reply_remove(int reply_id);
+	
 }

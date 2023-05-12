@@ -82,6 +82,7 @@
 				type: 'POST',
 				data: replyForm,
 				success: function(result){
+					replyListInit();
 					alert(result);
 				}
 			});
@@ -89,7 +90,18 @@
 		
 		//댓글 불러오기
 		
-		$.getJSON("/pages/reply/list" , {product_id : ${product.product_id}}, function(obj){
+		const product_id_for_reply = '${product.product_id}';
+
+		$.getJSON("/pages/reply/list" , {product_id : product_id_for_reply}, function(obj){
+		
+			makeReply(obj);	
+				
+		});
+		
+		
+		/* 댓글 구현 기능 함수화 */
+		
+		function makeReply(obj){	
 			
 			if(obj.reply_list.length === 0){
 				$(".reply_not_div").html('<span>등록된 리뷰가 없습니다.</span>');
@@ -100,68 +112,227 @@
 				
 				const list = obj.reply_list;
 				const pi = obj.page_info;
-				const member_id = '${member.member_id}';
+				const member_id = '${member.member_id}';	
+				var starTotal = 0;
+				var starAvg = 0.0;
 				
-				
-				/* 댓글 리스트 만드는 부분 */
-				
-				let reply_list = '';
-				
-				$(list).each(function(idx,data){
-					reply_list += '<li>';
-					reply_list += '<div class="comment_wrap">';
-					reply_list += '<h3>등록된 리뷰</h3>';					
-					reply_list += '<div class="reply_top">';
-					/* 아이디 */
-					reply_list += '<span class="id_span">'+ data.member_id+'</span>';
-					/* 날짜 */
-					reply_list += '<span class="date_span">'+ data.regDate +'</span>';
-					/* 평점 */
-					reply_list += '<span class="rating_span">평점 : <span class="rating_value_span">'+ data.rating +'</span>점</span>';
-					if(data.member_id === member_id){
-						reply_list += '<a class="update_reply_btn" href="'+ data.reply_id +'">수정</a><a class="delete_reply_btn" href="'+ obj.reply_id +'">삭제</a>';
-					}
-					reply_list += '</div>'; //<div class="reply_top">
-					reply_list += '<div class="reply_bottom">';
-					reply_list += '<div class="reply_bottom_txt">'+ data.content +'</div>';
-					reply_list += '</div>';//<div class="reply_bottom">
-					reply_list += '</div>';//<div class="comment_wrap">
-					reply_list += '</li>';
-				});
-				
-				$(".reply_content_ul").html(reply_list);
-				
-				/* 페이지 버튼 만드는 부분 */
-				
-				let reply_pageMaker = '';
-				
-				if(pi.prev){
-					let prev_num = pi.pageStart -1;
-					reply_pageMaker += '<li class="prev page-numbers">';
-					reply_pageMaker += '<a href="'+ prev_num +'">이전</a>';
-					reply_pageMaker += '</li>';	
-				}
-				/* numbre btn */
-				for(let i = pi.pageStart; i < pi.pageEnd+1; i++){
-					reply_pageMaker += '<li class="page-numbers ';
-					if(pi.cri.pageNum === i){
-						reply_pageMaker += 'current';
-					}
-					reply_pageMaker += '">';
-					reply_pageMaker += '<a href="'+i+'">'+i+'</a>';
-					reply_pageMaker += '</li>';
-				}
-				/* next */
-				if(pi.next){
-					let next_num = pi.pageEnd +1;
-					reply_pageMaker += '<li class="next page-numbers">';
-					reply_pageMaker += '<a href="'+ next_num +'">다음</a>';
-					reply_pageMaker += '</li>';	
-				}
-				
-				$(".pageMaker").html(reply_pageMaker);
-				
+				console.log(list);
+		 	/* 리뷰 평점 적용하기 */ 
+			for(let i = 0; i<list.length; i++){
+				starTotal += list[i].rating;
 			}
+			
+			starAvg = starTotal / list.length;
+			
+			console.log(starAvg);
+			
+			starAvg = starAvg * 10;
+			starAvg = Math.round(starAvg);
+			starAvg = starAvg / 10;
+			
+
+			console.log(starAvg);
+			console.log();
+			
+			console.log(Math.floor(starAvg));
+			
+			var starAvgTag = '';
+			
+			starAvgTag += "<div class='starAvg'>";
+			starAvgTag += "별점 평균   ";
+			for(var i=0; i<5; i++){
+				if(i<Math.floor(starAvg)){
+					starAvgTag += "<i class='fa fa-star'></i>";
+				}else if(i === Math.floor(starAvg)){
+					switch((starAvg*10)-(Math.floor(starAvg)*10)){ //2진법 미세오류로 인해 조금 복잡한 계산식으로 적용함
+						case 0: case 1: case 2: case 3:
+							starAvgTag += "<i class='fa fa-star-o'></i>";	
+							break;
+						case 4: case 5: case 6: case 7:
+							starAvgTag += "<i class='fa fa-star-half-full'></i>";
+							break;
+						case 8: case 9:
+							starAvgTag += "<i class='fa fa-star'></i>";
+							break;
+					}
+				}else{
+					starAvgTag += "<i class='fa fa-star-o'></i>";	
+				}
+			}
+			starAvgTag += "</div>";
+			$(".detail_section_wrap2").find(".detail_section_title").append(starAvgTag);
+			
+				
+			/* 댓글 리스트 만드는 부분 */
+			
+			let reply_list = '';
+			
+			$(list).each(function(idx,data){
+				reply_list += '<li>';
+				reply_list += '<div class="comment_wrap">';			
+				reply_list += '<div class="reply_top">';
+				/* 아이디 */
+				reply_list += '<span class="id_span">'+ data.member_id+'</span>';
+				/* 날짜 (수정된 댓글일시와 수정없을시 구분) */
+				
+				/* 평점 */
+				for(var i = 0; i<5; i++){
+					if(i<data.rating){
+						reply_list += '<i class="fa fa-star"></i>';	
+					}else{
+						reply_list += '<i class="fa fa-star-o"></i>';
+					}
+				} 
+				
+				if(data.regDate === data.updateDate){
+					reply_list += '<span class="date_span">등록일 '+ data.regDate +'</span>';
+				}else{
+					reply_list += '<span class="date_span">등록일 '+ data.regDate +' (수정일 '+ data.updateDate +')</span>';
+				}
+				
+				if(data.member_id === member_id){
+					reply_list += '<a class="update_reply_btn" href="'+ data.reply_id +'">수정</a><a class="delete_reply_btn" href="'+ data.reply_id +'">삭제</a>';
+				}
+				reply_list += '</div>'; //<div class="reply_top">
+				reply_list += '<div class="reply_bottom">';
+				reply_list += '<div class="reply_bottom_txt">'+ data.content +'</div>';
+				reply_list += '</div>';//<div class="reply_bottom">
+				reply_list += '</div>';//<div class="comment_wrap">
+				reply_list += '</li>';
+			});
+			
+			$(".reply_content_ul").html(reply_list);
+			
+			/* 페이지 버튼 만드는 부분 */
+			
+			let reply_pageMaker = '';
+			
+			if(pi.prev){
+				let prev_num = pi.pageStart -1;
+				reply_pageMaker += '<li class="prev page-numbers">';
+				reply_pageMaker += '<a href="'+ prev_num +'">이전</a>';
+				reply_pageMaker += '</li>';	
+			}
+			/* numbre btn */
+			for(let i = pi.pageStart; i < pi.pageEnd+1; i++){
+				reply_pageMaker += '<li class="page-numbers ';
+				if(pi.cri.pageNum === i){
+					reply_pageMaker += 'current';
+				}
+				reply_pageMaker += '">';
+				reply_pageMaker += '<a href="'+i+'">'+i+'</a>';
+				reply_pageMaker += '</li>';
+			}
+			/* next */
+			if(pi.next){
+				let next_num = pi.pageEnd +1;
+				reply_pageMaker += '<li class="next page-numbers">';
+				reply_pageMaker += '<a href="'+ next_num +'">다음</a>';
+				reply_pageMaker += '</li>';	
+			}
+			
+			$(".pageMaker").html(reply_pageMaker);
+		}
+		}
+		
+		/* 댓글 페이지정보 */
+		const cri = {
+				product_id : '${product.product_id}',
+				pageNum : 1,
+				amount : 10
+		}
+
+		// 댓글 데이터 서버 요청 및 댓글 동적 생성 메서드
+		let replyListInit = function(){
+			$.getJSON("/pages/reply/list" , cri , function(obj){
+					makeReply(obj);
+			});
+		}
+		
+		/* 댓글 페이지 버튼 document ready시점에서 .page-numbers a 태그는 
+		존재하지않기때문에 클릭이벤트가 발생하지않는다. 그래서 document on 메서드를 사용*/
+		$(document).on('click', '.page-numbers a', function(e){
+			
+			e.preventDefault();
+			
+			let page = $(this).attr("href");
+			cri.pageNum = page;
+			
+			replyListInit();
+			
+		});
+		
+		const replyModifyVO = {
+				reply_id : '',
+				content : '',
+				rating : 0
+		}
+
+		/* 댓글 수정버튼 클릭시 수정모드로 전환 */
+		$(document).on('click', '.update_reply_btn', function(e){
+			
+			e.preventDefault();
+			
+			//아이디 설정
+			replyModifyVO.reply_id = $(this).attr("href");
+			//레이팅 설정
+			replyModifyVO.rating = $(this).closest(".reply_top").find(".fa.fa-star").length;
+
+			console.log(replyModifyVO.rating);
+			
+			$(this).closest(".reply_top").find(".fa").attr("style","cursor : pointer");
+			
+			$(this).closest(".reply_top").find(".fa").each(function(idx,data){
+			$(this).click(function(){
+				$(this).closest(".reply_top").find(".fa").removeClass("fa-star").addClass("fa-star-o");
+				for(var i=0; i<=idx; i++){
+					$(this).closest(".reply_top").find(".fa").eq(i).removeClass("fa-star-o").addClass("fa-star");
+				}
+				
+				//변경된 레이팅 적용
+				replyModifyVO.rating = idx+1;
+			});
+		});
+			
+			
+			//기존 content값 부여
+			let contentText = $(this).closest('.comment_wrap').find(".reply_bottom_txt").text();
+			
+			$(this).closest('.comment_wrap').find(".reply_bottom_txt").html('<textarea>'+contentText+'</textarea>');
+			$(this).closest('.comment_wrap').append("<button class='reply_modify_btn'>수정 등록</button>");
+			
+			//수정 등록 클릭시 수정 진행시키기
+			$(".reply_modify_btn").click(function(){
+				replyModifyVO.content = $(this).closest('.comment_wrap').find(".reply_bottom_txt textarea").val();
+				$.ajax({
+					url: '/pages/reply/modify',
+					type: 'POST',
+					data: replyModifyVO,
+					success: function(result){
+						replyListInit();
+						alert(result);
+					}
+				});
+			});
+			
+		});
+		
+		/* 댓글 삭제 버튼 */
+		$(document).on('click','.delete_reply_btn',function(e){
+			
+			e.preventDefault();
+			
+			let reply_id = $(this).attr("href");
+			
+			$.ajax({
+				data : {reply_id : reply_id}, //ajax 데이터 전송시 객체형태로 보내는것이 가장 편리함. 그냥 보냈다가 잘 안되서 객체형으로 변경함.
+				url : '/pages/reply/remove',
+				type : 'POST',
+				success : function(result){
+					replyListInit();
+					alert(result);
+				}
+			});	
 			
 		});
 		
@@ -182,10 +353,8 @@
 				$(".comment-form").find("input[name='rating']").val(idx+1);
 			});
 		});
-		
-		
-		
 	});
+	
 </script>
 <style type="text/css">
 	#result_card img {
@@ -323,7 +492,14 @@
   
   .comment_wrap h3{
   	margin-bottom : 20px;
-  }
+  }  
+.starAvg{
+}
+
+.fa {
+	color : #ffd700;
+}
+
 </style>
 		<!-- #masthead -->
 		<div id="content" class="site-content">
@@ -343,7 +519,7 @@
 							</div>
 								<div class="detail_section_wrap2">
 									<div class="detail_section_title">
-										<h1>${product.product_name}</h1>
+										<h2>${product.product_name}</h2>
 									</div>
 									<div class="detail_section_price">
 										<span>${product.product_price} 원</span>
@@ -400,10 +576,10 @@
 										<div class="reply_not_div">
 										
 										</div>
-										<ul class="reply_content_ul">
+										<h3>등록된 리뷰</h3>
+										<ul class="reply_content_ul">	
 											<li>
 												<div class="comment_wrap">
-													<h3>등록된 리뷰</h3>
 													<div class="reply_top">
 														<span class="id_span">sjinjin7</span>
 														<span class="date_span">2021-10-11</span>
