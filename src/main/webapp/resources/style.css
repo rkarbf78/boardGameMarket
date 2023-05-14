@@ -2436,6 +2436,9 @@ h1, h2, h3, h4, h5, h6 {
 	text-align : center;
 	margin-bottom : 30px;
 }
+.fa {
+	color : #ffd700;
+}
 .site-title a, .site-description {
 	color: #222222;
 }

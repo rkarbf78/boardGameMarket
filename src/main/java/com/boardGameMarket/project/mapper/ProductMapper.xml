@@ -12,18 +12,37 @@
   				product_category_code = ${page_category_code} AND
   			</if>
   	</sql>
+  	
+  	<sql id = "order_by">
+  		<choose>
+  			<when test="order_by == null or order_by == 'new'">
+  				Product
+  			</when>
+  			<when test="order_by == 'best'">
+  				(SELECT * FROM Product ORDER BY product_sell DESC)
+  			</when>
+  			<when test="order_by == 'high'">
+  				(SELECT * FROM Product ORDER BY product_price DESC)
+  			</when>
+  			<when test="order_by == 'row'">
+  				(SELECT * FROM Product ORDER BY product_price ASC)
+  			</when>
+  		</choose>
+  	</sql>
   
   	<select id="getProductList" resultType="com.boardGameMarket.project.domain.ProductVO">
   		
   	<![CDATA[
   		SELECT * FROM (
-  			SELECT /*+INDEX_DESC(Product SYS_C007391) */
+  			SELECT /*+INDEX_DESC(Product SYS_C007127) */
   				rownum as rn, product_id, product_name, product_price, product_info,
   				product_stock, product_sell, product_category_code, product_updateDate, product_regDate
-  				FROM Product
+  				FROM   	]]>
+  
+  				<include refid="order_by"></include>
+  
   				WHERE
-  	]]>
-  	
+  
   				<include refid="criteria"></include>
   		
   	<![CDATA[

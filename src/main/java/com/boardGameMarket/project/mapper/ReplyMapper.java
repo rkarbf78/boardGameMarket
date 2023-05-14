@@ -13,7 +13,10 @@ public interface ReplyMapper {
 	/* 중복 댓글 존재 여부 */
 	public Integer reply_check(ReplyDTO reply);
 	
-	/* 댓글 리스트 가져오기 */
+	/* 댓글 리스트 레이팅 가져오기(전체) 레이팅 평균값을 위함 */
+	public List<Double> getReplyAllRating(int product_id);
+	
+	/* 댓글 리스트 가져오기(페이징) */
 	public List<ReplyDTO> getReplyList(Criteria cri);
 	
 	/* 댓글 총 갯수(페이징) */

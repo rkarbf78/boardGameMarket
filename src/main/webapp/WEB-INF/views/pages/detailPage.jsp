@@ -90,9 +90,14 @@
 		
 		//댓글 불러오기
 		
-		const product_id_for_reply = '${product.product_id}';
+		/* 댓글 페이지정보 */
+		const cri = {
+				product_id : '${product.product_id}',
+				pageNum : 1,
+				amount : 10
+		}
 
-		$.getJSON("/pages/reply/list" , {product_id : product_id_for_reply}, function(obj){
+		$.getJSON("/pages/reply/list" , cri , function(obj){
 		
 			makeReply(obj);	
 				
@@ -103,7 +108,7 @@
 		
 		function makeReply(obj){	
 			
-			if(obj.reply_list.length === 0){
+			if(obj.reply_list.length === 0){ //등록된 리뷰 없을시
 				$(".reply_not_div").html('<span>등록된 리뷰가 없습니다.</span>');
 				$(".reply_content_ul").html('');
 				$(".pageMaker").html('');
@@ -113,56 +118,9 @@
 				const list = obj.reply_list;
 				const pi = obj.page_info;
 				const member_id = '${member.member_id}';	
-				var starTotal = 0;
-				var starAvg = 0.0;
-				
-				console.log(list);
-		 	/* 리뷰 평점 적용하기 */ 
-			for(let i = 0; i<list.length; i++){
-				starTotal += list[i].rating;
-			}
-			
-			starAvg = starTotal / list.length;
-			
-			console.log(starAvg);
-			
-			starAvg = starAvg * 10;
-			starAvg = Math.round(starAvg);
-			starAvg = starAvg / 10;
-			
-
-			console.log(starAvg);
-			console.log();
-			
-			console.log(Math.floor(starAvg));
-			
-			var starAvgTag = '';
-			
-			starAvgTag += "<div class='starAvg'>";
-			starAvgTag += "별점 평균   ";
-			for(var i=0; i<5; i++){
-				if(i<Math.floor(starAvg)){
-					starAvgTag += "<i class='fa fa-star'></i>";
-				}else if(i === Math.floor(starAvg)){
-					switch((starAvg*10)-(Math.floor(starAvg)*10)){ //2진법 미세오류로 인해 조금 복잡한 계산식으로 적용함
-						case 0: case 1: case 2: case 3:
-							starAvgTag += "<i class='fa fa-star-o'></i>";	
-							break;
-						case 4: case 5: case 6: case 7:
-							starAvgTag += "<i class='fa fa-star-half-full'></i>";
-							break;
-						case 8: case 9:
-							starAvgTag += "<i class='fa fa-star'></i>";
-							break;
-					}
-				}else{
-					starAvgTag += "<i class='fa fa-star-o'></i>";	
-				}
-			}
-			starAvgTag += "</div>";
-			$(".detail_section_wrap2").find(".detail_section_title").append(starAvgTag);
 			
 				
+		 	
 			/* 댓글 리스트 만드는 부분 */
 			
 			let reply_list = '';
@@ -235,12 +193,6 @@
 		}
 		}
 		
-		/* 댓글 페이지정보 */
-		const cri = {
-				product_id : '${product.product_id}',
-				pageNum : 1,
-				amount : 10
-		}
 
 		// 댓글 데이터 서버 요청 및 댓글 동적 생성 메서드
 		let replyListInit = function(){
@@ -248,6 +200,49 @@
 					makeReply(obj);
 			});
 		}
+		
+		//전체 리뷰 별점 평균값 부여하기 (상품이름 쪽)
+		$.getJSON("/pages/reply/rating" , {product_id : cri.product_id} , function(obj){
+			
+			var starTotal = 0;
+			var starAvg = 0.0;
+		//레이팅 총합 구하기
+		for(let i = 0; i<obj.length; i++){
+			starTotal += obj[i];
+		}
+		
+		//레이팅 평균 구하기 (소수점 둘째자리 버리기)
+		starAvg = starTotal / obj.length;
+		starAvg = starAvg * 10;
+		starAvg = Math.round(starAvg);
+		starAvg = starAvg / 10;
+		
+		var starAvgTag = '';
+		starAvgTag += "<div class='starAvg'>";
+		starAvgTag += "별점 평균   ";
+		for(var i=0; i<5; i++){
+			if(i<Math.floor(starAvg)){
+				starAvgTag += "<i class='fa fa-star'></i>";
+			}else if(i === Math.floor(starAvg)){
+				switch((starAvg*10)-(Math.floor(starAvg)*10)){ //2진법 미세오류로 인해 조금 복잡한 계산식으로 적용함
+					case 0: case 1: case 2: case 3:
+						starAvgTag += "<i class='fa fa-star-o'></i>";	
+						break;
+					case 4: case 5: case 6: case 7:
+						starAvgTag += "<i class='fa fa-star-half-full'></i>";
+						break;
+					case 8: case 9:
+						starAvgTag += "<i class='fa fa-star'></i>";
+						break;
+				}
+			}else{
+				starAvgTag += "<i class='fa fa-star-o'></i>";	
+			}
+		}
+		starAvgTag += "(" + obj.length + ")";
+		starAvgTag += "</div>";
+		$(".detail_section_wrap2").find(".detail_section_title").append(starAvgTag);
+		});
 		
 		/* 댓글 페이지 버튼 document ready시점에서 .page-numbers a 태그는 
 		존재하지않기때문에 클릭이벤트가 발생하지않는다. 그래서 document on 메서드를 사용*/
@@ -493,12 +488,6 @@
   .comment_wrap h3{
   	margin-bottom : 20px;
   }  
-.starAvg{
-}
-
-.fa {
-	color : #ffd700;
-}
 
 </style>
 		<!-- #masthead -->

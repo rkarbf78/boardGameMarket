@@ -1,5 +1,7 @@
 package com.boardGameMarket.project.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,6 +45,12 @@ public class ReplyController {
 	@GetMapping(value="/list",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ReplyPageDTO replyList(Criteria cri) {
 		return service.replyList(cri);
+	}
+	
+	/* 댓글 전체 레이팅 비동기식으로 주고받기위한 메서드 */
+	@GetMapping(value="/rating",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public List<Double> replyRating(int product_id) {
+		return service.getReplyAllRating(product_id);
 	}
 	
 	/* 댓글 수정 */

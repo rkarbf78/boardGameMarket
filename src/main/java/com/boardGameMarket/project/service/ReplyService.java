@@ -1,5 +1,7 @@
 package com.boardGameMarket.project.service;
 
+import java.util.List;
+
 import com.boardGameMarket.project.domain.Criteria;
 import com.boardGameMarket.project.domain.ReplyDTO;
 import com.boardGameMarket.project.domain.ReplyPageDTO;
@@ -11,6 +13,9 @@ public interface ReplyService {
 	
 	/* 중복 댓글 존재 여부 */
 	public String reply_check(ReplyDTO reply);
+	
+	/* 댓글 리스트 레이팅 가져오기(전체) 레이팅 평균값을 위함 */
+	public List<Double> getReplyAllRating(int product_id);
 	
 	/* 댓글 페이징 */
 	public ReplyPageDTO replyList(Criteria cri);

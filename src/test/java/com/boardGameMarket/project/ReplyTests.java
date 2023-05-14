@@ -29,8 +29,8 @@ public class ReplyTests {
 			
 			ReplyDTO reply = new ReplyDTO();
 			
-			reply.setProduct_id(108);
-			reply.setMember_id("user");
+			reply.setProduct_id(106);
+			reply.setMember_id("gang0");
 			reply.setContent("댓글 테스트"+i);
 			reply.setRating((int)(Math.random()*5+1));
 			

@@ -53,6 +53,10 @@
   		DELETE FROM Product_Reply 
   		WHERE reply_id = #{reply_id}
   	</delete>
+  	
+  	<select id="getReplyAllRating" resultType="double">
+  		SELECT rating FROM Product_Reply WHERE product_id = #{product_id} 
+  	</select>
 
   
   </mapper>

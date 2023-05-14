@@ -1,5 +1,6 @@
 package com.boardGameMarket.project.controller;
 
+import java.util.List;
 import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
@@ -10,14 +11,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.boardGameMarket.project.domain.CategoryVO;
 import com.boardGameMarket.project.domain.MemberVO;
 import com.boardGameMarket.project.service.MemberService;
+import com.boardGameMarket.project.service.ProductService;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -28,25 +32,31 @@ import lombok.extern.log4j.Log4j;
 public class MemberController {
 
 	@Setter(onMethod_=@Autowired)
-	private MemberService service;
+	private MemberService m_service;
+	@Setter(onMethod_=@Autowired)
+	private ProductService p_service;
 	
 	@Autowired
 	private JavaMailSender mailSender;
 	
 	
 	@GetMapping("/loginPage")
-	public void loginPage() {
-		
+	public String loginPage(Model model) {
+		List<CategoryVO> categoryList = p_service.categoryList();
+		model.addAttribute("categoryList" , categoryList);
+		return "/pages/loginPage";
 	}
 
 	@GetMapping("/joinPage")
-	public void joinPage() {
-		
+	public String joinPage(Model model) {
+		List<CategoryVO> categoryList = p_service.categoryList();
+		model.addAttribute("categoryList" , categoryList);
+		return "/pages/joinPage";
 	}
 	
 	@PostMapping("/join")
 	public String member_join(MemberVO mVo) {
-		service.member_registration(mVo);
+		m_service.member_registration(mVo);
 		return "redirect:/pages/mainPage";
 	}
 	
@@ -54,7 +64,7 @@ public class MemberController {
 	@PostMapping("/member_id_check")
 	public String member_id_check(String member_id) {
 		//log.info("member_id_check 吏꾩엯");
-		int result = service.idCheck(member_id);
+		int result = m_service.idCheck(member_id);
 		
 		if(result != 0) {
 			return "fail";
@@ -106,7 +116,7 @@ public class MemberController {
 	public String loginPOST(HttpServletRequest request, MemberVO mVo, RedirectAttributes rttr) {
 		
 		HttpSession session = request.getSession();
-		MemberVO loginMvo = service.member_login(mVo);
+		MemberVO loginMvo = m_service.member_login(mVo);
 		
 		//로그인 패스워드 불일치시
 		if(loginMvo == null) {

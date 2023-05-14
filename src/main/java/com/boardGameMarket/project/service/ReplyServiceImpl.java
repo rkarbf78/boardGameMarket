@@ -1,5 +1,7 @@
 package com.boardGameMarket.project.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -71,6 +73,11 @@ public class ReplyServiceImpl implements ReplyService {
 		
 		return result;
 		
+	}
+
+	@Override
+	public List<Double> getReplyAllRating(int product_id) {
+		return r_mapper.getReplyAllRating(product_id);
 	}
 
 }

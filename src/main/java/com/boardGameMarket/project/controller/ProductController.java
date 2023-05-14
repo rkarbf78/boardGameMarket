@@ -88,5 +88,9 @@ public class ProductController {
 		model.addAttribute("cri",cri);
 		
 		model.addAttribute("product",product);
+		
+		List<CategoryVO> categoryList = service.categoryList();
+		
+		model.addAttribute("categoryList" , categoryList);
 	}	
 }

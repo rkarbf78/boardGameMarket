@@ -86,6 +86,51 @@
 
 		});
 		
+		$(".entry-header").each(function(idx,data){
+			
+			const product_id_for_reply = $(this).find(".find_id").val();
+			const starDiv = $(this).find(".entry-star");
+			
+			//전체 리뷰 별점 평균값 부여하기 (상품이름 쪽)
+			$.getJSON("/pages/reply/rating" , {product_id : product_id_for_reply} , function(obj){
+				
+				var starTotal = 0;
+				var starAvg = 0.0;
+			//레이팅 총합 구하기
+			for(let i = 0; i<obj.length; i++){
+				starTotal += obj[i];
+			}
+			//레이팅 평균 구하기 (소수점 둘째자리 버리기)
+			starAvg = starTotal / obj.length;
+			starAvg = starAvg * 10;
+			starAvg = Math.round(starAvg);
+			starAvg = starAvg / 10;
+			
+			var starAvgTag = '';
+			for(var i=0; i<5; i++){
+				if(i<Math.floor(starAvg)){
+					starAvgTag += "<i class='fa fa-star'></i>";
+				}else if(i === Math.floor(starAvg)){
+					switch((starAvg*10)-(Math.floor(starAvg)*10)){ //2진법 미세오류로 인해 조금 복잡한 계산식으로 적용함
+						case 0: case 1: case 2: case 3:
+							starAvgTag += "<i class='fa fa-star-o'></i>";	
+							break;
+						case 4: case 5: case 6: case 7:
+							starAvgTag += "<i class='fa fa-star-half-full'></i>";
+							break;
+						case 8: case 9:
+							starAvgTag += "<i class='fa fa-star'></i>";
+							break;
+					}
+				}else{
+					starAvgTag += "<i class='fa fa-star-o'></i>";	
+				}
+			}
+			starAvgTag += "(" + obj.length + ")";
+			starDiv.html(starAvgTag);
+			});
+			
+		});	
 	});
 </script>
 
@@ -118,10 +163,10 @@
 
 <div class="product_order_by">
 		<ul>
-			<li><a href="order by product_regDate asc" class="order_nav_1">신상품순</a></li>
-			<li><a href="order by product_sell asc" class="order_nav_2">인기상품순</a></li>
-			<li><a href="order by product_price desc" class="order_nav_3">높은가격순</a></li>
-			<li><a href="order by product_price asc" class="order_nav_4">낮은가격순</a></li>
+			<li><a href="new" class="order_nav_1">신상품순</a></li>
+			<li><a href="best" class="order_nav_2">인기상품순</a></li>
+			<li><a href="high" class="order_nav_3">높은가격순</a></li>
+			<li><a href="row" class="order_nav_4">낮은가격순</a></li>
 		</ul>
 	</div>
 		<!-- #masthead -->
@@ -143,6 +188,7 @@
 										<div class="entry-title">
 											<h4>${list.product_name}</h4>
 										</div>
+										<div class="entry-star">r</div>
 										<div class="entry-category">
 											<c:forEach items="${categoryList}" var="category">
 												<c:if test="${list.product_category_code == category.category_code}">

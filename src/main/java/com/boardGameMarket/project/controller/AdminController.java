@@ -36,8 +36,11 @@ public class AdminController {
 	private MemberService m_service;
 	
 	@GetMapping("/adminPage")
-	public void adminGET() {
+	public void adminGET(Model model) {
 		log.info("관리자 페이지 이동");
+		List<CategoryVO> categoryList = p_service.categoryList();
+		
+		model.addAttribute("categoryList" , categoryList);
 	}
 	
 	@GetMapping("/registerPage")
@@ -172,6 +175,10 @@ public class AdminController {
 		
 		model.addAttribute("pageMaker", pageMaker);
 		
+		List<CategoryVO> categoryList = p_service.categoryList();
+		
+		model.addAttribute("categoryList" , categoryList);
+		
 	}
 	
 	@GetMapping("/memberDetailPage")
@@ -181,6 +188,8 @@ public class AdminController {
 		member.setMember_address(address);
 		model.addAttribute("member",member);
 		model.addAttribute("cri",cri);
+		List<CategoryVO> categoryList = p_service.categoryList();
+		model.addAttribute("categoryList" , categoryList);
 	}
 	
 	@PostMapping("/memberRemove")
