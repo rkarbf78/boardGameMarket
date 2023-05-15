@@ -14,4 +14,8 @@ public interface OrderService {
 	/* 주문 */
 	public void order(OrderDTO odd);
 	
+	/* 주문 목록 가져오기 */
+	public List<OrderDTO> getOrderList(String member_id);
+	
+	
 }

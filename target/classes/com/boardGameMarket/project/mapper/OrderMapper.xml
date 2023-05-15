@@ -22,12 +22,40 @@
  	<selectKey resultType="int" keyProperty="order_element_id" order="BEFORE">
   			SELECT Product_Order_Element_seq.NEXTVAL FROM dual
   	</selectKey>
- 	INSERT INTO Product_Order_Element(order_element_id, order_id, product_id, product_count, product_price)
- 	VALUES(#{order_element_id}, #{order_id}, #{product_id}, #{product_count}, #{product_price})
+ 	INSERT INTO Product_Order_Element(order_element_id, order_id, product_id, product_name, product_count, product_price)
+ 	VALUES(#{order_element_id}, #{order_id}, #{product_id}, #{product_name}, #{product_count}, #{product_price})
  </insert>
   	
   <update id="deduction_stock">
   	UPDATE Product SET product_stock = #{product_stock} WHERE product_id = #{product_id}
   </update>
+  
+  <select id="getOrderList" resultMap="orderWithElement">
+  	SELECT * FROM  Product_Order WHERE member_id = #{member_id}
+  </select>
+  
+  <select id="getOrderElementList" resultType="com.boardGameMarket.project.domain.OrderElementDTO">
+  	SELECT * FROM Product_Order_Element where order_id = #{order_id}
+  </select>
+  
+  <resultMap type="com.boardGameMarket.project.domain.OrderDTO" id="orderWithElement">
+  	<result column="order_id" property="order_id"/>
+  	<result column="receiver" property="receiver"/>
+  	<result column="member_id" property="member_id"/>
+  	<result column="member_address1" property="member_address1"/>
+  	<result column="member_address2" property="member_address2"/>
+  	<result column="member_address3" property="member_address3"/>
+  	<result column="order_state" property="order_state"/>
+  	<result column="delivery_price" property="delivery_price"/>
+  	<result column="orderDate" property="orderDate"/>
+  	<collection column="order_id"
+  				property="orders"
+  				javaType="java.util.List"
+  				ofType="com.boardGameMarket.project.domain.OrderElementDTO"
+  				select="getOrderElementList"
+  				></collection>
+  	
+  	
+  </resultMap>
   
   </mapper>

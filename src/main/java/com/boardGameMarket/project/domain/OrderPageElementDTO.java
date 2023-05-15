@@ -10,8 +10,9 @@ public class OrderPageElementDTO {
 	
 	private int product_count;
 	
-	/* DB로부터 전달받을 데이터 */
 	private String product_name;
+	
+	/* DB로부터 전달받을 데이터 */
 	
 	private int product_price;
 	

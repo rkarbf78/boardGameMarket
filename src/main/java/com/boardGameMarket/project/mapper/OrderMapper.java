@@ -1,5 +1,7 @@
 package com.boardGameMarket.project.mapper;
 
+import java.util.List;
+
 import com.boardGameMarket.project.domain.OrderDTO;
 import com.boardGameMarket.project.domain.OrderElementDTO;
 import com.boardGameMarket.project.domain.OrderPageElementDTO;
@@ -21,6 +23,11 @@ public interface OrderMapper {
 	
 	/* 주문 재고 차감 */
 	public int deduction_stock(ProductVO product);
+	
+	/* 주문 목록 가져오기 */
+	public List<OrderDTO> getOrderList(String member_id);
+	
+	
 	
 	
 }

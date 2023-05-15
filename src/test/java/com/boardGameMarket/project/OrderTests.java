@@ -83,4 +83,12 @@ public class OrderTests {
 		
 		mapper.deduction_stock(product);
 	}
+	
+//	@Test
+	public void getListTest() {
+		List<OrderDTO> orderList = mapper.getOrderList("user");
+		orderList.forEach(i -> {
+			log.info("로그로 찍어보자" + i.getOrders());
+		});
+	}
 }

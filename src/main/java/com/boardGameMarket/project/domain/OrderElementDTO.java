@@ -11,6 +11,8 @@ public class OrderElementDTO {
 	
 	private int product_id;
 	
+	private String product_name;
+	
 	private int product_count;
 	
 	private int product_price;

@@ -79,6 +79,8 @@ public class OrderServiceImpl implements OrderService{
 			//order_id 세팅
 			odeds.setOrder_id(odd.getOrder_id());
 			
+			System.out.println(odeds.getProduct_name());
+			
 			//orderElement DB에 넣기
 			o_mapper.order_element_registration(odeds);
 			
@@ -94,6 +96,12 @@ public class OrderServiceImpl implements OrderService{
 			c_mapper.delete_order_cart(cart);
 			
 		}
+	}
+
+
+	@Override
+	public List<OrderDTO> getOrderList(String member_id) {
+		return o_mapper.getOrderList(member_id);
 	}
 	
 }

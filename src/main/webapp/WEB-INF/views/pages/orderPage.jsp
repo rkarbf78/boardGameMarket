@@ -15,6 +15,8 @@
 	
 		setTotalInfo();
 		
+		var o_id = "${member_info.member_id}" + new Date().getTime();
+		
 		$(".order_btn").click(function(){
 			
 			/* 주소정보 & 받는이 */
@@ -29,7 +31,8 @@
 				}				
 			});
 			
-			var o_id = "${member_info.member_id}" + new Date().getTime();
+			
+			
 			var o_amount = parseInt($(".priceTotalFinal_span").text());
 			var m_email = "${member_info.member_email}";
 			var m_name = "${member_info.member_name}";
@@ -41,7 +44,41 @@
 	
 		});
 		
+
+		
+		$(".products_table_tr").each(function(idx,data){
+			
+			//이미지 정보 호출
+			let product_id = "" + $(this).find(".product_id_input").val();
+			let uploadResult = $(this).find("#uploadResult");
+			
+			$.getJSON("/pages/getAttachFile",{product_id:product_id}).done(function(one){
+
+				let str = "";
+				let obj = one;
+				
+				let fileCallPath = encodeURIComponent(obj.uploadPath + "/" + obj.uuid + "_" + obj.fileName);
+				str += "<div id='result_card'";
+				str += "data-path='" + obj.uploadPath + "' data-uuid='" + obj.uuid + "' data-filename='" + obj.fileName + "'";
+				str += ">";
+				str += "<img src='/pages/display?fileName=" + fileCallPath +"'>";
+				str += "</div>";
+				
+				uploadResult.html(str);
+			
+			}).fail(function(){
+				
+				let str = "";
+				str += "<div id='result_card'>";
+				str += "<img src='/resources/img/noimg.jpg'>";
+				str += "</div>";
+				
+				uploadResult.html(str);
+			});
+		});
+		
 	});
+	
 	
 	/* 주소 입력만 버튼 동작(숨김, 등장) */
 	function showAddress(className){
@@ -93,12 +130,12 @@
 		
 		/* 값 삽입 */
 		$(".priceTotal_span").text(priceTotal);
-		$(".countTotal_span").text(countTotal);
-		$(".kindTotal_span").text(kindTotal);
+		$(".products_kind_div_count").text(countTotal);
+		$(".products_kind_div_kind").text(kindTotal);
 		$(".deliveryPrice_span").text(deliveryPrice);
 		$(".priceTotalFinal_span").text(priceTotalFinal);
-
 		
+
 	}
 	
 	//다음 주소 api 연동
@@ -178,6 +215,8 @@
 					let product_id = $(data).find(".product_id_input").val();
 					let product_count = $(data).find(".product_count_input").val();
 					let product_price = $(data).find(".product_price_input").val();
+					let product_name = $(data).find(".product_name_input").val();
+					
 					
 					let product_id_input = "<input name='orders["+idx+"].product_id' type='hidden' value='" + product_id + "'>";
 					form_contents += product_id_input;
@@ -187,11 +226,15 @@
 					
 					let product_price_input = "<input name='orders["+idx+"].product_price' type='hidden' value='" + product_price + "'>";
 					form_contents += product_price_input;
+
+					let product_name_input = "<input name='orders["+idx+"].product_name' type='hidden' value='" + product_name + "'>";
+					form_contents += product_name_input;
 					
 				});
 				
+				
 				//오더 아이디값 설정
-				let order_id = "<input name='order_id' type='hidden' value'"+ o_id +"'>";
+				let order_id = "<input name='order_id' type='hidden' value='"+ rsp.merchant_uid +"'>";
 				form_contents += order_id;
 				
 				$(".order_form").append(form_contents);
@@ -306,17 +349,19 @@
     background: #f4f9fd;
     padding: 2px 0;	 
 }
-.products_table{
+.products_table_tr{
 	font-size: 14px;
 	line-height: 20px;
 	border-bottom: 1px solid #e7e7e7;
 }
 
-.products_table tr{
+.products_table_tr{
 height: 110px;
 }
-.products_table_price_td{
+.products_table_tr td{
 	text-align: center;
+	vertical-align: middle;
+	padding : 10px 0px 10px 0px;
 }
 /* 주문 종합 정보 */
 .total_info_div{
@@ -388,7 +433,7 @@ height: 110px;
 				<tbody>
 					<tr>
 						<th style="width: 25%;">주문자</th>								
-						<td style="width: *">${member_info.member_name} | ${member_info.member_email}</td>						
+						<td style="width: 75%">${member_info.member_name} | ${member_info.member_email}</td>						
 					</tr>
 				</tbody>
 			</table>
@@ -401,30 +446,23 @@ height: 110px;
 		</div>
 		<!-- 상품 테이블 -->
 		<table class="products_subject_table">
-			<colgroup>
-				<col width="15%">
-				<col width="45%">
-				<col width="40%">
-			</colgroup>
-			<tbody>
+			<thead>
 				<tr>
 					<th>이미지</th>
 					<th>상품 정보</th>
 					<th>판매가</th>
 				</tr>
-			</tbody>
-		</table>
-		<table class="products_table">
-			<colgroup>
-				<col width="15%">
-				<col width="45%">
-				<col width="40%">
-			</colgroup>					
+			</thead>
 			<tbody>
+			<colgroup>
+				<col width="25%">
+				<col width="25%">
+			</colgroup>
 				<c:forEach items="${orderList}" var="ol">
-					<tr>
-						<td>
-							<!-- 이미지 <td>-->
+					<tr class="products_table_tr">
+						<td class ="product_image">
+							<div id="uploadResult">
+							</div>
 						</td>
 						<td>${ol.product_name}</td>
 						<td class="products_table_price_td">
@@ -435,6 +473,7 @@ height: 110px;
 							<input type="hidden" class="product_count_input" value="${ol.product_count}">
 							<input type="hidden" class="product_priceTotal_input" value="${ol.product_price * ol.product_count}">
 							<input type="hidden" class="product_id_input" value="${ol.product_id}">
+							<input type="hidden" class="product_name_input" value="${ol.product_name}">
 						</td>
 					</tr>							
 				</c:forEach>
@@ -511,13 +550,12 @@ height: 110px;
 							<li>
 								<span class="price_span_label">배송비</span>
 								<span class="deliveryPrice_span"></span>원
+								
 							</li>
 							<li class="price_total_li">
-								<strong class="price_span_label total_price_label">최종 결제 금액</strong>
+								<strong class="price_span_label total_price_label" >최종 결제 금액</strong>
 								<strong class="strong_red">
-									<span class="total_price_red priceTotalFinal_span">
-									
-									</span>원
+									<span class="priceTotalFinal_span"></span>원
 								</strong>
 							</li>
 						</ul>
