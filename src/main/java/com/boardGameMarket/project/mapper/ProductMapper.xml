@@ -34,7 +34,7 @@
   		
   	<![CDATA[
   		SELECT * FROM (
-  			SELECT /*+INDEX_DESC(Product SYS_C007391) */
+  			SELECT /*+INDEX_DESC(Product SYS_C007127) */
   				rownum as rn, product_id, product_name, product_price, product_info,
   				product_stock, product_sell, product_category_code, product_updateDate, product_regDate
   				FROM   	]]>

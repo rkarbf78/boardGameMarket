@@ -34,6 +34,7 @@ public class OrderDTO {
 	/* 배송비까지 포함한 최종 금액 */
 	private int order_price_total_final;
 	
+	//최종금액 결정하는 메서드
 	public void get_order_price_info() {
 		
 		/* 총 상품비용 */ 

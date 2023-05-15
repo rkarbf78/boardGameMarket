@@ -101,7 +101,15 @@ public class OrderServiceImpl implements OrderService{
 
 	@Override
 	public List<OrderDTO> getOrderList(String member_id) {
-		return o_mapper.getOrderList(member_id);
+		List<OrderDTO> orderList = o_mapper.getOrderList(member_id);
+		orderList.forEach(order -> {
+			order.getOrders().forEach(j -> {
+				j.initPriceTotal(); // 각 오더들 안 오더엘레멘트 가격 초기화 메서드
+			});
+			order.get_order_price_info(); // 엘레멘트 가격정해졌으니 총합하는 메서드 실행
+		});
+		
+		return orderList;
 	}
 	
 }
