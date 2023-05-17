@@ -93,10 +93,12 @@
 .list_image_wrap{
 	width : 100px;
 	margin : 0 auto;
+	height: 100%;
 }
 .list_image{
-	width : auto;
+	width : 100%;
 	vertical-align: middle;
+	height: 100px;
 }
 .products_table tr td{
 	text-align : center;
@@ -121,7 +123,8 @@
 	width : 130px;
 }
 .products_table tbody tr{
-	height: 120px;
+	height : 100%;
+	max-height : 120px;
 	cursor: pointer;
 }
 .products_table tbody tr:hover{

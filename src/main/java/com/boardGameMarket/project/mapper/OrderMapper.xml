@@ -27,7 +27,7 @@
  </insert>
   	
   <update id="deduction_stock">
-  	UPDATE Product SET product_stock = #{product_stock} WHERE product_id = #{product_id}
+  	UPDATE Product SET product_stock = #{product_stock}, product_sell = #{product_sell} WHERE product_id = #{product_id}
   </update>
   
   <select id="getOrderList" resultMap="orderWithElement">

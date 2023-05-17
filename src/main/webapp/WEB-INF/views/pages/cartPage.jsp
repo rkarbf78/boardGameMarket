@@ -171,7 +171,7 @@
 	background-color: #e1e5e8;
 }
 .subject_table {
-	width: auto;
+	width: 100%;
 	margin : 0 auto;
 }
 .content_total_section{
@@ -179,7 +179,6 @@
 }
 .total_wrap{
 	background-color: #e1e5e8;
-	max-width : 770px;
 	width : 100%;
 	margin : 0 auto;
 	font-size : 12px;
@@ -207,8 +206,8 @@
 				border-top : none;
 			}
 		.content_btn_section{
-	 		margin-top: 20px;
-	 		text-align: right;
+	 		margin : 0;
+	 		float : right;
 		}
 	 	.content_btn_section a{
 	    	color: #fefeff;
@@ -232,6 +231,22 @@
 .quantity_input{
 	width : 45%;
 }
+.all_check{
+	margin-left: 5px;
+}
+.all_check_input,.all_check_span{
+	vertical-align: middle;
+}
+.delete_btn{
+	background : #ff3333;
+	border : 1px solid #ff3333;
+	color: #fff;
+}
+.quantity_input,.product_count_modify_btn{
+	float : left;
+	vertical-align: middle;
+	margin-left: 10px;
+}
 
 
 </style>
@@ -250,7 +265,7 @@
 					<thead>
 						<tr>
 							<th class="th_width_1"></th>
-							<th class="th_width_2"></th>
+							<th class="th_width_2">이미지</th>
 							<th class="th_width_3">상품명</th>
 							<th class="th_width_4">가격</th>
 							<th class="th_width_5">수량</th>
@@ -275,15 +290,15 @@
 								</td>
 								<td class="td_width_3">${ci.product_name}</td>
 								<td class="td_width_4 price_td">
-									<fmt:formatNumber value="${ci.product_price}" pattern="#,#### 원"/>
+									<fmt:formatNumber value="${ci.product_price}" pattern="#,### 원"/>
 								</td>
 								<td>
 									<div class="product_count">
 										<input type="number" step="1" min="1" max="" name="quantity" value="${ci.product_count}" title="Qty" class="quantity_input" size="4"/>
 									</div>
-									<a class="product_count_modify_btn" data-cart_id="${ci.cart_id}">변경</a>
+									<a class="product_count_modify_btn" data-cart_id="${ci.cart_id}">수정</a>
 								</td>
-								<td>${ci.product_price_total}</td>
+									<td><fmt:formatNumber value="${ci.product_price_total}" pattern="#,### 원"/></td>
 								<td><button class="delete_btn" data-cart_id="${ci.cart_id}">삭제</button></td>
 							</tr>
 						</c:forEach>
@@ -319,15 +334,18 @@
 										</td>
 										<td>
 											<span class="priceTotalFinal_span"></span> 원
-										</td>
-									</tr>
-								</table>
-				</div>
-			</div>
-			<!-- 구매 버튼 영역 -->
+																			<!-- 구매 버튼 영역 -->
 			<div class="content_btn_section">
 				<a class="order_btn">주문하기</a>
 			</div>
+										</td>
+									</tr>
+								</table>
+	
+				</div>
+			
+			</div>
+			
 			<!-- 수량 조정 form -->
 			<div class="cart_count_modify_form">
 				<form action="/pages/cart/modify" method="post" class="quantity_modify_form">

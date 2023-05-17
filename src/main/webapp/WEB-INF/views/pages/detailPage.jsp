@@ -218,8 +218,8 @@
 		starAvg = starAvg / 10;
 		
 		var starAvgTag = '';
-		starAvgTag += "<div class='starAvg'>";
-		starAvgTag += "별점 평균   ";
+		var starAvgTag = '<div class="starDiv">';
+		
 		for(var i=0; i<5; i++){
 			if(i<Math.floor(starAvg)){
 				starAvgTag += "<i class='fa fa-star'></i>";
@@ -239,8 +239,9 @@
 				starAvgTag += "<i class='fa fa-star-o'></i>";	
 			}
 		}
-		starAvgTag += "(" + obj.length + ")";
 		starAvgTag += "</div>";
+		
+		
 		$(".detail_section_wrap2").find(".detail_section_title").append(starAvgTag);
 		});
 		
@@ -352,6 +353,9 @@
 	
 </script>
 <style type="text/css">
+
+.detail_section{
+}
 	#result_card img {
 		max-width : 100%;
 		height : auto;
@@ -487,7 +491,43 @@
   
   .comment_wrap h3{
   	margin-bottom : 20px;
-  }  
+  }
+  .detail_section_price{
+  	font-size: 20px;
+	font-weight: bold;
+	color : black;
+  }
+  .detail_section_title h2{
+  	margin-bottom: 0;
+  }
+  .starDiv i{
+  	font-size: 20px;
+  }
+  .quantity{
+  	margin: 10px 0;
+  }
+  .quantity_input{
+  	width: 50px;
+  }
+  .btn_cart{
+  	background-color: #fff;
+  }
+  #reviews{
+  	width: 80%;
+  	margin: 20px auto;
+  }
+  .comment-form-rating{
+  	margin : 5px 5px;
+  }
+  .reply_content_ul{
+  	margin: 0;
+  }
+  #comment{
+  	width: 100%;
+  }
+ 
+
+
 
 </style>
 		<!-- #masthead -->
@@ -498,7 +538,7 @@
 					<div id="content" role="main">
 						<div class="detail_section">
 							<div class="detail_section_wrap1">
-								<div class=detail_section_title>
+								<div class=detail_section_title1>
 									<p>상품 이미지</p>
 								</div>
 								<div class="detail_section_img">
@@ -508,13 +548,16 @@
 							</div>
 								<div class="detail_section_wrap2">
 									<div class="detail_section_title">
-										<h2>${product.product_name}</h2>
+										<h2>${product.product_name}  </h2>
 									</div>
 									<div class="detail_section_price">
-										<span>${product.product_price} 원</span>
+										￦ <fmt:formatNumber value="${product.product_price}" pattern="#,###"/>
 									</div>
 									<div class="detail_section_s_info">
-										<span>일단 여긴 간단한 정보 1~2인용 이런거 ㅇㅋ?</span>
+										<span>배송비</span>
+										 ￦ <fmt:formatNumber value="3000" pattern="#,###"/> /
+										 ￦ <fmt:formatNumber value="30000" pattern="#,###"/>
+										 <span>이상 주문시 무료</span>
 									</div>
 									<div class="cart">
 										<div class="quantity">
@@ -522,7 +565,7 @@
 											<input type="number" step="1" min="1" max="" name="quantity" value="1" title="Qty" class="quantity_input" size="4"/>
 										</div>
 										<div class="cart_btn_set">
-											<button class="btn_cart">장바구니 담기</button>
+											<button class="btn_cart">장바구니</button>
 											<button class="btn_buy">바로구매</button>
 										</div>										
 									</div>
@@ -540,7 +583,7 @@
 										<div id="review_form_wrapper">
 											<div id="review_form">
 												<div id="respond" class="comment-respond">
-													<h3 style="margin-bottom:10px;" id="reply-title" class="comment-reply-title">Add a review <small><a rel="nofollow" id="cancel-comment-reply-link" href="/demo-moschino/product/woo-logo-2/#respond" style="display:none;">Cancel reply</a></small></h3>
+													<h3 style="margin-bottom:10px; text-align: center;" id="reply-title" class="comment-reply-title">리뷰 등록 <small><a rel="nofollow" id="cancel-comment-reply-link" href="/demo-moschino/product/woo-logo-2/#respond" style="display:none;">Cancel reply</a></small></h3>
 														<p class="comment-form-rating">
 															<label>별점선택</label>
 															<i class="fa fa-star"></i>
@@ -551,7 +594,7 @@
 														</p>
 															<input type="hidden" id="rating" name="rating" value="5">
 															<p class="comment-form-comment">
-																<label for="comment">Your Review</label><textarea id="comment" name="comment" cols="45" rows="3" aria-required="true"></textarea>
+																<textarea id="comment" name="comment" cols="45" rows="3" aria-required="true" placeholder="리뷰 내용을 작성해주세요!"></textarea>
 															</p>
 															<p class="form-submit">
 																<button class="btn_reply">댓글 등록</button>
@@ -565,7 +608,7 @@
 										<div class="reply_not_div">
 										
 										</div>
-										<h3>등록된 리뷰</h3>
+										<h3 class="reply_title">등록된 리뷰</h3>
 										<ul class="reply_content_ul">	
 											<li>
 												<div class="comment_wrap">

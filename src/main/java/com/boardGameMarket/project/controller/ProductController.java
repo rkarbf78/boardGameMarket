@@ -1,33 +1,17 @@
 package com.boardGameMarket.project.controller;
 
-import java.awt.Graphics2D;
-
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
-import javax.imageio.ImageIO;
-
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.boardGameMarket.project.domain.AttachFileDTO;
 import com.boardGameMarket.project.domain.CategoryVO;
 import com.boardGameMarket.project.domain.Criteria;
 import com.boardGameMarket.project.domain.PageDTO;
@@ -36,7 +20,6 @@ import com.boardGameMarket.project.service.ProductService;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
-import net.coobird.thumbnailator.Thumbnails;
 
 @Log4j
 @Controller
@@ -77,7 +60,7 @@ public class ProductController {
 	}
 	
 	@GetMapping("/detailPage")
-	public void detailPage(int product_id , Model model , Criteria cri) {
+	public void detailPage(int product_id , Model model , Criteria cri , HttpServletRequest request) {
 		
 		ProductVO product = service.getProduct(product_id);
 		
@@ -92,5 +75,29 @@ public class ProductController {
 		List<CategoryVO> categoryList = service.categoryList();
 		
 		model.addAttribute("categoryList" , categoryList);
+		
+		
+		//최근 본 상품 구현
+		HttpSession session = request.getSession();
+		
+		if(session.getAttribute("recent_product") == null) {
+			List<Integer> products_id = new ArrayList<Integer>();
+			products_id.add(0,product_id);
+			if(products_id.size() > 3) {
+				products_id.remove(3);
+			}
+			session.setAttribute("recent_product", products_id);
+		}else {
+			//세션 반환시 데이터타입 오브젝트임 변환필요
+			@SuppressWarnings("unchecked")
+			List<Integer> products_id = (List<Integer>)session.getAttribute("recent_product");
+			products_id.add(0,product_id);
+			if(products_id.size() > 3) {
+				products_id.remove(3);
+			}
+			session.setAttribute("recent_product", products_id);
+		}
+	
+		
 	}	
 }

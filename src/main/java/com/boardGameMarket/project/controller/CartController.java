@@ -1,5 +1,7 @@
 package com.boardGameMarket.project.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -13,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.boardGameMarket.project.domain.CartDTO;
+import com.boardGameMarket.project.domain.CategoryVO;
 import com.boardGameMarket.project.domain.MemberVO;
 import com.boardGameMarket.project.service.CartService;
+import com.boardGameMarket.project.service.ProductService;
 
 import lombok.Setter;
 
@@ -23,7 +27,9 @@ import lombok.Setter;
 public class CartController {
 	
 	@Setter(onMethod_=@Autowired)
-	private CartService service;
+	private CartService c_service;
+	@Setter(onMethod_=@Autowired)
+	private ProductService p_service;
 	
 	
 	//장바구니 추가 비동기
@@ -38,7 +44,7 @@ public class CartController {
 			return "5";
 		}
 		
-		int result = service.addCart(cart);
+		int result = c_service.addCart(cart);
 		
 		return result + "";
 	}
@@ -47,7 +53,11 @@ public class CartController {
 	@GetMapping("/cartPage/{member_id}")
 	public String cartPage(@PathVariable("member_id") String member_id, Model model) {
 		
-		model.addAttribute("cartInfo",service.getCartList(member_id));
+		model.addAttribute("cartInfo",c_service.getCartList(member_id));
+		
+		List<CategoryVO> categoryList = p_service.categoryList();
+		
+		model.addAttribute("categoryList" , categoryList);
 		
 		return "/pages/cartPage";
 	
@@ -56,7 +66,7 @@ public class CartController {
 	//장바구니 수량수정
 	@PostMapping("/cart/modify")
 	public String cartModify(CartDTO cart) {
-		service.modifyCount(cart);
+		c_service.modifyCount(cart);
 		
 		return "redirect:/pages/cartPage/"+cart.getMember_id();
 	}
@@ -65,7 +75,7 @@ public class CartController {
 	@PostMapping("/cart/delete")
 	public String cartDelete(CartDTO cart) {
 		
-		service.deleteCart(cart.getCart_id());
+		c_service.deleteCart(cart.getCart_id());
 		
 		return "redirect:/pages/cartPage/" + cart.getMember_id();
 		

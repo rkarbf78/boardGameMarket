@@ -77,6 +77,13 @@
 			});
 		});
 		
+		//결제창 스크롤 따라 움직이기
+		 var currentPosition = parseInt($(".total_info_div").css("top"));
+		  $(window).scroll(function() {
+		    var position = $(window).scrollTop(); 
+		    $(".total_info_div").stop().animate({"top":position+currentPosition+"px"},800);
+		  });
+		
 	});
 	
 	
@@ -312,6 +319,7 @@
 }
 .address_info_input_div td{
 	padding : 8px 12px;
+	vertical-align: middle;
 }		
 .address_info_input_div_2 input{
 	padding: 6px 5px;
@@ -379,6 +387,7 @@ height: 110px;
 	position: relative;
 }
 .total_info_div ul{
+	margin : 0 auto;
 	list-style: none;
 }
 .total_info_div li{
@@ -390,16 +399,13 @@ height: 110px;
 }
 .price_total_li{
 	border-top: 1px solid #ddd;
-	padding-top: 20px;
+	padding: 10px 0;
 }
 .strong_red{
 	color: red;
 }
 .total_price_red{
 	font-size: 25px;
-}
-.total_price_label{
-	margin-top: 5px;
 }
 .point_li{
     padding: 15px;
@@ -421,6 +427,13 @@ height: 110px;
     color: #fff;
     font-weight: bold;
 }
+.address_info_input_div_2 .address_input_1,.address_input_2,.address_input_3{
+	width: 75%;
+}
+.address_info_input_div th{
+	vertical-align: middle;
+}
+
  
 </style>
 
@@ -539,6 +552,8 @@ height: 110px;
 						</tbody>
 					</table>
 				</div>
+			</div>
+		</div>
 				<div class="total_info_div">
 					<!-- 가격 종합 정보 -->
 					<div class="total_info_price_div">
@@ -565,8 +580,6 @@ height: 110px;
 						<a class="order_btn">결제하기</a>
 					</div>
 				</div>
-			</div>
-		</div>
 		<!-- 주문 요청 form -->
 		<form class="order_form" action="/pages/order" method="post">
 			<!-- 주문자 회원번호 -->

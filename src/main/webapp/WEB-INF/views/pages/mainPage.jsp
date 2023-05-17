@@ -2,8 +2,22 @@
     pageEncoding="UTF-8"%>
 <%@ include file="includes/header.jsp" %>
 
+<!-- 슬라이드 구현 cdn -->
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
 <script>
 	$(document).ready(function(){
+		
+		/* 슬라이드 구현 */
+		$(".slide_div").slick(
+				{					
+					dots: true,
+					autoplay : true,
+					autoplaySpeed: 3000
+					
+				});
 		
 		/* 카테고리 선택한 메인페이지에서 검색시 
 		header.jsp에 있는 검색 이벤트 발생시 카테고리값 유지하기위해 메인에 작성
@@ -43,6 +57,37 @@
 			
 			});
 		
+		//최근 본 상품 이미지 출력위한 로직
+		//이미지 정보 호출
+		$(".recent_product").each(function(idx,data){
+			let product_id = $(this).find(".find_id").val();
+			let uploadResult = $(this).find("#uploadResult");
+			
+			$.getJSON("/pages/getAttachFile",{product_id:product_id}).done(function(one){
+
+				let str = "";
+				let obj = one;
+				
+				let fileCallPath = encodeURIComponent(obj.uploadPath + "/" + obj.uuid + "_" + obj.fileName);
+				str += "<div id='result_card'";
+				str += "data-path='" + obj.uploadPath + "' data-uuid='" + obj.uuid + "' data-filename='" + obj.fileName + "'";
+				str += ">";
+				str += "<img src='/pages/display?fileName=" + fileCallPath +"'>";
+				str += "</div>";
+				
+				uploadResult.html(str);
+			
+			}).fail(function(){
+				
+				let str = "";
+				str += "<div id='result_card'>";
+				str += "<img src='/resources/img/noimg.jpg'>";
+				str += "</div>";
+				
+				uploadResult.html(str);
+			});	
+		});
+				
 		
 		//페이지 이동
 		let moveForm = $('#moveForm');
@@ -61,9 +106,20 @@
 			
 			e.preventDefault();
 			
-			let testid = $(".find_id").val();
+			let addInput = '<input type="hidden" name="product_id" value="'+$(this).find('.find_id').attr("value")+'">';
 			
-			console.log(testid);
+			moveForm.append(addInput);
+			
+			moveForm.attr("action","/pages/detailPage");
+			
+			moveForm.submit();
+
+		});
+		
+		//배너 클릭시 디테일 페이지 이동
+		$('.banner').click(function(e) {
+			
+			e.preventDefault();
 			
 			let addInput = '<input type="hidden" name="product_id" value="'+$(this).find('.find_id').attr("value")+'">';
 			
@@ -131,6 +187,12 @@
 			});
 			
 		});	
+		//최근 상품창 스크롤 따라 움직이기
+		 var currentPosition = parseInt($(".recent_products").css("top"));
+		  $(window).scroll(function() {
+		    var position = $(window).scrollTop(); 
+		    $(".recent_products").stop().animate({"top":position+currentPosition+"px"},600);
+		  });
 	});
 </script>
 
@@ -138,11 +200,14 @@
 .image_wrap {
 	width : 100%;
 	height : 100%;
+}
+.entry-thumbnail{
 	cursor: pointer;
 }
 .image_wrap img {
 	max-width : 85%;
-	height : auto;
+	height : 100%;
+	max-height : 244px;
 	display : block;
 	margin : 0 auto;	
 }
@@ -158,8 +223,91 @@
 #searchForm{
 	display : block;
 }
-
+.entry-price{
+	font-size: 20px;
+	font-weight: bold;
+	color : black;
+}
+.entry-title h4{
+	color : black;
+	margin-bottom: 0;
+}
+.recent_products{
+	position:absolute;
+	width : 180px;
+	left : 78%;
+	top : 200px;
+	border : 1px solid #333;
+	border-top-width:2px;
+	text-align: center;
+}
+.recent_products_title{
+	text-align: center;
+	margin-bottom: 10px;
+	padding : 10px 0px;
+	border-bottom: 1px solid #bbb;
+}
+.recent_product_img{
+	width: 100%;
+	vertical-align: middle;
+	margin : 0 auto;
+}
+#uploadResult{
+	margin : 0 auto;
+}
+.none_recent{
+	text-align: center;
+	margin : 20px 0;
+}
+.slide_div img{
+	width: 768px;
+	height: 364px;
+	margin: auto;
+	cursor: pointer;
+}
+.slick-prev{
+	width : auto;
+	height : auto;
+	left: 110px;
+    z-index: 1;
+}
+.slick-next{
+	width : auto;
+	height : auto;
+	right: 110px;
+    z-index: 1;
+}
+.slick-prev:before, .slick-next:before{
+	font-size: 50px;
+}
+.slide_div_wrap{
+	padding: 15px 0 15px 0;
+    background: none;
+}
 </style>
+
+<div class="slide_div_wrap">
+	<div class="slide_div">
+		<div class="banner">
+			<a>
+				<img src="../resources/img/하나비_배너.jpg">
+				<input class="find_id" type="hidden" value="110"/>
+			</a>
+		</div>
+		<div class="banner">
+			<a>
+				<img src="../resources/img/레지스탕스.jpg">
+				<input class="find_id" type="hidden" value="111"/>
+			</a>
+		</div>
+		<div class="banner">
+			<a>
+				<img src="../resources/img/뱅_배너.jpg">
+				<input class="find_id" type="hidden" value="112"/>
+			</a>
+		</div>				
+	</div>	
+</div>
 
 <div class="product_order_by">
 		<ul>
@@ -188,6 +336,9 @@
 										<div class="entry-title">
 											<h4>${list.product_name}</h4>
 										</div>
+										<div class="entry-price">
+											￦ <fmt:formatNumber value="${list.product_price}" pattern="#,###"/>
+										</div>
 										<div class="entry-star">r</div>
 										<div class="entry-category">
 											<c:forEach items="${categoryList}" var="category">
@@ -195,9 +346,6 @@
 													<p>${category.category_name}</p>
 												</c:if>
 											</c:forEach>
-										</div>
-										<div class="entry-price">
-											<p>${list.product_price} 원</p>
 										</div>
 									</div>				
 								</header>	
@@ -236,9 +384,35 @@
 						<div class="data_empty">
 							등록된 상품이 없습니다.
 						</div>
-					</c:if>			
+					</c:if>	
+							
 				</main>
 					<!-- #main -->
+					<div class="recent_products">
+						<div class="recent_products_title">
+							<span class="price_span_label">최근 본 상품</span>
+						</div>
+						<c:choose>
+							<c:when test="${recent_product != null}">
+								<c:forEach items="${recent_product}" var="product">
+									<div class="recent_product">
+										<div class="recent_product_img">	
+											<div class="entry-thumbnail">
+											<input type="hidden" value="${product}" class="find_id"/>
+												<div id="uploadResult">
+												</div>
+											</div>
+										</div>
+									</div>
+								</c:forEach>
+							</c:when>
+							<c:otherwise>
+							<div class="none_recent">
+								<span>최근 본 상품이 존재하지않습니다.</span>
+							</div>
+							</c:otherwise>
+						</c:choose>			
+					</div>
 			</div>
 				<!-- #primary -->
 		</div>

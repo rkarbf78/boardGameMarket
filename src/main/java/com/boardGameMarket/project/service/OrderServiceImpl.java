@@ -84,9 +84,10 @@ public class OrderServiceImpl implements OrderService{
 			//orderElement DB에 넣기
 			o_mapper.order_element_registration(odeds);
 			
-			//변동 재고 값 구해서 DB 적용 디비
+			//변동 재고,판매량 값 구해서 DB 적용 디비
 			ProductVO product = p_mapper.getProduct(odeds.getProduct_id());
 			product.setProduct_stock(product.getProduct_stock() - odeds.getProduct_count());
+			product.setProduct_sell(product.getProduct_sell() + odeds.getProduct_count());
 			o_mapper.deduction_stock(product);
 			
 			//장바구니에서 제거하기

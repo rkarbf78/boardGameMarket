@@ -82,6 +82,7 @@
     border-top: 2px solid #3084d9;
     background: #f4f9fd;
     padding: 2px 0;	 
+    vertical-align: middle;
 }
 .products_table_tr{
 	font-size: 14px;
@@ -130,18 +131,17 @@ height: 110px;
 		<table class="products_subject_table">
 			<thead>
 				<tr>
+					<th>주문일자<br>[주문번호]</th>
 					<th>대표 이미지</th>
 					<th>구매 정보</th>
 					<th>결제 금액</th>
+					<th>주문 처리 상태</th>
 				</tr>
 			</thead>
 			<tbody>
-			<colgroup>
-				<col width="25%">
-				<col width="25%">
-			</colgroup>
 				<c:forEach items="${orderList}" var="ol">
 					<tr class="products_table_tr">
+					<td><fmt:formatDate pattern="yyyy-MM-dd" value="${ol.orderDate}"/><br>[${ol.order_id}]</td>
 						<td class ="product_image">
 							<div id="uploadResult">
 							</div>
@@ -154,6 +154,7 @@ height: 110px;
 							<input type="hidden" class="product_priceTotal_input" value="${ol.orders[0].product_price * ol.orders[0].product_count}">
 							<input type="hidden" class="product_id_input" value="${ol.orders[0].product_id}">
 						</td>
+						<td>${ol.order_state}</td>
 					</tr>							
 				</c:forEach>
 			</tbody>
