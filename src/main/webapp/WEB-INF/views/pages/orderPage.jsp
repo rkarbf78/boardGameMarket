@@ -97,9 +97,9 @@
 			$(".address_info_input_div_" + className).css('display' , 'block');
 		/* 버튼 색상 변경 */
 			/* 모든 색상 동일 */
-				$(".address_btn").css('backgroundColor','#555');
+				$(".address_btn").css('backgroundColor','#999');
 			/* 지정 색상 변경 */
-				$(".address_btn"+className).css('backgroundColor','#3c3838');
+				$(".address_btn_"+className).css('backgroundColor','#3c3838');
 		/* 주소 정보 선택 T/F */
 			/* 모든 주소 정보 F만들기 */
 				$(".address_info_input_div").each(function(i, obj){
@@ -246,6 +246,8 @@
 				
 				$(".order_form").append(form_contents);
 				
+				alert("결제가 완료되었습니다.");
+				
 				/* 서버 전송 */
 				$(".order_form").submit();
 	   		  }else {
@@ -285,7 +287,7 @@
  	height: 225px;
  }
 .address_btn {
-    background-color: #555;
+    background-color: #999;
     color: white;
     float: left;
     border: none;
@@ -537,7 +539,7 @@ height: 110px;
 							<tr>
 								<th>이름</th>
 								<td>
-									<input class="addressee_input">
+									<input class="receiver_input">
 								</td>
 							</tr>
 							<tr>

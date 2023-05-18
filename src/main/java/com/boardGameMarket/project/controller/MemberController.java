@@ -56,6 +56,7 @@ public class MemberController {
 	
 	@PostMapping("/join")
 	public String member_join(MemberVO mVo) {
+		System.out.println("갑자기 왜이래 @@@@@" + mVo);
 		m_service.member_registration(mVo);
 		return "redirect:/pages/mainPage";
 	}
@@ -86,9 +87,9 @@ public class MemberController {
 		
 		String setFrom = "rkarbf78@naver.com";
 	    String toMail = email;
-	    String title = "회원가입 인증 이메일 입니다.";
+	    String title = "인증 번호 이메일 입니다.";
 	    String content = 
-	                "홈페이지를 방문해주셔서 감사합니다." +
+	                "인증번호 확인을 위한 메일입니다." +
 	                "<br><br>" + 
 	                "인증 번호는 " + checkNum + "입니다." + 
 	                "<br>" + 
@@ -137,5 +138,24 @@ public class MemberController {
 		log.info("비동기 로그아웃 실행");
 		HttpSession session = request.getSession();
 		session.invalidate();
+	}
+	
+	@GetMapping("/idSearch")
+	@ResponseBody
+	public String memberIdSearch(MemberVO member) {
+		System.out.println(member);
+		String member_name = member.getMember_name();
+		String member_phone = member.getMember_phone();
+		return m_service.member_idSearch(member_name, member_phone);
+	}
+	
+	@GetMapping("/pwSearch")
+	@ResponseBody
+	public String memberPwSearch(MemberVO member) {
+		System.out.println(member);
+		String member_id = member.getMember_id();
+		String member_email = member.getMember_email();
+		return m_service.member_pwSearch(member_id, member_email);
+				
 	}
 }

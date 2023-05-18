@@ -69,4 +69,12 @@
   		DELETE FROM Member_Address WHERE member_id = #{member_id}
   	</delete>
   	
+  	<select id="member_idSearch" resultType="String">
+  		SELECT member_id FROM Member WHERE member_name = #{member_name} AND member_phone = #{member_phone}
+  	</select>
+  	
+  	<select id="member_pwSearch" resultType="int">
+  		SELECT COUNT(*) FROM Member WHERE member_id = #{member_id} AND member_email = #{member_email}
+  	</select>
+  	
   </mapper>

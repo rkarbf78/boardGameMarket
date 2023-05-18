@@ -3,6 +3,7 @@ package com.boardGameMarket.project.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -57,7 +58,11 @@ public class OrderController {
 				
 		o_service.order(odd);
 		
-		return "redirect:/pages/mainPage";
+		HttpSession session = request.getSession();
+		
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		
+		return "redirect:/pages/orderListPage/" + member.getMember_id();
 	}
 	
 	@GetMapping("/orderListPage/{member_id}")

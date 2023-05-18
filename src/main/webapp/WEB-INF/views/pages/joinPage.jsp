@@ -299,29 +299,11 @@
 }
 /* 아이디 중복여부 색상 bottom*/
 
-/* 유효성 검사 문구 top */
-.final_id_ck{
+/* 유효성 검사 문구*/
+.final_id_ck,.final_pw_ck,.final_pwck_ck,.final_name_ck,.final_phone_ck,.final_mail_ck,.final_addr_ck{
 	display : none;
+	color: red;
 }
-.final_pw_ck{
-	display : none;
-}
-.final_pwck_ck{
-	display : none;
-}
-.final_name_ck{
-	display : none;
-}
-.final_phone_ck{
-	display : none;
-}
-.final_mail_ck{
-	display : none;
-}
-.final_addr_ck{
-	display : none;
-}
-/* 유효성 검사 문구 bottom */
 
 /* 비밀번호 확인 일치 유효성검사 top */
 .pwck_input_re_1{
@@ -409,19 +391,19 @@
 											<span>주소 찾기</span>
 										</div>
 										<div class="address_input_1_box">
-											<input type="text" name="address.member_address1" class="address_input_1" readonly="readonly">
+											<input type="text" name="member_address.member_address1" class="address_input_1" readonly="readonly">
 										</div>
 						
 										<div class="clearfix"></div>
 									</div>
 									<div class ="address_input_2_wrap">
 										<div class="address_input_2_box">
-											<input type="text" name="address.member_address2" class="address_input_2" readonly="readonly">
+											<input type="text" name="member_address.member_address2" class="address_input_2" readonly="readonly">
 										</div>
 									</div>
 									<div class ="address_input_3_wrap">
 										<div class="address_input_3_box">
-											<input type="text"name="address.member_address3" class="address_input_3" readonly="readonly">
+											<input type="text"name="member_address.member_address3" class="address_input_3" readonly="readonly">
 										</div>
 									</div>
 									<span class="final_addr_ck">주소를 입력해주세요.</span>
