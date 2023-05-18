@@ -37,5 +37,10 @@ public interface MemberMapper {
 	
 	public int member_pwSearch(@Param("member_id") String member_id ,@Param("member_email") String member_email);
 	
+	//임시비밀번호로 변경하기(패스워드찾기 통하여)
+	public void member_update_tempPw(@Param("member_id") String member_id ,@Param("member_email") String member_email ,@Param("member_password") String member_password);
+	
+	
+	
 	
 }

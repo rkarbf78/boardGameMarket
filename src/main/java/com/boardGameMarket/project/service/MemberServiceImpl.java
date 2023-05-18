@@ -102,6 +102,9 @@ public class MemberServiceImpl implements MemberService {
 				tempPassword += charSet[randomIdx];
 			}
 			
+			//임시비번 설정 완료후 DB업데이트
+			mapper.member_update_tempPw(member_id, member_email, tempPassword);
+			
 			String setFrom = "rkarbf78@naver.com";
 		    String toMail = member_email;
 		    String title = "임시 비밀번호입니다.";

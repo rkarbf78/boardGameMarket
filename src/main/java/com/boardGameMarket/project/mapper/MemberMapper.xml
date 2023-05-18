@@ -77,4 +77,8 @@
   		SELECT COUNT(*) FROM Member WHERE member_id = #{member_id} AND member_email = #{member_email}
   	</select>
   	
+  	<update id="member_update_tempPw">
+  		UPDATE Member SET member_password = #{member_password} WHERE member_id = #{member_id} AND member_email = #{member_email}
+  	</update>
+  	
   </mapper>

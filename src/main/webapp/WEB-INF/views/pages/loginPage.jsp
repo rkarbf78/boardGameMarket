@@ -66,13 +66,17 @@
 							console.log(result);
 							var searchResult = '';
 							if(result != ''){
-								searchResult += "<div class='modal_close'>";
+								searchResult += "<div class='close_control'>"
+								searchResult += "<div class='modal_close' onclick=\"$('#myModal').hide()\">";
 								searchResult += "<i class='fa fa-times'></i></div>"
+								searchResult += "</div>"
 								searchResult += "<p>검색된 아이디는 "+result+" 입니다.</p>";
 								$(".modal-content").html(searchResult);
 							}else{
-								searchResult += "<div class='modal_close'>";
+								searchResult += "<div class='close_control'>"
+								searchResult += "<div class='modal_close' onclick=\"$('#myModal').hide()\">";
 								searchResult += "<i class='fa fa-times'></i></div>"
+								searchResult += "</div>"
 								searchResult += "<p>검색된 아이디가 없습니다.</p>";
 								$(".modal-content").html(searchResult);
 							}
@@ -113,13 +117,17 @@
 							console.log(result);
 							var searchResult = '';
 							if(result == '1'){
-								searchResult += "<div class='modal_close'>";
+								searchResult += "<div class='close_control'>"
+								searchResult += "<div class='modal_close' onclick=\"$('#myModal').hide()\">";
 								searchResult += "<i class='fa fa-times'></i></div>"
+								searchResult += "</div>"								
 								searchResult += "<p>입력하신 이메일로 임시비밀번호를 송신했습니다. 확인후 로그인해주세요.</p>";
 								$(".modal-content").html(searchResult);
 							}else{
-								searchResult += "<div class='modal_close'>";
+								searchResult += "<div class='close_control'>"
+								searchResult += "<div class='modal_close' onclick=\"$('#myModal').hide()\">";
 								searchResult += "<i class='fa fa-times'></i></div>";
+								searchResult += "</div>"
 								searchResult += "<p>조회된 정보가 없습니다.</p>";
 								$(".modal-content").html(searchResult);
 							}
@@ -352,6 +360,11 @@
 .final_mail_ck,.final_id_ck,.final_name_ck,.final_phone_ck{
 	display : none;
 	color: red;
+}
+.close_control{
+	width: 100%;
+	height: 100%;
+	position: relative;
 }
   
 </style>
