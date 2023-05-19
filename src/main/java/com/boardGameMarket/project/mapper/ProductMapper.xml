@@ -27,6 +27,14 @@
   			<when test="order_by == 'row'">
   				(SELECT * FROM Product ORDER BY product_price ASC)
   			</when>
+  			
+  			<!-- 관리자페이지 상품관리 오더바이 -->
+  			<when test="order_by == 'stock_high'">
+  				(SELECT * FROM Product ORDER BY product_stock DESC)
+  			</when>
+  			<when test="order_by == 'stock_row'">
+  				(SELECT * FROM Product ORDER BY product_stock ASC)
+  			</when>
   		</choose>
   	</sql>
   

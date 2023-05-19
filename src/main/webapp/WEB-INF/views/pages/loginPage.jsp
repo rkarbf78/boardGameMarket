@@ -7,16 +7,16 @@
 		
 		console.log($(".find_idpw_2").css("display") == "block");
 		
-		
-		
 		$(".login_button").click(function(){
 			$("#login_form").attr("action","/pages/login");
 			$("#login_form").submit();
 		});
+		
 		//모달 보이기
 		$(".find_idpw_modal_btn").click(function(){
 			$("#myModal").show();
 		});
+		
 		//모달 내리기
 		$(".modal_close").click(function(){
 			$("#myModal").hide();
@@ -214,7 +214,7 @@
 			/* 지정 색상 변경 */
 				$(".find_idpw_btn_"+className).css('backgroundColor','#3c3838');
 		/* 주소 정보 선택 T/F */
-			}
+	}
 	
 
 </script>
@@ -271,26 +271,26 @@
 
    /* The Modal (background) */
 .modal {
-            display: none; /* Hidden by default */
-            position: fixed; /* Stay in place */
-            z-index: 1; /* Sit on top */
-            left: 0;
-            top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgb(0,0,0); /* Fallback color */
-            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-        }
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0,0,0); /* Fallback color */
+	background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
     
         /* Modal Content/Box */
-        .modal-content {
-            background-color: #fefefe;
-            margin: 15% auto; /* 15% from the top and centered */
-            padding: 20px;
-            border: 1px solid #888;
-            width: 30%; /* Could be more or less, depending on screen size */                       
-        }
+.modal-content {
+	background-color: #fefefe;
+	margin: 15% auto; /* 15% from the top and centered */
+	padding: 20px;
+	border: 1px solid #888;
+	width: 30%; /* Could be more or less, depending on screen size */                       
+}
 .find_idpw{
 	display: none;
 }
@@ -345,7 +345,7 @@
     border-color:#4d4d4d;
     background:#4d4d4d;
     color:#fff;
-    width: auto;
+    width: 40%;
     float: right;
     text-align: center;
     cursor: pointer;
@@ -451,12 +451,12 @@
 										<div class="clearfix"></div>
 										<span id="mail_check_input_box_warn"></span>
 									</div>
-								</div>
+							</div>
 					</div>
 				</div>
-				 <div class="modal_search">
+				<div class="modal_search">
 			     	<span>조회</span>
-			     </div>
+				</div>
 		      </div>	 
 	    </div>
         <!--End Modal-->

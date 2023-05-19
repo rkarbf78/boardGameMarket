@@ -82,6 +82,8 @@ public class AdminController {
 		
 		cri.setAmount(10);
 		
+		System.out.println("다시해보자@@@@@@@@@@@" + cri);
+		
 		List<ProductVO> productList = p_service.getProductList(cri);
 		
 		if(!productList.isEmpty()) {

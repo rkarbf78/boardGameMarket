@@ -101,7 +101,7 @@
 					<c:if test="${member.member_role == 1}">
 						<li><a href="/pages/admin/adminPage">관리자 페이지</a>
 							<ul class="sub-menu">
-								<li><a href="/pages/admin/productListPage">상품관리</a></li>
+								<li><a href="/pages/admin/productListPage?order_by=stock_row">상품관리</a></li>
 								<li><a href="/pages/admin/registerPage">상품등록</a></li>
 								<li><a href="/pages/admin/memberListPage">회원관리</a></li>
 							</ul>

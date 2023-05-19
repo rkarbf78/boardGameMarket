@@ -111,6 +111,11 @@
 .admin_page_name{
 	text-align : center;
 }
+.members_table thead td{
+	background-color : #e1e5e8;
+	font-weight: bold;
+}
+
 
 
 </style>
