@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.boardGameMarket.project.domain.CategoryVO;
@@ -110,8 +111,11 @@ public class AdminController {
 		List<CategoryVO> categoryList = p_service.categoryList();
 		model.addAttribute("categoryList" , categoryList);
 		model.addAttribute("cri",cri);
-		
 	}
+	
+	@GetMapping("/chart")
+	@ResponseBody
+	public 
 	
 	@GetMapping("/productModifyPage")
 	public void productModifyPage(int product_id, Criteria cri, Model model) throws Exception {

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../includes/header.jsp" %>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script type="text/javascript">
 
@@ -107,6 +108,9 @@ $(document).ready(function(){
 									<div class="form_section_content">
 										<div id="uploadResult">
 										</div>
+									</div>
+									<div class="chart_canvas" style="position: relative; height:200px; width:40vw">
+											<canvas id="myChart"></canvas>
 									</div>
 								</div>
 								<div class="name_wrap">

@@ -114,7 +114,14 @@
   		DELETE FROM Product WHERE product_id = #{product_id}
   	</delete>
   	
-  	
+  	<select id="getChartData" resultType="com.boardGameMarket.project.domain.ChartDTO">
+  		<![CDATA[	
+  			SELECT TO_CHAR(a.orderDate, 'YYYY/MM/DD') as sell_date, b.product_count as sell_count
+  				FROM Product_Order a JOIN Product_Order_Element b 
+				ON a.order_id = b.order_id WHERE product_id = #{product_id} 
+				AND a.orderDate >= TO_DATE(#{startDay}, 'YYYY/MM/DD')
+				AND a.orderDate < TO_DATE(#{endDay}, 'YYYY/MM/DD') + 1 ]]>
+  	</select>
   	
   	
   </mapper>

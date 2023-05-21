@@ -32,45 +32,54 @@ public class OrderTests {
 		
 	}
 	
-	@Test
+//	@Test
 	public void order_registration_test() {
 		OrderDTO odd = new OrderDTO();
-		List<OrderElementDTO> orders = new ArrayList<OrderElementDTO>();
+		List<OrderElementDTO> odds = new ArrayList<>();
+			
 		
-		
-		  for(int i=0; i<5; i++) { 
+		 for(int i=0; i<5; i++) { 
 			  OrderElementDTO order1 = new OrderElementDTO();
-		  order1.setOrder_id("test_3"); 
-		  order1.setProduct_id(i+5);
-		  order1.setProduct_name("와따리시빰바"+i);
-		  order1.setProduct_count(3); 
-		  order1.setProduct_price(200);
-		  order1.initPriceTotal(); 
-		  mapper.order_element_registration(order1);
-		  }
-			/*
-			 * odd.setOrders(orders); odd.setOrder_id("test_3"); odd.setReceiver("test");
-			 * odd.setMember_id("master"); odd.setMember_address1("add1");
-			 * odd.setMember_address2("add2"); odd.setMember_address3("add3");
-			 * odd.setOrder_state("배송준비"); odd.setDelivery_price(3000);
-			 * odd.get_order_price_info();
-			 * 
-			 * mapper.order_registration(odd);
-			 */
+			  order1.setOrder_id("그래프테스트오더"+i); 
+			  order1.setProduct_id(106);
+			  order1.setProduct_name("모노폴리");
+			  order1.setProduct_count((int)(Math.random()*5)+1); 
+			  order1.setProduct_price(3000);
+			  order1.initPriceTotal(); 
+			  odds.add(order1);
+			 }
+		 
+		for(int i=0; i<5; i++) {
+			odd.setOrders(odds);
+			odd.setOrder_id("그래프테스트오더"+i);
+			odd.setReceiver("그래프맨");
+			odd.setMember_id("master");
+			odd.setMember_address1("add1");
+			odd.setMember_address2("add2");
+			odd.setMember_address3("add3");
+			odd.setOrder_state("배송준비");
+			odd.setDelivery_price(3000);
+			odd.get_order_price_info();
+			  
+			mapper.order_registration(odd);
+
+		}
+			 			 
 		
 	}
 	
-//	@Test
+	@Test
 	public void order_element_registration_test() {
-		OrderElementDTO oded = new OrderElementDTO();
-		
-		oded.setOrder_id("test_1");
-		oded.setProduct_id(2);
-		oded.setProduct_count(5);
-		oded.setProduct_price(70000);
-		oded.initPriceTotal();
-		
-		mapper.order_element_registration(oded);
+		 
+			  OrderElementDTO order1 = new OrderElementDTO();
+			  order1.setOrder_id("그래프테스트오더9"); 
+			  order1.setProduct_id(106);
+			  order1.setProduct_name("모노폴리");
+			  order1.setProduct_count((int)(Math.random()*5)+1); 
+			  order1.setProduct_price(3000);
+			  order1.initPriceTotal(); 
+			  mapper.order_element_registration(order1);
+			 
 	}
 	
 //	@Test

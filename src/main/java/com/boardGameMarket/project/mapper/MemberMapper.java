@@ -33,6 +33,7 @@ public interface MemberMapper {
 	
 	//보통 하나만 전달하거나 같은 데이터타입의 변수를 인자로 넘긴적이없어서
 	//몰랐는데 @Param 안붙이면 마이바티스에서 구분 못함
+	//매개변수를 여러개 줄때는 @Param을 이용하자!!!
 	public String member_idSearch(@Param("member_name") String member_name ,@Param("member_phone") String member_phone);
 	
 	public int member_pwSearch(@Param("member_id") String member_id ,@Param("member_email") String member_email);

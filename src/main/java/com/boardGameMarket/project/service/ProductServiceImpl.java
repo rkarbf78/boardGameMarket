@@ -2,6 +2,7 @@ package com.boardGameMarket.project.service;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.boardGameMarket.project.domain.AttachFileDTO;
 import com.boardGameMarket.project.domain.CategoryVO;
+import com.boardGameMarket.project.domain.ChartDTO;
 import com.boardGameMarket.project.domain.Criteria;
 import com.boardGameMarket.project.domain.ProductVO;
 import com.boardGameMarket.project.mapper.ProductMapper;
@@ -118,5 +120,24 @@ public class ProductServiceImpl implements ProductService {
 		int result = mapper.product_remove(product_id);
 		
 		return result;
+	}
+
+
+	@Override
+	public List<ChartDTO> getChartData(int product_id, String startDay, String endDay) {
+		
+		List<ChartDTO> chartDataList = mapper.getChartData(product_id, startDay, endDay);
+		
+		//중복날짜 count 합치고 중복 없애기
+		for(int i=0; i<chartDataList.size()-1; i++) {
+			if(chartDataList.get(i).getSell_Date().equals(chartDataList.get(i+1).getSell_Date())) {
+				chartDataList.get(i).setSell_count(chartDataList.get(i).getSell_count() + chartDataList.get(i+1).getSell_count());
+				chartDataList.remove(i+1);
+				i--;
+			}
+		}
+		
+		
+		return null;
 	}
 }
