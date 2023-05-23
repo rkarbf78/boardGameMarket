@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.boardGameMarket.project.domain.CategoryVO;
+import com.boardGameMarket.project.domain.ChartDTO;
 import com.boardGameMarket.project.domain.Criteria;
 import com.boardGameMarket.project.domain.MemberAddressVO;
 import com.boardGameMarket.project.domain.MemberVO;
@@ -83,7 +84,10 @@ public class AdminController {
 		
 		cri.setAmount(10);
 		
-		System.out.println("다시해보자@@@@@@@@@@@" + cri);
+		//초기 요청시 정렬순 재고 낮은순으로 조정함
+		if(cri.getOrder_by() == null || cri.getOrder_by() == "") {
+			cri.setOrder_by("stock_row");
+		}
 		
 		List<ProductVO> productList = p_service.getProductList(cri);
 		
@@ -115,7 +119,9 @@ public class AdminController {
 	
 	@GetMapping("/chart")
 	@ResponseBody
-	public 
+	public List<ChartDTO> getChartList(int product_id,String startDay,String endDay){
+		return p_service.getChartData(product_id, startDay, endDay);
+	}
 	
 	@GetMapping("/productModifyPage")
 	public void productModifyPage(int product_id, Criteria cri, Model model) throws Exception {

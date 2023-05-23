@@ -115,6 +115,9 @@
 	background-color : #e1e5e8;
 	font-weight: bold;
 }
+.admin_nav_3,.admin_page{
+	color : black;
+}
 
 
 

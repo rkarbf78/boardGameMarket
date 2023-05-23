@@ -203,9 +203,9 @@
 .th_column_5 {
 	position: relative;
 }
-
-
-
+.admin_nav_1,.admin_page{
+	color : black;
+}
 </style>
 	<div class="admin_nav_list">
 		<ul>

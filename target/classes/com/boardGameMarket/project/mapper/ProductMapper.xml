@@ -120,7 +120,7 @@
   				FROM Product_Order a JOIN Product_Order_Element b 
 				ON a.order_id = b.order_id WHERE product_id = #{product_id} 
 				AND a.orderDate >= TO_DATE(#{startDay}, 'YYYY/MM/DD')
-				AND a.orderDate < TO_DATE(#{endDay}, 'YYYY/MM/DD') + 1 ]]>
+				AND a.orderDate < TO_DATE(#{endDay}, 'YYYY/MM/DD') + 1 ORDER BY sell_date ASC ]]>
   	</select>
   	
   	

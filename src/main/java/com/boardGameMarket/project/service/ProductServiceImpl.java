@@ -2,7 +2,10 @@ package com.boardGameMarket.project.service;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -128,16 +131,59 @@ public class ProductServiceImpl implements ProductService {
 		
 		List<ChartDTO> chartDataList = mapper.getChartData(product_id, startDay, endDay);
 		
-		//중복날짜 count 합치고 중복 없애기
-		for(int i=0; i<chartDataList.size()-1; i++) {
-			if(chartDataList.get(i).getSell_Date().equals(chartDataList.get(i+1).getSell_Date())) {
-				chartDataList.get(i).setSell_count(chartDataList.get(i).getSell_count() + chartDataList.get(i+1).getSell_count());
-				chartDataList.remove(i+1);
-				i--;
+		System.out.println("널일때 으카냐?" + chartDataList);
+		
+		if(chartDataList.isEmpty()) {
+			System.out.println("널일떄 여기 들어오냐?");
+			return chartDataList;
+		}else {
+			//검색 시작날짜에 해당하는 db데이터가 없을시
+			if(chartDataList.get(0).getSell_date() != startDay) {
+				ChartDTO chart = new ChartDTO();
+				chart.setSell_date(startDay);
+				chart.setSell_count(0);
+				chartDataList.add(0,chart);
 			}
+			
+			//중복날짜 count 합치고 중복 없애기
+			for(int i=0; i<chartDataList.size()-1; i++) {
+				if(chartDataList.get(i).getSell_date().equals(chartDataList.get(i+1).getSell_date())) {
+					chartDataList.get(i).setSell_count(chartDataList.get(i).getSell_count() + chartDataList.get(i+1).getSell_count());
+					chartDataList.remove(i+1);
+					i--;
+				}
+			}
+			//날짜 사이 빈날짜 채우기
+			for(int i=0; i<chartDataList.size()-1; i++) {
+				
+				String date1 = chartDataList.get(i).getSell_date();
+				String date2 = chartDataList.get(i+1).getSell_date();
+				
+				try {
+					Date formatDate1 = new SimpleDateFormat("yyyy/MM/dd").parse(date1);
+					Date formatDate2 = new SimpleDateFormat("yyyy/MM/dd").parse(date2);
+					long dateGap = (formatDate2.getTime()-formatDate1.getTime())/1000 / (24*60*60);
+					
+					System.out.println("데이트갭 검사" + dateGap);
+					
+					if(dateGap != 1) {
+						Calendar cal = Calendar.getInstance();
+						cal.setTime(formatDate1);
+						cal.add(Calendar.DATE, 1);
+						String strformat = new SimpleDateFormat("yyyy/MM/dd").format(cal.getTime());
+						ChartDTO chart = new ChartDTO();
+						System.out.println("캘린더로 바꾼건 어떨까" + strformat);
+						chart.setSell_date(strformat);
+						chart.setSell_count(0);
+						chartDataList.add(i+1,chart);	
+					}
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+			}
+			return chartDataList;
 		}
 		
 		
-		return null;
 	}
 }

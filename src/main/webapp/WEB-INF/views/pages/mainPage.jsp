@@ -10,6 +10,27 @@
 <script>
 	$(document).ready(function(){
 		
+		
+		//카테고리 css
+		if(${page_category_code == '' || page_category_code == null})	{
+			$(".cate_none").css("color","black");
+		}else{
+			switch (${page_category_code}) {
+			case 1:
+				$(".cate_li").eq(0).css("color","black");	
+				break;
+			case 2:
+				$(".cate_li").eq(1).css("color","black");	
+				break;
+			case 3:
+				$(".cate_li").eq(2).css("color","black");	
+				break;
+			case 4:
+				$(".cate_li").eq(3).css("color","black");	
+				break;
+			}
+		}
+		
 		/* 슬라이드 구현 */
 		$(".slide_div").slick(
 				{					

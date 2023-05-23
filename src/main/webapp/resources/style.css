@@ -436,9 +436,6 @@ a {
 	-o-transition:all 0.2s ease-in-out;
 	transition:all 0.2s ease-in-out;
 }
-a:visited {
-	color:#666666;
-}
 a:hover {
 	color:#ccc;
 	text-decoration:none;
@@ -2130,6 +2127,9 @@ ul.shortcode-archive li {
     color: #606267;
     text-align : center;
 }
+#logout_button{
+	cursor: pointer;
+}
   
 /* Masonry */
 @media (min-width:480px) {
@@ -2423,9 +2423,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 .entry-title, .entry-title a {
 	color: #222222;
-}
-.main-navigation a {
-	color: #222222 !important;
 }
 @media screen and (max-width: 1023px) {
 	button.menu-toggle {

@@ -230,7 +230,9 @@ $(document).ready(function(){
 	text-align : left;
 }
 /* 유효성 검사 경고문구 bottom */
-
+.admin_nav_2,.admin_page{
+	color : black;
+}
 </style>
 	<div class="admin_nav_list">
 		<ul>

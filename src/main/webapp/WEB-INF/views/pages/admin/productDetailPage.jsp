@@ -2,6 +2,11 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../includes/header.jsp" %>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="../../resources/js/datepicker-ko.js"></script> <!-- 파일 직접 생성함 -->
 
 <script type="text/javascript">
 
@@ -54,11 +59,116 @@ $(document).ready(function(){
 		$("#moveForm").submit();
 	});
 	
+	$('.datepicker').datepicker({
+		format: "yyyy/MM/dd",
+		language: "kr",
+		todayHighlight: true
+	});
+	
+	
+	//로딩시 전해줄 데이터
+	const firstChart = {product_id : $("input[name='product_id']").val(),startDay : $(".startDay_input").val(),endDay : $(".endDay_input").val()}
+	
+	//최초 로딩시 오늘날짜~7일전 데이터 출력
+	$.getJSON("/pages/admin/chart",firstChart,function(result){
+		
+		if(result.length === 0){
+			$(".chart_canvas").html("<h3 style='text-align : center'>조회된 데이터가없습니다.</h3>");
+		}else{
+			var label_list = [];
+			var count_list = [];
+			
+			result.forEach(i=>{
+				label_list.push(i["sell_date"]);
+				count_list.push(i["sell_count"]);
+			});
+			
+			chartMake(label_list,count_list);	
+		}
+		
+		
+	});
+	
+	$("#click-btn").click(function(){
+		
+		const date1 = new Date($(".startDay_input").val());
+		
+		const date2 = new Date($(".endDay_input").val());
+		
+		
+	
+		const changeChart = {product_id : $("input[name='product_id']").val(),startDay : $(".startDay_input").val(),endDay : $(".endDay_input").val()}
+		
+		$.getJSON("/pages/admin/chart",changeChart,function(result){
+			
+			if(result.length === 0){
+				$(".chart_canvas").html("<h3 style='text-align : center'>조회된 데이터가없습니다.</h3>");
+			}else{
+
+				var label_list = [];
+				var count_list = [];
+				
+				result.forEach(i=>{
+					label_list.push(i["sell_date"]);
+					count_list.push(i["sell_count"]);
+				});
+
+				$(".chart_canvas").html("<canvas id='myChart'></canvas>");
+				chartMake(label_list,count_list);
+			}
+		});	
+		
+	});
+	
+	
+	
+	
 	
 	
 });
+
+function chartMake(label_list, count_list) {
+	var ctx = document.getElementById('myChart').getContext('2d');
+	var myChart = new Chart(ctx, {
+		type: 'bar',
+		data: {
+			labels: label_list,
+			datasets: [{
+				label: '일일 판매량',
+				data: count_list,
+				backgroundColor: [
+					'rgba(255, 99, 132, 0.2)',
+					'rgba(54, 162, 235, 0.2)',
+					'rgba(255, 206, 86, 0.2)',
+					'rgba(75, 192, 192, 0.2)',
+					'rgba(153, 102, 255, 0.2)',
+					'rgba(255, 159, 64, 0.2)'
+				],
+				borderColor: [
+					'rgba(255, 99, 132, 1)',
+					'rgba(54, 162, 235, 1)',
+					'rgba(255, 206, 86, 1)',
+					'rgba(75, 192, 192, 1)',
+					'rgba(153, 102, 255, 1)',
+					'rgba(255, 159, 64, 1)'
+				],
+				borderWidth: 2
+			}]
+		},
+		options: {
+			scales: {
+				y: {
+					beginAtZero: true
+				}
+			}
+		}
+	});
+}
 </script>
 <style type="text/css">
+.admin_page{
+	color : black;
+}
 #result_card img {
 	width : 100%;
 }
@@ -85,6 +195,24 @@ $(document).ready(function(){
 	background : #ff3333;
 	border : 1px solid #ff3333;
 }
+#startDay,#endDay{
+	width : 200px;
+	height: auto;
+	padding: 5px;
+	background-color: #fff;
+}
+#click-btn{
+	padding : 5px 10px;
+	background-color: #3366ff;
+	color : #fff;
+	border : 1px solid #3366ff;
+}
+.input-daterange{
+	margin-left: 40px;
+}
+.chart_wrap{
+	margin-bottom: 21px;
+}
 </style>
 	<div class="admin_nav_list">
 		<ul>
@@ -109,9 +237,19 @@ $(document).ready(function(){
 										<div id="uploadResult">
 										</div>
 									</div>
-									<div class="chart_canvas" style="position: relative; height:200px; width:40vw">
-											<canvas id="myChart"></canvas>
-									</div>
+								</div>
+								<div class="chart_wrap">
+									<label>상품 판매량 그래프</label>
+										<div class="input-group input-daterange">
+										<c:set var='ymd' value="<%=new java.util.Date()%>"/>
+										<c:set var='zmd' value="<%=new java.util.Date(new java.util.Date().getTime() - 60*60*24*1000*7)%>"/>
+											<input type="text" id="startDay" class="startDay_input datepicker" name="startDay" value="<fmt:formatDate value='${zmd}' pattern='yyyy/MM/dd'/>" readonly>
+											<input type="text" id="endDay" class="endDay_input datepicker" name="endDay" value="<fmt:formatDate value='${ymd}' pattern='yyyy/MM/dd'/>"  readonly>
+											<button type="button" id="click-btn">조회</button>
+										</div>
+										<div class="chart_canvas" style="position: relative; height:250px; width:100%">
+												<canvas id="myChart"></canvas>
+										</div>
 								</div>
 								<div class="name_wrap">
 									<label>상품이름</label>

@@ -7,6 +7,6 @@ public class ChartDTO {
 
 	private int sell_count;
 	
-	private String sell_Date;
+	private String sell_date;
 	
 }

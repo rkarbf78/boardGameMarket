@@ -72,7 +72,7 @@ public class OrderTests {
 	public void order_element_registration_test() {
 		 
 			  OrderElementDTO order1 = new OrderElementDTO();
-			  order1.setOrder_id("그래프테스트오더9"); 
+			  order1.setOrder_id("그래프테스트오더8"); 
 			  order1.setProduct_id(106);
 			  order1.setProduct_name("모노폴리");
 			  order1.setProduct_count((int)(Math.random()*5)+1); 

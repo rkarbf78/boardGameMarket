@@ -25,6 +25,29 @@
 
 <script>
 	$(document).ready(function(){
+	
+		//정렬순 css
+		if(${pageMaker.cri.order_by == '' || pageMaker.cri.order_by == null}){
+			$(".order_nav_1").css("color" , "black");
+		}else{
+			switch ("${pageMaker.cri.order_by}") {
+			case 'new':
+				$(".order_nav_1").css("color" , "black");
+				console.log("뉴");
+				break;
+			case 'best':
+				$(".order_nav_2").css("color" , "black");
+				console.log("베스트");
+				break;
+			case 'high':
+				$(".order_nav_3").css("color" , "black");
+				break;
+			case 'row':
+				$(".order_nav_4").css("color" , "black");
+				break;
+			}
+			
+		}
 		
 		
 		$("#logout_button").click(function(){
@@ -73,7 +96,7 @@
 </c:if>
 <c:if test="${member != null}">
 	<div class="user_info">
-		<span>회원 : ${member.member_name}</span>
+		<span>회원이름 : ${member.member_name}</span>
 		<a id="logout_button">로그아웃</a>
 		<a href="/pages/cartPage/${member.member_id}" id="cart_button">장바구니</a>
 		<a href="/pages/orderListPage/${member.member_id}" id="orderList_button">주문조회</a>
@@ -92,18 +115,18 @@
 			<button class="menu-toggle">메뉴</button>
 			<div class="menu-menu-1-container">
 				<ul id="menu-menu-1" class="menu">
-					<li><a href="/pages/mainPage">전체상품</a></li>
+					<li class="cate_none"><a href="/pages/mainPage">전체상품</a></li>
 					<c:forEach items="${categoryList}" var="category">
 					<li class="cate_li">
 						<a href="/pages/mainPage?page_category_code=${category.category_code}">${category.category_name}</a>	
 					</li>
 					</c:forEach>
 					<c:if test="${member.member_role == 1}">
-						<li><a href="/pages/admin/adminPage">관리자 페이지</a>
+						<li class="admin_page"><a href="/pages/admin/adminPage">관리자 페이지</a>
 							<ul class="sub-menu">
-								<li><a href="/pages/admin/productListPage?order_by=stock_row">상품관리</a></li>
-								<li><a href="/pages/admin/registerPage">상품등록</a></li>
-								<li><a href="/pages/admin/memberListPage">회원관리</a></li>
+								<li class="admin_page_productListPage"><a href="/pages/admin/productListPage?order_by=stock_row">상품관리</a></li>
+								<li class="admin_page_registerPage"><a href="/pages/admin/registerPage">상품등록</a></li>
+								<li class="admin_page_memberListPage"><a href="/pages/admin/memberListPage">회원관리</a></li>
 							</ul>
 						</li>
 					</c:if>
@@ -112,7 +135,7 @@
 			</nav>
 			<form id="searchForm" action="" method="get"> <!-- action 생략시 현재페이지에 요청함! -->
 				<div class="search_input">
-					<input type="text" name="keyword" value='<c:out value="${pageMaker.cri.keyword}"></c:out>'  placeholder="검색어 입력">
+					<input type="text" name="keyword" value='<c:out value="${pageMaker.cri.keyword}"></c:out>'  placeholder="  검색어 입력">
 					<input type="hidden" name="pageNum" value='<c:out value="${pageMaker.cri.pageNum}"></c:out>'>
 					<input type="hidden" name="amount" value="${pageMaker.cri.amount}">
 					<img class="btn search_btn_icon" src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png">
