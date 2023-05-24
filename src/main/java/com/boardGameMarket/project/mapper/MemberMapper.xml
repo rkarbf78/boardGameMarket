@@ -8,7 +8,7 @@
   		
   	<![CDATA[
   		SELECT * FROM (
-  			SELECT /*+INDEX_DESC(Product SYS_C007333) */
+  			SELECT /*+INDEX_DESC(Product SYS_C007586) */
   				rownum as rn, member_id, member_name, member_email, member_phone,
   				member_role,member_updateDate, member_regDate
   				FROM Member
@@ -79,6 +79,14 @@
   	
   	<update id="member_update_tempPw">
   		UPDATE Member SET member_password = #{member_password} WHERE member_id = #{member_id} AND member_email = #{member_email}
+  	</update>
+  	
+  	<update id="member_modify" parameterType="com.boardGameMarket.project.domain.MemberVO">
+  		UPDATE Member SET member_password =#{member_password}, member_email = #{member_email}, member_phone = #{member_phone} WHERE member_id = #{member_id}	
+  	</update>
+  	
+  	<update id="member_address_modify">
+  		UPDATE Member_Address SET member_address1 = #{member_address.member_address1}, member_address2 = #{member_address.member_address2}, member_address3 = #{member_address.member_address3} WHERE member_id = #{member_id}
   	</update>
   	
   </mapper>

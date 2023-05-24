@@ -247,6 +247,9 @@
 	vertical-align: middle;
 	margin-left: 10px;
 }
+.product_count_modify_btn{
+	cursor: pointer;
+}
 
 
 </style>

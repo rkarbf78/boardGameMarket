@@ -100,6 +100,7 @@
 		<a id="logout_button">로그아웃</a>
 		<a href="/pages/cartPage/${member.member_id}" id="cart_button">장바구니</a>
 		<a href="/pages/orderListPage/${member.member_id}" id="orderList_button">주문조회</a>
+		<a href="/pages/memberModifyPage/${member.member_id}" id="memberModify_button">정보수정</a>
 	</div>
 </c:if>
 

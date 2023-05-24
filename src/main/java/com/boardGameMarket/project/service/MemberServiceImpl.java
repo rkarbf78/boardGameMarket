@@ -132,4 +132,11 @@ public class MemberServiceImpl implements MemberService {
 			return "0";
 		}	
 	}
+	
+	@Transactional
+	@Override
+	public void member_modify(MemberVO mVo) {
+		mapper.member_modify(mVo);
+		mapper.member_address_modify(mVo);
+	}
 }

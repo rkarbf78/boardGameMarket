@@ -312,19 +312,19 @@
 		<div class="banner">
 			<a>
 				<img src="../resources/img/하나비_배너.jpg">
-				<input class="find_id" type="hidden" value="110"/>
+				<input class="find_id" type="hidden" value="2"/>
 			</a>
 		</div>
 		<div class="banner">
 			<a>
 				<img src="../resources/img/레지스탕스.jpg">
-				<input class="find_id" type="hidden" value="111"/>
+				<input class="find_id" type="hidden" value="3"/>
 			</a>
 		</div>
 		<div class="banner">
 			<a>
 				<img src="../resources/img/뱅_배너.jpg">
-				<input class="find_id" type="hidden" value="112"/>
+				<input class="find_id" type="hidden" value="1"/>
 			</a>
 		</div>				
 	</div>	

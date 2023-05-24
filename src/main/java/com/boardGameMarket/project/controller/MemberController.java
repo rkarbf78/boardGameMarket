@@ -13,12 +13,14 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.boardGameMarket.project.domain.CategoryVO;
+import com.boardGameMarket.project.domain.MemberAddressVO;
 import com.boardGameMarket.project.domain.MemberVO;
 import com.boardGameMarket.project.service.MemberService;
 import com.boardGameMarket.project.service.ProductService;
@@ -53,13 +55,30 @@ public class MemberController {
 		model.addAttribute("categoryList" , categoryList);
 		return "/pages/joinPage";
 	}
-	
+		
 	@PostMapping("/join")
 	public String member_join(MemberVO mVo) {
-		System.out.println("갑자기 왜이래 @@@@@" + mVo);
 		m_service.member_registration(mVo);
 		return "redirect:/pages/mainPage";
 	}
+	
+	@GetMapping("/memberModifyPage/{member_id}")
+	public String modifyPage(@PathVariable("member_id")String member_id,Model model) {
+		MemberVO member = m_service.getMember(member_id);
+		MemberAddressVO address = m_service.getMemberAddress(member_id);
+		member.setMember_address(address);
+		model.addAttribute("member",member);
+		List<CategoryVO> categoryList = p_service.categoryList();
+		model.addAttribute("categoryList" , categoryList);
+		return "/pages/memberModifyPage";
+	}
+	
+	@PostMapping("/memberModify")
+	public String member_modify(MemberVO member) {
+		m_service.member_modify(member);
+		return "redirect:/pages/mainPage";
+	}
+	
 	
 	@ResponseBody
 	@PostMapping("/member_id_check")

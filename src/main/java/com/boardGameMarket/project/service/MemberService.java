@@ -30,5 +30,7 @@ public interface MemberService {
 	
 	public String member_pwSearch(String member_id , String member_email);
 	
+	public void member_modify(MemberVO mVo);
+	
 	
 }

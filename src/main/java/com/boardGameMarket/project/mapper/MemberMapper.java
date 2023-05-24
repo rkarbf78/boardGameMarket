@@ -30,6 +30,10 @@ public interface MemberMapper {
 	
 	public void member_address_remove(String member_id);
 	
+	public void member_modify(MemberVO mVo);
+	
+	public void member_address_modify(MemberVO mVo);
+	
 	
 	//보통 하나만 전달하거나 같은 데이터타입의 변수를 인자로 넘긴적이없어서
 	//몰랐는데 @Param 안붙이면 마이바티스에서 구분 못함
