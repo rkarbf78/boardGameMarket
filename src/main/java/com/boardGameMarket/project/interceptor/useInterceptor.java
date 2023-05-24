@@ -10,7 +10,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import com.boardGameMarket.project.domain.MemberVO;
 
-public class useInterceptor implements HandlerInterceptor {
+public class UseInterceptor implements HandlerInterceptor {
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
