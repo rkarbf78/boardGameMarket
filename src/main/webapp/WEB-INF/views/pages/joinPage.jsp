@@ -100,11 +100,11 @@
 			
 		});
 		
-		//회원가입 아이디 중복체크 로직
+		//회원가입 아이디 중복체크
 		$(".id_input").on("propertychange change keyup paste input" , function(){
 			
-			var member_id = $(".id_input").val(); //.id_input에 입력되는 값
-			var data = {member_id:member_id}	  //'컨트롤러에 넘길 데이터이름' : '데이터(.id_input에 입력되는 값)'
+			var member_id = $(".id_input").val();
+			var data = {member_id:member_id}	
 			
 			$.ajax({
 				type : "post",
@@ -327,6 +327,7 @@
 						<h4 class="join-title">회원 가입</h4>
 						<form class="wpcf7" method="post" id="join_form">
 							<div class="form">
+							
 								<div class="id_wrap">
 									<div class="id_name">아이디</div>
 									<div class="id_input_box">
@@ -336,6 +337,7 @@
 									<span class="id_input_re_2">아이디가 이미 존재합니다.</span>
 									<span class="final_id_ck">아이디를 입력해주세요.</span>
 								</div>
+								
 								<div class="pw_wrap">
 									<div class = "pw_name">비밀번호</div>
 									<div class="pw_input_box">

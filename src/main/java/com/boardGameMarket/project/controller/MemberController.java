@@ -83,7 +83,7 @@ public class MemberController {
 	@ResponseBody
 	@PostMapping("/member_id_check")
 	public String member_id_check(String member_id) {
-		//log.info("member_id_check 吏꾩엯");
+
 		int result = m_service.idCheck(member_id);
 		
 		if(result != 0) {
@@ -93,16 +93,15 @@ public class MemberController {
 		}
 	}
 	
+	
 	//메일 인증번호 송신
 	@GetMapping("/mailCheck")
 	@ResponseBody
 	public String mailCheckGET(String email) {
-		
 		//난수 생성
 		Random random = new Random();
 		int checkNum = random.nextInt(888888) + 111111;
-		log.info("인증번호 : " + checkNum);
-		
+		log.info("인증번호 : " + checkNum);	
 		
 		String setFrom = "rkarbf78@naver.com";
 	    String toMail = email;
@@ -113,9 +112,7 @@ public class MemberController {
 	                "인증 번호는 " + checkNum + "입니다." + 
 	                "<br>" + 
 	                "해당 인증번호를 인증번호 확인란에 기입하여 주세요.";
-		
 		  try {
-	            
 	            MimeMessage message = mailSender.createMimeMessage();
 	            MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
 	            helper.setFrom(setFrom);
