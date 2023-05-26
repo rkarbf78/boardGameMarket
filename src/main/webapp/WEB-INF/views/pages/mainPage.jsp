@@ -129,6 +129,8 @@
 			
 			let addInput = '<input type="hidden" name="product_id" value="'+$(this).find('.find_id').attr("value")+'">';
 			
+			addInput += "<input type='hidden' name='order_by' value='${pageMaker.cri.order_by}'>";
+			
 			moveForm.append(addInput);
 			
 			moveForm.attr("action","/pages/detailPage");
@@ -153,6 +155,7 @@
 		});
 		
 		$(".product_order_by a").click(function(e){
+			
 			e.preventDefault();
 			
 			let addInput = '<input type="hidden" name="order_by" value="'+$(this).attr("href")+'">';
@@ -256,7 +259,7 @@
 .recent_products{
 	position:absolute;
 	width : 180px;
-	left : 78%;
+	right : 22%;
 	top : 200px;
 	border : 1px solid #333;
 	border-top-width:2px;
@@ -330,7 +333,7 @@
 	</div>	
 </div>
 
-<div class="product_order_by">
+	<div class="product_order_by">
 		<ul>
 			<li><a href="new" class="order_nav_1">신상품순</a></li>
 			<li><a href="best" class="order_nav_2">인기상품순</a></li>
@@ -338,6 +341,7 @@
 			<li><a href="row" class="order_nav_4">낮은가격순</a></li>
 		</ul>
 	</div>
+	
 		<!-- #masthead -->
 		<div id="content" class="site-content">
 			<div id="primary" class="content-area column full">
@@ -394,12 +398,14 @@
 							</ul>
 						</div>
 					</nav>
+					
 					<form id="moveForm" action="" method="get">  <!-- action 생략시 현재페이지에 요청함! -->
 						<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
 						<input type="hidden" name="amount" value="${pageMaker.cri.amount}">
 						<input type="hidden" name="keyword" value="${pageMaker.cri.keyword}">
 						<input type="hidden" name="page_category_code" value="${page_category_code}">											
 					</form>	
+					
 					</c:if>
 					<c:if test="${productListCheck == 'empty'}">
 						<div class="data_empty">

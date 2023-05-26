@@ -115,12 +115,14 @@
 			<nav id="site-navigation" class="main-navigation">
 			<button class="menu-toggle">메뉴</button>
 			<div class="menu-menu-1-container">
+			
 				<ul id="menu-menu-1" class="menu">
 					<li class="cate_none"><a href="/pages/mainPage">전체상품</a></li>
 					<c:forEach items="${categoryList}" var="category">
 					<li class="cate_li">
 						<a href="/pages/mainPage?page_category_code=${category.category_code}">${category.category_name}</a>	
 					</li>
+					
 					</c:forEach>
 					<c:if test="${member.member_role == 1}">
 						<li class="admin_page"><a href="/pages/admin/adminPage">관리자 페이지</a>

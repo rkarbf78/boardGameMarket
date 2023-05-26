@@ -24,6 +24,7 @@ $(document).ready(function(){
 		$(".email_change_button2").css("display","block");
 		mail_code_check = false;
 	});
+	
 	$(".email_change_button2").click(function(){
 		$(".mail_input").attr("readonly");
 		$(".mail_input").blur();
@@ -32,6 +33,7 @@ $(document).ready(function(){
 		$(".email_change_button").css("display","block");
 		mail_code_check = true;
 	});
+	
 	$(".password_change_button").click(function(){
 		password_check = false;
 		password_same_check = false;
@@ -43,6 +45,7 @@ $(document).ready(function(){
 		$(".new_password").attr("name","member_password");
 		$(".new_password").focus();
 	});
+	
 	$(".password_change_button2").click(function(){
 		$(this).css("display" , "none");
 		$(".password_change_button").css("display","block");
@@ -376,6 +379,7 @@ function daum_address_api(){
 									<label>아이디</label>
 									<input type="text" name="member_id" value="${member.member_id}" readonly>
 								</div>
+								
 								<div class="password_change_button">
 									<span>비밀번호 변경하기</span>
 								</div>
@@ -393,6 +397,7 @@ function daum_address_api(){
 									<span class="pwck_input_re_1">비밀번호가 일치합니다.</span>
 									<span class="pwck_input_re_2">비밀번호가 일치하지 않습니다.</span>
 								</div>
+								
 								<div class="name_wrap">
 									<label>이름</label>
 									<input type="text" name="member_name" value="${member.member_name}" readonly>
@@ -453,8 +458,7 @@ function daum_address_api(){
 								</div>
 								</form>
 								<div class="button_section">
-									<input type="button" id="modify_button" value="수정적용">
-									<input type="button" id="remove_button" value="회원탈퇴">
+									<input type="button" id="modify_button" value="수정">
 									<input type="button" id="list_button" value="취소">
 								</div>
 							</div>

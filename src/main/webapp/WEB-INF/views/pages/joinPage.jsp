@@ -10,18 +10,19 @@
 	var emailCode = ""; //이메일전송 인증번호 저장위한 변수
 	
 	//유효성 검사 통과유무 변수
-	var id_check = false;
-	var id_duplication_check = false;
-	var password_check = false;
-	var password_same_check = false;
-	var password_same_exact_check = false;
-	var name_check = false;
-	var phone_check = false;
-	var mail_check = false;
-	var mail_code_check = false;
-	var address_check = false;
+	var id_check = false;                  //아이디 입력 
+	var id_duplication_check = false;	   //아이디 중복 
+	var password_check = false;			   //패스워드 입력 
+	var password_same_check = false;	   //패스워드 확인 입력 
+	var password_same_exact_check = false; //패스워드 일치
+	var name_check = false;				   //이름 입력 
+	var phone_check = false;			   //전화번호 입력
+	var mail_check = false;				   //메일 입력
+	var mail_code_check = false;		   //메일 인증번호 일치
+	var address_check = false;			   //주소 입력
 	
 	$(document).ready(function(){
+		
 		//회원가입 버튼 동작
 		$(".join_button").click(function(){
  
@@ -90,6 +91,7 @@
 				$(".final_addr_ck").css("display","none");
 				address_check = true;	
 			}
+			
 			//최종 유효성 검사
 			if(id_check && id_duplication_check && password_check && password_same_check && password_same_exact_check && name_check && phone_check && mail_check && mail_code_check && address_check){
 				$("#join_form").attr("action","/pages/join");
@@ -380,7 +382,7 @@
 											<span>인증번호 전송</span>
 										</div>
 										<div class="mail_check_input_box"  id="mail_check_input_box_false">
-											<input type="text" class="mail_check_input" disabled="disabled">
+											<input type="text" class="mail_check_input" disabled="disabled" placeholder="인증번호 입력란">
 										</div>
 										<div class="clearfix"></div>
 										<span id="mail_check_input_box_warn"></span>

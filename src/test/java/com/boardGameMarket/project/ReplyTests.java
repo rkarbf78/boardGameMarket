@@ -25,18 +25,18 @@ public class ReplyTests {
 	@Test
 	public void reply_registration_test() {
 		
-		for(int i=0; i<30; i++) {
+		for(int i=0; i<62; i++) {
 			
-			ReplyDTO reply = new ReplyDTO();
-			
-			reply.setProduct_id(106);
-			reply.setMember_id("gang0");
-			reply.setContent("댓글 테스트"+i);
-			reply.setRating((int)(Math.random()*5+1));
-			
-			mapper.reply_registration(reply);
-			
+			for(int j=0; j<(int)(Math.random()*30); j++) {
+				ReplyDTO reply = new ReplyDTO();
+				
+				reply.setProduct_id(i+1);
+				reply.setMember_id("TEST_USER");
+				reply.setContent("TEST REPLY");
+				reply.setRating((int)(Math.random()*5+1));
+				
+				mapper.reply_registration(reply);
+			}
 		}
-		
 	}
 }

@@ -32,8 +32,6 @@ public class ProductController {
 	
 	@GetMapping("/mainPage")
 	public void mainPage(Model model, Criteria cri) {
-		
-		System.out.println(cri);
 				
 		List<ProductVO> productList = service.getProductList(cri);
 		
