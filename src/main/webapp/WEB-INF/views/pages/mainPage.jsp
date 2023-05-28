@@ -122,7 +122,7 @@
 			moveForm.submit();
 		});
 		
-		//상품 디테일 페이지 이동
+		//상품 디테일 페이지 이동()
 		$('.entry-thumbnail').click(function(e) {
 			
 			e.preventDefault();
@@ -211,12 +211,14 @@
 			});
 			
 		});	
+		
 		//최근 상품창 스크롤 따라 움직이기
 		 var currentPosition = parseInt($(".recent_products").css("top"));
 		  $(window).scroll(function() {
 		    var position = $(window).scrollTop(); 
 		    $(".recent_products").stop().animate({"top":position+currentPosition+"px"},600);
 		  });
+		  
 	});
 </script>
 
@@ -350,7 +352,7 @@
 						<div class="grid portfoliogrid">
 						<c:forEach var="list" items="${productList}">
 							<article class="hentry">
-								<header class="entry-header">				
+								<header class="entry-header">
 									<div class="image_wrap" data-product_id="${list.image.product_id}" data-path="${list.image.uploadPath}" data-uuid="${list.image.uuid}" data-filename="${list.image.fileName}">
 										<div class="entry-thumbnail">
 											<input class="find_id" type="hidden" value='<c:out value="${list.product_id}"/>'>	
@@ -415,9 +417,10 @@
 							
 				</main>
 					<!-- #main -->
+					
 					<div class="recent_products">
 						<div class="recent_products_title">
-							<span class="price_span_label">최근 본 상품</span>
+							<span>최근 본 상품</span>
 						</div>
 						<c:choose>
 							<c:when test="${recent_product != null}">
@@ -440,6 +443,7 @@
 							</c:otherwise>
 						</c:choose>			
 					</div>
+					
 			</div>
 				<!-- #primary -->
 		</div>

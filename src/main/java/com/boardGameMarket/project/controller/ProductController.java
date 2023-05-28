@@ -81,9 +81,6 @@ public class ProductController {
 		if(session.getAttribute("recent_product") == null) {
 			List<Integer> products_id = new ArrayList<Integer>();
 			products_id.add(0,product_id);
-			if(products_id.size() > 3) {
-				products_id.remove(3);
-			}
 			session.setAttribute("recent_product", products_id);
 		}else {
 			//세션 반환시 데이터타입 오브젝트임 변환필요

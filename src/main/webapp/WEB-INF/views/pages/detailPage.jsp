@@ -349,6 +349,7 @@
 				$(".comment-form").find("input[name='rating']").val(idx+1);
 			});
 		});
+		
 	});
 	
 </script>
