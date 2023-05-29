@@ -29,7 +29,6 @@ public class ReplyController {
 	@Transactional
 	@PostMapping(value="/register",produces="application/text;charset=utf8") //ajax로 리턴시 한글 깨짐현상 해결위해 프로듀시스 설정
 	public String reply_registration(ReplyDTO reply) {
-		System.out.println(reply);
 		
 		String check = service.reply_check(reply);
 		

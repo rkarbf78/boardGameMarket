@@ -22,7 +22,7 @@ public class ReplyTests {
 	@Setter(onMethod_=@Autowired)
 	private ReplyMapper mapper;
 	
-	@Test
+//	@Test
 	public void reply_registration_test() {
 		
 		for(int i=0; i<62; i++) {
@@ -37,6 +37,20 @@ public class ReplyTests {
 				
 				mapper.reply_registration(reply);
 			}
+		}
+	}
+	
+	@Test
+	public void reply_registration_test2() {
+		for(int i=0; i<20; i++) {
+			ReplyDTO reply = new ReplyDTO();
+			
+			reply.setProduct_id(1);
+			reply.setMember_id("DUMMY_USER"+i);
+			reply.setContent("DUMMY_REPLY");
+			reply.setRating(4);
+			
+			mapper.reply_registration(reply);
 		}
 	}
 }

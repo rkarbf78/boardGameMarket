@@ -63,6 +63,7 @@
 				}
 			});
 		});
+		
 		//댓글 부분 서버로 전송할 데이터
 		const replyForm = {
 				member_id : '${member.member_id}',
@@ -89,23 +90,18 @@
 		});
 		
 		//댓글 불러오기
-		
 		/* 댓글 페이지정보 */
 		const cri = {
 				product_id : '${product.product_id}',
 				pageNum : 1,
 				amount : 10
 		}
-
 		$.getJSON("/pages/reply/list" , cri , function(obj){
-		
 			makeReply(obj);	
-				
 		});
 		
 		
 		/* 댓글 구현 기능 함수화 */
-		
 		function makeReply(obj){	
 			
 			if(obj.reply_list.length === 0){ //등록된 리뷰 없을시
@@ -118,9 +114,7 @@
 				const list = obj.reply_list;
 				const pi = obj.page_info;
 				const member_id = '${member.member_id}';	
-			
 				
-		 	
 			/* 댓글 리스트 만드는 부분 */
 			
 			let reply_list = '';
@@ -146,8 +140,7 @@
 					reply_list += '<span class="date_span">등록일 '+ data.regDate +'</span>';
 				}else{
 					reply_list += '<span class="date_span">등록일 '+ data.regDate +' (수정일 '+ data.updateDate +')</span>';
-				}
-				
+				}	
 				if(data.member_id === member_id){
 					reply_list += '<a class="update_reply_btn" href="'+ data.reply_id +'">수정</a><a class="delete_reply_btn" href="'+ data.reply_id +'">삭제</a>';
 				}
@@ -157,7 +150,7 @@
 				reply_list += '</div>';//<div class="reply_bottom">
 				reply_list += '</div>';//<div class="comment_wrap">
 				reply_list += '</li>';
-			});
+			}); //리뷰리스트 데이터 each문 끝
 			
 			$(".reply_content_ul").html(reply_list);
 			
@@ -241,7 +234,6 @@
 		}
 		starAvgTag += "</div>";
 		
-		
 		$(".detail_section_wrap2").find(".detail_section_title").append(starAvgTag);
 		});
 		
@@ -281,6 +273,7 @@
 			$(this).closest(".reply_top").find(".fa").each(function(idx,data){
 			$(this).click(function(){
 				$(this).closest(".reply_top").find(".fa").removeClass("fa-star").addClass("fa-star-o");
+				
 				for(var i=0; i<=idx; i++){
 					$(this).closest(".reply_top").find(".fa").eq(i).removeClass("fa-star-o").addClass("fa-star");
 				}
@@ -346,7 +339,8 @@
 				for(var i=0; i<=idx; i++){
 					$(".comment-form-rating .fa").eq(i).removeClass("fa-star-o").addClass("fa-star");
 				}
-				$(".comment-form").find("input[name='rating']").val(idx+1);
+				$("#rating").val(idx+1);
+				console.log($("#rating").val());
 			});
 		});
 		
@@ -658,6 +652,7 @@
 												<input type="submit" id="list_button" value="목록">											
 											</form>	
 										</div>
+										
 										<!-- 주문 form -->
 										<div class="order_section">
 											<form action="/pages/orderPage/${member.member_id}" method="get" class="order_form">
@@ -665,6 +660,7 @@
 												<input type="hidden" name="orders[0].product_count" value="">
 											</form>
 										</div>
+										
 										<div class="clear">
 										</div>
 									</div>

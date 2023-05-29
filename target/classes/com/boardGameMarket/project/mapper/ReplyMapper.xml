@@ -24,7 +24,8 @@
   	
   		<![CDATA[
 		SELECT * FROM(  		
-			SELECT rownum as rn, reply_id, product_id, member_id, content, rating, updateDate, regDate
+			SELECT/*+INDEX_DESC(Product_Reply SYS_C007644) */
+			rownum as rn, reply_id, product_id, member_id, content, rating, updateDate, regDate
 			FROM Product_Reply
 			WHERE rownum <= #{pageNum} * #{amount} AND product_id = #{product_id}	
 			order by regDate desc  	
