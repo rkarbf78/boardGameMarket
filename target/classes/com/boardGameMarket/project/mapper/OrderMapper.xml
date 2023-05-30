@@ -54,8 +54,6 @@
   				ofType="com.boardGameMarket.project.domain.OrderElementDTO"
   				select="getOrderElementList"
   				></collection>
-  	
-  	
   </resultMap>
   
   </mapper>

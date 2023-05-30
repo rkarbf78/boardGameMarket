@@ -65,6 +65,7 @@ public class OrderServiceImpl implements OrderService{
 			odedList.add(odeds);
 		
 		}
+		
 		// OrderDTO 세팅
 		odd.setOrders(odedList);
 		odd.get_order_price_info();
@@ -78,8 +79,6 @@ public class OrderServiceImpl implements OrderService{
 			
 			//order_id 세팅
 			odeds.setOrder_id(odd.getOrder_id());
-			
-			System.out.println(odeds.getProduct_name());
 			
 			//orderElement DB에 넣기
 			o_mapper.order_element_registration(odeds);

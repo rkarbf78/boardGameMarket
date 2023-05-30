@@ -52,6 +52,7 @@ public class UploadController {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			
 			if(!type.startsWith("image")) {
 				AttachFileDTO attach = null;
 				return new ResponseEntity<>(attach,HttpStatus.BAD_REQUEST);
@@ -70,8 +71,10 @@ public class UploadController {
 			if(uploadPath.exists()==false) {
 				uploadPath.mkdirs();
 			}
+			
 			//이미지 정보 객체
 			AttachFileDTO attach = new AttachFileDTO();
+			
 			//파일 이름
 			String uploadFileName = uploadFile.getOriginalFilename();
 			
@@ -86,8 +89,6 @@ public class UploadController {
 			
 			//veiw 로 보내기위해 set
 			attach.setUuid(uuid);
-			
-			
 			
 			//파일 위치, 파일 이름을 합친 File 객체
 			File saveFile = new File(uploadPath,uploadFileName);

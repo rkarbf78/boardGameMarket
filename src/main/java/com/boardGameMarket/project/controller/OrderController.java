@@ -69,9 +69,7 @@ public class OrderController {
 	public String orderResultPage(@PathVariable("member_id") String member_id,Model model) {
 		
 		List<OrderDTO> orderList = o_service.getOrderList(member_id);
-		
-		System.out.println(orderList);
-		
+	
 		model.addAttribute("orderList" , orderList);
 		
 		List<CategoryVO> categoryList = p_service.categoryList();

@@ -67,7 +67,11 @@ $(document).ready(function(){
 	
 	
 	//로딩시 전해줄 데이터
-	const firstChart = {product_id : $("input[name='product_id']").val(),startDay : $(".startDay_input").val(),endDay : $(".endDay_input").val()}
+	const firstChart = {
+			product_id : $("input[name='product_id']").val(),
+			startDay : $(".startDay_input").val(),
+			endDay : $(".endDay_input").val()
+			}
 	
 	//최초 로딩시 오늘날짜~7일전 데이터 출력
 	$.getJSON("/pages/admin/chart",firstChart,function(result){
@@ -238,19 +242,23 @@ function chartMake(label_list, count_list) {
 										</div>
 									</div>
 								</div>
+								
 								<div class="chart_wrap">
 									<label>상품 판매량 그래프</label>
 										<div class="input-group input-daterange">
 										<c:set var='ymd' value="<%=new java.util.Date()%>"/>
 										<c:set var='zmd' value="<%=new java.util.Date(new java.util.Date().getTime() - 60*60*24*1000*7)%>"/>
-											<input type="text" id="startDay" class="startDay_input datepicker" name="startDay" value="<fmt:formatDate value='${zmd}' pattern='yyyy/MM/dd'/>" readonly>
-											<input type="text" id="endDay" class="endDay_input datepicker" name="endDay" value="<fmt:formatDate value='${ymd}' pattern='yyyy/MM/dd'/>"  readonly>
+											<input type="text" id="startDay" class="startDay_input datepicker"
+											 name="startDay" value="<fmt:formatDate value='${zmd}' pattern='yyyy/MM/dd'/>" readonly>
+											<input type="text" id="endDay" class="endDay_input datepicker"
+											 name="endDay" value="<fmt:formatDate value='${ymd}' pattern='yyyy/MM/dd'/>"  readonly>
 											<button type="button" id="click-btn">조회</button>
 										</div>
 										<div class="chart_canvas" style="position: relative; height:250px; width:100%">
 												<canvas id="myChart"></canvas>
 										</div>
 								</div>
+								
 								<div class="name_wrap">
 									<label>상품이름</label>
 									<input type="text" name="product_name" value="${product.product_name}" readonly>

@@ -71,15 +71,17 @@ public class OrderTests {
 	@Test
 	public void order_element_registration_test() {
 		 
-			  OrderElementDTO order1 = new OrderElementDTO();
-			  order1.setOrder_id("그래프테스트오더8"); 
-			  order1.setProduct_id(106);
-			  order1.setProduct_name("모노폴리");
-			  order1.setProduct_count((int)(Math.random()*5)+1); 
-			  order1.setProduct_price(3000);
+	
+			OrderElementDTO order1 = new OrderElementDTO();
+			  order1.setOrder_id("테스트오더0530"); 
+			  order1.setProduct_id(43);
+			  order1.setProduct_name("다빈치 코드");
+			  order1.setProduct_count((int)(Math.random()*10)+1); 
+			  order1.setProduct_price(1000);
 			  order1.initPriceTotal(); 
 			  mapper.order_element_registration(order1);
-			 
+		
+			  
 	}
 	
 //	@Test

@@ -131,10 +131,7 @@ public class ProductServiceImpl implements ProductService {
 		
 		List<ChartDTO> chartDataList = mapper.getChartData(product_id, startDay, endDay);
 		
-		System.out.println("널일때 으카냐?" + chartDataList);
-		
 		if(chartDataList.isEmpty()) {
-			System.out.println("널일떄 여기 들어오냐?");
 			return chartDataList;
 		}else {
 			//검색 시작날짜에 해당하는 db데이터가 없을시
@@ -143,6 +140,13 @@ public class ProductServiceImpl implements ProductService {
 				chart.setSell_date(startDay);
 				chart.setSell_count(0);
 				chartDataList.add(0,chart);
+			}
+			//검색 끝날짜에 해당하는 db데이터가 없을시
+			if(chartDataList.get(chartDataList.size()-1).getSell_date() != endDay){
+				ChartDTO chart = new ChartDTO();
+				chart.setSell_date(endDay);
+				chart.setSell_count(0);
+				chartDataList.add(chart);
 			}
 			
 			//중복날짜 count 합치고 중복 없애기
@@ -153,6 +157,7 @@ public class ProductServiceImpl implements ProductService {
 					i--;
 				}
 			}
+			
 			//날짜 사이 빈날짜 채우기
 			for(int i=0; i<chartDataList.size()-1; i++) {
 				
@@ -164,15 +169,12 @@ public class ProductServiceImpl implements ProductService {
 					Date formatDate2 = new SimpleDateFormat("yyyy/MM/dd").parse(date2);
 					long dateGap = (formatDate2.getTime()-formatDate1.getTime())/1000 / (24*60*60);
 					
-					System.out.println("데이트갭 검사" + dateGap);
-					
 					if(dateGap != 1) {
 						Calendar cal = Calendar.getInstance();
 						cal.setTime(formatDate1);
 						cal.add(Calendar.DATE, 1);
 						String strformat = new SimpleDateFormat("yyyy/MM/dd").format(cal.getTime());
 						ChartDTO chart = new ChartDTO();
-						System.out.println("캘린더로 바꾼건 어떨까" + strformat);
 						chart.setSell_date(strformat);
 						chart.setSell_count(0);
 						chartDataList.add(i+1,chart);	
@@ -180,6 +182,13 @@ public class ProductServiceImpl implements ProductService {
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}
+			}
+			
+			//그래프 출력시 날짜 간소화
+			for(ChartDTO chartData : chartDataList) {
+				String date = chartData.getSell_date();
+				date = date.substring(date.length()-5,date.length());
+				chartData.setSell_date(date);
 			}
 			return chartDataList;
 		}

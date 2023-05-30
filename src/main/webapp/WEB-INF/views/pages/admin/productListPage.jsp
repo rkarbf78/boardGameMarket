@@ -76,7 +76,7 @@
 		//재고 기준 이하일시 CSS
 		$(".list_data").each(function(idx,data){
 			var stockVal = $(this).find(".stock_data").val();
-			if(stockVal < 20){
+			if(stockVal <= 20){
 				$(this).find("td").eq(4).css("color" , "red");
 			}
 		});
@@ -100,8 +100,7 @@
 		
 		//재고 적은순 조회
 		$(".fa-sort-down").click(function(){
-			
-			
+				
 			moveForm.find("input[name='order_by']").val("stock_row");
 			
 			moveForm.attr("action","/pages/admin/productListPage");

@@ -46,14 +46,6 @@
 		});
 		
 	});
-	
-	
-	
-
-	
-	
-	
-		
 </script>
 
 <style>
@@ -113,6 +105,7 @@ height: 110px;
     font-weight: bold;
 }
 #result_card img{
+	width : 200px;
 	margin : 0 auto;
 }
  
