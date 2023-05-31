@@ -9,8 +9,6 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 <script>
-
-	
 	$(document).ready(function(){
 	
 		setTotalInfo();
@@ -31,8 +29,6 @@
 				}				
 			});
 			
-			
-			
 			var o_amount = parseInt($(".priceTotalFinal_span").text());
 			var m_email = "${member_info.member_email}";
 			var m_name = "${member_info.member_name}";
@@ -43,9 +39,7 @@
 			requestPay(o_id,o_amount,m_email,m_name,m_tel,m_addr,m_postcode);
 	
 		});
-		
 
-		
 		$(".products_table_tr").each(function(idx,data){
 			
 			//이미지 정보 호출
@@ -438,124 +432,123 @@ height: 110px;
 
  
 </style>
-
-	<div class="content_subject"><h4>상품주문</h4></div>
-	
-	<div class="content_main">
-		<!-- 회원정보 -->
-		<div class="member_info_div">
-			<table class="member_info_table">
-				<tbody>
-					<tr>
-						<th style="width: 25%;">주문자</th>								
-						<td style="width: 75%">${member_info.member_name} | ${member_info.member_email}</td>						
-					</tr>
-				</tbody>
-			</table>
-		</div>
-		<!-- 상품 관련 -->
-		<div class="orderproducts_div">
-		<!-- 상품 종류 -->
-		<div class="products_kind_div">
-			주문상품 <span class="products_kind_div_kind"></span>종 <span class="products_kind_div_count"></span>개
-		</div>
-		<!-- 상품 테이블 -->
-		<table class="products_subject_table">
-			<thead>
-				<tr>
-					<th>이미지</th>
-					<th>상품 정보</th>
-					<th>판매가</th>
-				</tr>
-			</thead>
-			<tbody>
-			<colgroup>
-				<col width="25%">
-				<col width="25%">
-			</colgroup>
-				<c:forEach items="${orderList}" var="ol">
-					<tr class="products_table_tr">
-						<td class ="product_image">
-							<div id="uploadResult">
-							</div>
-						</td>
-						<td>${ol.product_name}</td>
-						<td class="products_table_price_td">
-							<fmt:formatNumber value="${ol.product_price}" pattern="#,### 원" /> | 수량 ${ol.product_count}개
-							<br>
-							<fmt:formatNumber value="${ol.product_price_total}" pattern="#,### 원" />
-							<input type="hidden" class="product_price_input" value="${ol.product_price}">
-							<input type="hidden" class="product_count_input" value="${ol.product_count}">
-							<input type="hidden" class="product_priceTotal_input" value="${ol.product_price * ol.product_count}">
-							<input type="hidden" class="product_id_input" value="${ol.product_id}">
-							<input type="hidden" class="product_name_input" value="${ol.product_name}">
-						</td>
-					</tr>							
-				</c:forEach>
-			</tbody>
-		</table>
-	</div>
-		<!-- 배송지 -->
-		<div class="address_info_div">				
-			<div class="address_info_button_div">
-				<button class="address_btn address_btn_1" onclick="showAddress('1')" style="background-color: #3c3838;">사용자 정보 주소록</button>
-				<button class="address_btn address_btn_2" onclick="showAddress('2')">직접 입력</button>
-			</div>
-			<div class="address_info_input_div_wrap">
-				<div class="address_info_input_div address_info_input_div_1" style="display: block">
-						<table>
-			<colgroup>
-				<col width="25%">
-				<col width="*">
-			</colgroup>
-			<tbody>
-				<tr>
-					<th>이름</th>
-					<td>
-						${member_info.member_name}
-					</td>
-				</tr>
-				<tr>
-					<th>주소</th>
-					<td>
-						${member_info.member_address.member_address1} ${member_info.member_address.member_address2}<br>${member_info.member_address.member_address3}
-						<input class="address_select" value="T" type="hidden">
-						<input class="receiver_input" value="${member_info.member_name}" type="hidden">
-						<input class="address_input_1" type="hidden" value="${member_info.member_address.member_address1}"> 
-						<input class="address_input_2" type="hidden" value="${member_info.member_address.member_address2}">
-						<input class="address_input_3" type="hidden" value="${member_info.member_address.member_address3}">										
-					</td>
-				</tr>
-			</tbody>
-		</table>
-				</div>
-				<div class="address_info_input_div address_info_input_div_2">
-					<table>
-						<colgroup>
-							<col width="25%">
-							<col width="*">
-						</colgroup>
+	   <!-- </header> -->
+			<div class="content_subject"><h4>상품주문</h4></div>
+			<div class="content_main">
+				<!-- 회원정보 -->
+				<div class="member_info_div">
+					<table class="member_info_table">
 						<tbody>
 							<tr>
-								<th>이름</th>
-								<td>
-									<input class="receiver_input">
-								</td>
-							</tr>
-							<tr>
-								<th>주소</th>
-								<td>
-									<input class="address_select" value="F" type="hidden">	
-									<input class="address_input_1" readonly="readonly"> <a class="address_search_btn" onclick="daum_address_api()">주소 찾기</a><br>
-									<input class="address_input_2" readonly="readonly"><br>
-									<input class="address_input_3" readonly="readonly">
-								</td>
+								<th style="width: 25%;">주문자</th>								
+								<td style="width: 75%">${member_info.member_name} | ${member_info.member_email}</td>						
 							</tr>
 						</tbody>
 					</table>
 				</div>
-			</div>
-		</div>
+				<!-- 상품 관련 -->
+				<div class="orderproducts_div">
+				<!-- 상품 종류 -->
+					<div class="products_kind_div">
+						주문상품 <span class="products_kind_div_kind"></span>종 <span class="products_kind_div_count"></span>개
+					</div>
+					<!-- 상품 테이블 -->
+					<table class="products_subject_table">
+						<thead>
+							<tr>
+								<th>이미지</th>
+								<th>상품 정보</th>
+								<th>판매가</th>
+							</tr>
+						</thead>
+						<tbody>
+						<colgroup>
+							<col width="25%">
+							<col width="25%">
+						</colgroup>
+							<c:forEach items="${orderList}" var="ol">
+								<tr class="products_table_tr">
+									<td class ="product_image">
+										<div id="uploadResult">
+										</div>
+									</td>
+									<td>${ol.product_name}</td>
+									<td class="products_table_price_td">
+										<fmt:formatNumber value="${ol.product_price}" pattern="#,### 원" /> | 수량 ${ol.product_count}개
+										<br>
+										<fmt:formatNumber value="${ol.product_price_total}" pattern="#,### 원" />
+										<input type="hidden" class="product_price_input" value="${ol.product_price}">
+										<input type="hidden" class="product_count_input" value="${ol.product_count}">
+										<input type="hidden" class="product_priceTotal_input" value="${ol.product_price * ol.product_count}">
+										<input type="hidden" class="product_id_input" value="${ol.product_id}">
+										<input type="hidden" class="product_name_input" value="${ol.product_name}">
+									</td>
+								</tr>							
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
+				<!-- 배송지 -->
+				<div class="address_info_div">				
+					<div class="address_info_button_div">
+						<button class="address_btn address_btn_1" onclick="showAddress('1')" style="background-color: #3c3838;">사용자 정보 주소록</button>
+						<button class="address_btn address_btn_2" onclick="showAddress('2')">직접 입력</button>
+					</div>
+					<div class="address_info_input_div_wrap">
+						<div class="address_info_input_div address_info_input_div_1" style="display: block">
+							<table>
+								<colgroup>
+									<col width="25%">
+									<col width="*">
+								</colgroup>
+								<tbody>
+									<tr>
+										<th>이름</th>
+										<td>
+											${member_info.member_name}
+										</td>
+									</tr>
+									<tr>
+										<th>주소</th>
+										<td>
+											${member_info.member_address.member_address1} ${member_info.member_address.member_address2}<br>${member_info.member_address.member_address3}
+											<input class="address_select" value="T" type="hidden">
+											<input class="receiver_input" value="${member_info.member_name}" type="hidden">
+											<input class="address_input_1" type="hidden" value="${member_info.member_address.member_address1}"> 
+											<input class="address_input_2" type="hidden" value="${member_info.member_address.member_address2}">
+											<input class="address_input_3" type="hidden" value="${member_info.member_address.member_address3}">										
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="address_info_input_div address_info_input_div_2">
+							<table>
+								<colgroup>
+									<col width="25%">
+									<col width="*">
+								</colgroup>
+								<tbody>
+									<tr>
+										<th>이름</th>
+										<td>
+											<input class="receiver_input">
+										</td>
+									</tr>
+									<tr>
+										<th>주소</th>
+										<td>
+											<input class="address_select" value="F" type="hidden">	
+											<input class="address_input_1" readonly="readonly"> <a class="address_search_btn" onclick="daum_address_api()">주소 찾기</a><br>
+											<input class="address_input_2" readonly="readonly"><br>
+											<input class="address_input_3" readonly="readonly">
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
 				<div class="total_info_div">
 					<!-- 가격 종합 정보 -->
 					<div class="total_info_price_div">
@@ -582,17 +575,17 @@ height: 110px;
 						<a class="order_btn">결제하기</a>
 					</div>
 				</div>
-		<!-- 주문 요청 form -->
-		<form class="order_form" action="/pages/order" method="post">
-			<!-- 주문자 회원번호 -->
-			<input name="member_id" value="${member_info.member_id}" type="hidden">
-			<!-- 주소록 & 받는이 -->
-			<input name="receiver" type="hidden">
-			<input name="member_address1" type="hidden">
-			<input name="member_address2" type="hidden">
-			<input name="member_address3" type="hidden">
-			<!-- 상품 정보는 동적으로 추가해준다 ! -->
-		</form>	
-	</div>
-			
+				<!-- 주문 요청 form -->
+				<form class="order_form" action="/pages/order" method="post">
+					<!-- 주문자 회원번호 -->
+					<input name="member_id" value="${member_info.member_id}" type="hidden">
+					<!-- 주소록 & 받는이 -->
+					<input name="receiver" type="hidden">
+					<input name="member_address1" type="hidden">
+					<input name="member_address2" type="hidden">
+					<input name="member_address3" type="hidden">
+					<!-- 상품 정보는 동적으로 추가해준다 ! -->
+				</form>	
+			</div>
+		</div><!-- header.jsp container 끝 -->
 <%@ include file="includes/footer.jsp" %>

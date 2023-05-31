@@ -144,11 +144,8 @@
 </script>
  
 <style>
-
 .content_subject h4{
-
 	text-align : center;
-	
 }
 .th_width_1{
 	width : 20px;
@@ -187,39 +184,39 @@
 	margin-bottom : 0;
 }
 .total_wrap td{
-				width : 50%;
-				padding : 5px 5px 5px 10px;
-			}
-			.priceTotalFinal_span{
-				color: #854A72;
-				font-size: 17px;
-				font-weight: bold;
-			}
-			.total_tr1 {
-				border-bottom : none;
-			}
-			.total_tr2 {
-				border-top : none;
-				border-bottom : none;
-			}
-			.total_tr3 {
-				border-top : none;
-			}
-		.content_btn_section{
-	 		margin : 0;
-	 		float : right;
-		}
-	 	.content_btn_section a{
-	    	color: #fefeff;
-		    background-color: #3366ff;
-		    min-width: 100px;
-	    	padding: 5px 10px;
-		    display: inline-block;
-		    font-size: 14px;
-		    font-weight: bold;
-		    text-align: center;
-		    margin-right: 14px;
-		}
+	width : 50%;
+	padding : 5px 5px 5px 10px;
+}
+.priceTotalFinal_span{
+	color: #854A72;
+	font-size: 17px;
+	font-weight: bold;
+}
+.total_tr1 {
+	border-bottom : none;
+}
+.total_tr2 {
+	border-top : none;
+	border-bottom : none;
+}
+.total_tr3 {
+	border-top : none;
+}
+.content_btn_section{
+		margin : 0;
+		float : right;
+}
+.content_btn_section a{
+   	color: #fefeff;
+    background-color: #3366ff;
+    min-width: 100px;
+   	padding: 5px 10px;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    margin-right: 14px;
+}
 .image_wrap{
 	width : 100px;
 	margin : 0 auto;
@@ -250,10 +247,8 @@
 .product_count_modify_btn{
 	cursor: pointer;
 }
-
-
 </style>
-
+	   <!-- </header> -->
 			<div class="content_subject"><h4>장바구니</h4></div>
 			<!-- 장바구니 리스트 -->
 			<div class="content_middle_section"></div>
@@ -301,7 +296,7 @@
 									</div>
 									<a class="product_count_modify_btn" data-cart_id="${ci.cart_id}">수정</a>
 								</td>
-									<td><fmt:formatNumber value="${ci.product_price_total}" pattern="#,### 원"/></td>
+								<td><fmt:formatNumber value="${ci.product_price_total}" pattern="#,### 원"/></td>
 								<td><button class="delete_btn" data-cart_id="${ci.cart_id}">삭제</button></td>
 							</tr>
 						</c:forEach>
@@ -311,44 +306,41 @@
 			<!-- 가격 종합 -->
 			<div class="content_total_section">
 				<div class="total_wrap">
-								<table>
-									<tr class="total_tr1">
-										<td>총 상품 가격</td>
-										<td>
-											<span class="priceTotal_span"></span> 원
-										</td>
-									</tr>
-									<tr class="total_tr2">
-										<td>배송비</td>
-										<td>
-											<span class="deliveryPrice_span"></span>원
-										</td>
-									</tr>									
-									<tr class="total_tr3">
-										<td>총 주문 상품수</td>
-										<td>
-											<span class="kindTotal_span"></span>종
-											<span class="countTotal_span"></span>개
-										</td>
-									</tr>
-									<tr class="total_tr4">
-										<td>
-											<strong>총 결제 예상 금액</strong>
-										</td>
-										<td>
-											<span class="priceTotalFinal_span"></span> 원
-																			<!-- 구매 버튼 영역 -->
-			<div class="content_btn_section">
-				<a class="order_btn">주문하기</a>
-			</div>
-										</td>
-									</tr>
-								</table>
-	
+					<table>
+						<tr class="total_tr1">
+							<td>총 상품 가격</td>
+							<td>
+								<span class="priceTotal_span"></span> 원
+							</td>
+						</tr>
+						<tr class="total_tr2">
+							<td>배송비</td>
+							<td>
+								<span class="deliveryPrice_span"></span>원
+							</td>
+						</tr>									
+						<tr class="total_tr3">
+							<td>총 주문 상품수</td>
+							<td>
+								<span class="kindTotal_span"></span>종
+								<span class="countTotal_span"></span>개
+							</td>
+						</tr>
+						<tr class="total_tr4">
+							<td>
+								<strong>총 결제 예상 금액</strong>
+							</td>
+							<td>
+								<span class="priceTotalFinal_span"></span> 원
+								<!-- 구매 버튼 영역 -->
+								<div class="content_btn_section">
+									<a class="order_btn">주문하기</a>
+								</div>
+							</td>
+						</tr>
+					</table>
 				</div>
-			
 			</div>
-			
 			<!-- 수량 조정 form -->
 			<div class="cart_count_modify_form">
 				<form action="/pages/cart/modify" method="post" class="quantity_modify_form">
@@ -367,8 +359,7 @@
 			<!-- 상품 주문 form -->
 			<div class="cart_order">
 				<form action="/pages/orderPage/${member.member_id}" method="get" class="order_form">
-					
 				</form>	
 			</div>
-			
+		</div><!-- header.jsp container 끝 -->
 <%@ include file="includes/footer.jsp" %>

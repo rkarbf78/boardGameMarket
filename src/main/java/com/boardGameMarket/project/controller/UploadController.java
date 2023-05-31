@@ -163,6 +163,5 @@ public class UploadController {
 		@GetMapping(value="/getAttachFile" , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 		public ResponseEntity<AttachFileDTO> getAttachFile(int product_id){
 			return new ResponseEntity<>(service.getAttachFile(product_id),HttpStatus.OK);
-		}
-		
+		}		
 }

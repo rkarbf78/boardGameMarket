@@ -74,7 +74,6 @@ public class ProductController {
 		
 		model.addAttribute("categoryList" , categoryList);
 		
-		
 		//최근 본 상품 구현
 		HttpSession session = request.getSession();
 		
@@ -91,8 +90,6 @@ public class ProductController {
 				products_id.remove(3);
 			}
 			session.setAttribute("recent_product", products_id);
-		}
-	
-		
+		}	
 	}	
 }

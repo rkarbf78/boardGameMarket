@@ -79,8 +79,5 @@ public class CartController {
 		
 		return "redirect:/pages/cartPage/" + cart.getMember_id();
 		
-	}
-	
-	
-	
+	}	
 }

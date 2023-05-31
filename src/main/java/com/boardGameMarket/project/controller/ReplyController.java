@@ -24,7 +24,6 @@ public class ReplyController {
 	@Setter(onMethod_=@Autowired)
 	private ReplyService service;
 	
-	
 	/* 댓글 등록 */
 	@Transactional
 	@PostMapping(value="/register",produces="application/text;charset=utf8") //ajax로 리턴시 한글 깨짐현상 해결위해 프로듀시스 설정
@@ -66,9 +65,6 @@ public class ReplyController {
 		service.reply_remove(reply_id);
 		
 		return "댓글 삭제가 완료되었습니다.";
-		
-		
+			
 	}
-	
-	
 }

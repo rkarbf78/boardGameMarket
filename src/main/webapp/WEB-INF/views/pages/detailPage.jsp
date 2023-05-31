@@ -348,21 +348,20 @@
 	
 </script>
 <style type="text/css">
-
 .detail_section{
 }
-	#result_card img {
-		max-width : 100%;
-		height : auto;
-		display : block;
-		padding : 5px;
-		margin-top : 10px;
-		margin : auto;
-	}
-	.detail_section_img{
-		width : auto;
-		border : 1px solid #CCCCCC;
-	}
+#result_card img {
+	max-width : 100%;
+	height : auto;
+	display : block;
+	padding : 5px;
+	margin-top : 10px;
+	margin : auto;
+}
+.detail_section_img{
+	width : auto;
+	border : 1px solid #CCCCCC;
+}
 .detail_section_wrap2{
 	width : 50%;
 	float : right;
@@ -390,237 +389,229 @@
 .pageMaker li{
 	display : inline;
 }
- /* 리뷰쓰기 버튼 */
-  .reply_button_wrap{
-  	padding : 10px;
-  }
-  .reply_button_wrap button{
+/* 리뷰쓰기 버튼 */
+.reply_button_wrap{
+ 	padding : 10px;
+}
+.reply_button_wrap button{
 	background-color: #365fdd;
-    color: white;
-    font-weight: bold;
-    font-size: 15px;
-    padding: 5px 12px;
-    cursor: pointer;  
-  }
-  .reply_button_wrap button:hover{
-  	background-color: #1347e7;
-  }
-  
-  /* 리뷰 영역 */
-  	.content_bottom{
-  		width: 80%;
-  		margin : auto;
-  	}
-	.reply_content_ul{
-		list-style: none;
-	}
-	.comment_wrap{
-		position: relative;
-    	border-bottom: 1px dotted #d4d4d4;
-    	padding: 14px 0 10px 0;	
-    	font-size: 12px;
-	}
-		/* 리뷰 머리 부분 */
-		.reply_top{
-			padding-bottom: 10px;
-		}
-		.id_span{
-			padding: 0 15px 0 3px;
-		    font-weight: bold;		
-		}
-		.date_span{
-			padding: 0 15px 0;
-		}
-		/* 리뷰 컨텐트 부분 */
-		.reply_bottom{
-			padding-bottom: 10px;
-		}
-		
+	color: white;
+	font-weight: bold;
+	font-size: 15px;
+	padding: 5px 12px;
+	cursor: pointer;  
+}
+.reply_button_wrap button:hover{
+ 	background-color: #1347e7;
+}
+ 
+ /* 리뷰 영역 */
+ 	.content_bottom{
+ 		width: 80%;
+ 		margin : auto;
+ 	}
+.reply_content_ul{
+	list-style: none;
+}
+.comment_wrap{
+	position: relative;
+   	border-bottom: 1px dotted #d4d4d4;
+   	padding: 14px 0 10px 0;	
+   	font-size: 12px;
+}
+/* 리뷰 머리 부분 */
+.reply_top{
+	padding-bottom: 10px;
+}
+.id_span{
+	padding: 0 15px 0 3px;
+    font-weight: bold;		
+}
+.date_span{
+	padding: 0 15px 0;
+}
+/* 리뷰 컨텐트 부분 */
+.reply_bottom{
+	padding-bottom: 10px;
+}
 	
-	/* 리뷰 선 */
-	.reply_line{
-		width : 80%;
-		margin : auto;
-		border-top:1px solid #c6c6cf;  	
-	}
-	
-	/* 리뷰 제목 */
-	.reply_subject h2{
-		padding: 15px 0 5px 5px;
-	}
-	.reply_not_div{
-  	text-align: center;
-  }
-  .reply_not_div span{
+
+/* 리뷰 선 */
+.reply_line{
+	width : 80%;
+	margin : auto;
+	border-top:1px solid #c6c6cf;  	
+}
+
+/* 리뷰 제목 */
+.reply_subject h2{
+	padding: 15px 0 5px 5px;
+}
+.reply_not_div{
+ 	text-align: center;
+ }
+.reply_not_div span{
 	display: block;
-    margin-top: 30px;
-    margin-bottom: 20px; 
-  }
-  
-  /* 리뷰 수정 삭제 버튼 */
-  .update_reply_btn{
- 	font-weight: bold;
-    background-color: #b7b399;
-    display: inline-block;
-    width: 40px;
-    text-align: center;
-    height: 20px;
-    line-height: 20px;
-    margin: 0 5px 0 30px;
-    border-radius: 6px;
-    color: white; 
-    cursor: pointer;
-  }
-  .delete_reply_btn{
- 	font-weight: bold;
-    background-color: #e7578f;
-    display: inline-block;
-    width: 40px;
-    text-align: center;
-    height: 20px;
-    line-height: 20px;
-    border-radius: 6px;
-    color: white; 
-  	cursor: pointer;
-  } 
-  
-  .comment_wrap h3{
-  	margin-bottom : 20px;
-  }
-  .detail_section_price{
-  	font-size: 20px;
+	margin-top: 30px;
+	margin-bottom: 20px; 
+}
+ 
+/* 리뷰 수정 삭제 버튼 */
+.update_reply_btn{
+	font-weight: bold;
+   background-color: #b7b399;
+   display: inline-block;
+   width: 40px;
+   text-align: center;
+   height: 20px;
+   line-height: 20px;
+   margin: 0 5px 0 30px;
+   border-radius: 6px;
+   color: white; 
+   cursor: pointer;
+}
+.delete_reply_btn{
+	font-weight: bold;
+   background-color: #e7578f;
+   display: inline-block;
+   width: 40px;
+   text-align: center;
+   height: 20px;
+   line-height: 20px;
+   border-radius: 6px;
+   color: white; 
+ 	cursor: pointer;
+} 
+ 
+.comment_wrap h3{
+ 	margin-bottom : 20px;
+}
+.detail_section_price{
+ 	font-size: 20px;
 	font-weight: bold;
 	color : black;
-  }
-  .detail_section_title h2{
-  	margin-bottom: 0;
-  }
-  .starDiv i{
-  	font-size: 20px;
-  }
-  .quantity{
-  	margin: 10px 0;
-  }
-  .quantity_input{
-  	width: 50px;
-  }
-  .btn_cart{
-  	background-color: #fff;
-  }
-  #reviews{
-  	width: 80%;
-  	margin: 20px auto;
-  }
-  .comment-form-rating{
-  	margin : 5px 5px;
-  }
-  .reply_content_ul{
-  	margin: 0;
-  }
-  #comment{
-  	width: 100%;
-  }
- 
-
-
-
+}
+.detail_section_title h2{
+ 	margin-bottom: 0;
+}
+.starDiv i{
+ 	font-size: 20px;
+}
+.quantity{
+ 	margin: 10px 0;
+}
+.quantity_input{
+ 	width: 50px;
+}
+.btn_cart{
+ 	background-color: #fff;
+}
+#reviews{
+ 	width: 80%;
+ 	margin: 20px auto;
+}
+.comment-form-rating{
+ 	margin : 5px 5px;
+}
+.reply_content_ul{
+ 	margin: 0;
+}
+#comment{
+ 	width: 100%;
+}
 </style>
-		<!-- #masthead -->
-		<div id="content" class="site-content">
-			<div id="primary" class="content-area column full">
-				<main id="main" class="site-main" role="main">
-				<div id="container">
-					<div id="content" role="main">
-						<div class="detail_section">
-							<div class="detail_section_wrap1">
-								<div class=detail_section_title1>
-									<p>상품 이미지</p>
-								</div>
-								<div class="detail_section_img">
-									<div id="uploadResult">
-									</div>
-								</div>
-							</div>
-								<div class="detail_section_wrap2">
-									<div class="detail_section_title">
-										<h2>${product.product_name}  </h2>
-									</div>
-									<div class="detail_section_price">
-										￦ <fmt:formatNumber value="${product.product_price}" pattern="#,###"/>
-									</div>
-									<div class="detail_section_s_info">
-										<span>배송비</span>
-										 ￦ <fmt:formatNumber value="3000" pattern="#,###"/> /
-										 ￦ <fmt:formatNumber value="30000" pattern="#,###"/>
-										 <span>이상 주문시 무료</span>
-									</div>
-									<div class="cart">
-										<div class="quantity">
-											주문수량
-											<input type="number" step="1" min="1" max="" name="quantity" value="1" title="Qty" class="quantity_input" size="4"/>
+	   <!-- </header> -->
+			<div id="content" class="site-content">
+				<div id="primary" class="content-area column full">
+					<main id="main" class="site-main" role="main">
+						<div id="container">
+							<div id="content" role="main">
+								<div class="detail_section">
+									<div class="detail_section_wrap1">
+										<div class=detail_section_title1>
+											<p>상품 이미지</p>
 										</div>
-										<div class="cart_btn_set">
-											<button class="btn_cart">장바구니</button>
-											<button class="btn_buy">바로구매</button>
-										</div>										
+										<div class="detail_section_img">
+											<div id="uploadResult">
+											</div>
+										</div>
 									</div>
-								</div>	
-						</div>
-							<!-- .summary -->
-							<div class="woocommerce-tabs wc-tabs-wrapper">
-								<div class="panel entry-content wc-tab" id="tab-description">
-									<h2>상품 정보</h2>
-									<p>${product.product_info}</p>
+									<div class="detail_section_wrap2">
+										<div class="detail_section_title">
+											<h2>${product.product_name}  </h2>
+										</div>
+										<div class="detail_section_price">
+											￦ <fmt:formatNumber value="${product.product_price}" pattern="#,###"/>
+										</div>
+										<div class="detail_section_s_info">
+											<span>배송비</span>
+											 ￦ <fmt:formatNumber value="3000" pattern="#,###"/> /
+											 ￦ <fmt:formatNumber value="30000" pattern="#,###"/>
+											 <span>이상 주문시 무료</span>
+										</div>
+										<div class="cart">
+											<div class="quantity">
+												주문수량
+												<input type="number" step="1" min="1" max="" name="quantity" value="1" title="Qty" class="quantity_input" size="4"/>
+											</div>
+											<div class="cart_btn_set">
+												<button class="btn_cart">장바구니</button>
+												<button class="btn_buy">바로구매</button>
+											</div>										
+										</div>
+									</div>	
 								</div>
-								<div class="panel entry-content wc-tab" id="tab-reviews">
-									<div id="reviews">
-										<c:if test="${member != null}">
-										<div id="review_form_wrapper">
-											<div id="review_form">
-												<div id="respond" class="comment-respond">
-													<h3 style="margin-bottom:10px; text-align: center;" id="reply-title" class="comment-reply-title">리뷰 등록 <small><a rel="nofollow" id="cancel-comment-reply-link" href="/demo-moschino/product/woo-logo-2/#respond" style="display:none;">Cancel reply</a></small></h3>
-														<p class="comment-form-rating">
-															<label>별점선택</label>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-														</p>
+								<div class="woocommerce-tabs wc-tabs-wrapper">
+									<div class="panel entry-content wc-tab" id="tab-description">
+										<h2>상품 정보</h2>
+										<p>${product.product_info}</p>
+									</div>
+									<div class="panel entry-content wc-tab" id="tab-reviews">
+										<div id="reviews">
+											<c:if test="${member != null}">
+												<div id="review_form_wrapper">
+													<div id="review_form">
+														<div id="respond" class="comment-respond">
+															<h3 style="margin-bottom:10px; text-align: center;" id="reply-title" class="comment-reply-title">리뷰 등록 <small><a rel="nofollow" id="cancel-comment-reply-link" href="/demo-moschino/product/woo-logo-2/#respond" style="display:none;">Cancel reply</a></small></h3>
+															<p class="comment-form-rating">
+																<label>별점선택</label>
+																<i class="fa fa-star"></i>
+																<i class="fa fa-star"></i>
+																<i class="fa fa-star"></i>
+																<i class="fa fa-star"></i>
+																<i class="fa fa-star"></i>
+															</p>
 															<input type="hidden" id="rating" name="rating" value="5">
 															<p class="comment-form-comment">
 																<textarea id="comment" name="comment" cols="45" rows="3" aria-required="true" placeholder="리뷰 내용을 작성해주세요!"></textarea>
 															</p>
 															<p class="form-submit">
 																<button class="btn_reply">댓글 등록</button>
-															</p>
-													   
-												</div>
-												<!-- #respond -->
-											</div>
-										</div>
-										</c:if>
-										<div class="reply_not_div">
-										
-										</div>
-										<h3 class="reply_title">등록된 리뷰</h3>
-										<ul class="reply_content_ul">	
-											<li>
-												<div class="comment_wrap">
-													<div class="reply_top">
-														<span class="id_span">sjinjin7</span>
-														<span class="date_span">2021-10-11</span>
-														<span class="rating_span">평점 : <span class="rating_value_span">4</span>점</span>
-														<a class="update_reply_btn">수정</a><a class="delete_reply_btn">삭제</a>
-													</div>
-													<div class="reply_bottom">
-														<div class="reply_bottom_txt">
-															사실 기대를 많이하고 읽기시작했는데 읽으면서 가가 쓴것이 맞는지 의심들게합니다 문체도그렇고 간결하지 않네요 제가 기대가 크던 작았던간에 책장이 사실 안넘겨집니다.
+															</p>  
 														</div>
 													</div>
 												</div>
-											</li>
-										</ul>
+											</c:if>
+											<div class="reply_not_div">
+											</div>
+											<h3 class="reply_title">등록된 리뷰</h3>
+											<ul class="reply_content_ul">	
+												<li>
+													<div class="comment_wrap">
+														<div class="reply_top">
+															<span class="id_span">sjinjin7</span>
+															<span class="date_span">2021-10-11</span>
+															<span class="rating_span">평점 : <span class="rating_value_span">4</span>점</span>
+															<a class="update_reply_btn">수정</a><a class="delete_reply_btn">삭제</a>
+														</div>
+														<div class="reply_bottom">
+															<div class="reply_bottom_txt">
+																사실 기대를 많이하고 읽기시작했는데 읽으면서 가가 쓴것이 맞는지 의심들게합니다 문체도그렇고 간결하지 않네요 제가 기대가 크던 작았던간에 책장이 사실 안넘겨집니다.
+															</div>
+														</div>
+													</div>
+												</li>
+											</ul>
 											<nav class="pagination">
 												<div class="pageMaker_wrap">
 													<ul class="pageMaker">
@@ -630,10 +621,10 @@
 															</li>
 														</c:if>	
 														<c:forEach begin="${pageMaker.pageStart}" end="${pageMaker.pageEnd}" var="num">
-															<li class="page-numbers ${pageMaker.cri.pageNum == num ? "current" : ""}">
+															<li class="page-numbers ${pageMaker.cri.pageNum == num ? 'current' : ''}">
 																<a href="${num}">${num}</a>
+															</li>
 														</c:forEach>
-														
 														<c:if test="${pageMaker.next}">
 															<li class="next page-numbers">
 																<a href="${pageMaker.pageEnd + 1}">다음</a>
@@ -642,38 +633,32 @@
 													</ul>
 												</div>
 											</nav>
-										<div class="button_section">
-											<form id="moveForm" action="/pages/mainPage" method="get"> 
-											 	<input type="hidden" name="pageNum" value="${cri.pageNum}">
-												<input type="hidden" name="amount" value="${cri.amount}">
-												<input type="hidden" name="keyword" value="${cri.keyword}">
-												<input type="hidden" name="order_by" value="${cri.order_by}">
-												<input type="hidden" name="page_category_code" value="${page_category_code}">
-												<input type="submit" id="list_button" value="목록">											
-											</form>	
-										</div>
-										
-										<!-- 주문 form -->
-										<div class="order_section">
-											<form action="/pages/orderPage/${member.member_id}" method="get" class="order_form">
-												<input type="hidden" name="orders[0].product_id" value="${product.product_id}">
-												<input type="hidden" name="orders[0].product_count" value="">
-											</form>
-										</div>
-										
-										<div class="clear">
+											<div class="button_section">
+												<form id="moveForm" action="/pages/mainPage" method="get"> 
+												 	<input type="hidden" name="pageNum" value="${cri.pageNum}">
+													<input type="hidden" name="amount" value="${cri.amount}">
+													<input type="hidden" name="keyword" value="${cri.keyword}">
+													<input type="hidden" name="order_by" value="${cri.order_by}">
+													<input type="hidden" name="page_category_code" value="${page_category_code}">
+													<input type="submit" id="list_button" value="목록">											
+												</form>	
+											</div>										
+											<!-- 주문 form -->
+											<div class="order_section">
+												<form action="/pages/orderPage/${member.member_id}" method="get" class="order_form">
+													<input type="hidden" name="orders[0].product_id" value="${product.product_id}">
+													<input type="hidden" name="orders[0].product_count" value="">
+												</form>
+											</div>
+											<div class="clear">
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-					</div>
+						</div>
+					</main>
 				</div>
-				</main>
-				<!-- #main -->
 			</div>
-			<!-- #primary -->
-		</div>
-		<!-- #content -->
-	</div>
-	<!-- .container -->
+		</div><!-- header.jsp container 끝 -->
 <%@ include file="includes/footer.jsp" %>

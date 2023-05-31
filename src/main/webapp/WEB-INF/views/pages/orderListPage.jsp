@@ -9,10 +9,7 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 <script>
-
-	
 	$(document).ready(function(){
-	
 			
 		$(".products_table_tr").each(function(idx,data){
 			
@@ -110,49 +107,48 @@ height: 110px;
 }
  
 </style>
-
-	<div class="content_subject"><h4>주문조회</h4></div>
-	
-	<div class="content_main">
-		<!-- 상품 관련 -->
-		<div class="orderproducts_div">
-		<!-- 상품 종류 -->
-		<div class="products_kind_div">
-			주문내역 <span class="products_kind_div_kind">${fn:length(orderList)}</span>건
-		</div>
-		<!-- 상품 테이블 -->
-		<table class="products_subject_table">
-			<thead>
-				<tr>
-					<th>주문일자<br>[주문번호]</th>
-					<th>대표 이미지</th>
-					<th>구매 정보</th>
-					<th>결제 금액</th>
-					<th>주문 처리 상태</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach items="${orderList}" var="ol">
-					<tr class="products_table_tr">
-					<td><fmt:formatDate pattern="yyyy-MM-dd" value="${ol.orderDate}"/><br>[${ol.order_id}]</td>
-						<td class ="product_image">
-							<div id="uploadResult">
-							</div>
-						</td>
-						<td>${ol.orders[0].product_name} 외 ${fn:length(ol.orders) -1} 종</td>
-						<td class="products_table_price_td">
-							<fmt:formatNumber value="${ol.order_price_total_final}" pattern="#,### 원" />
-							<input type="hidden" class="product_price_input" value="${ol.orders[0].product_price}">
-							<input type="hidden" class="product_count_input" value="${ol.orders[0].product_count}">
-							<input type="hidden" class="product_priceTotal_input" value="${ol.orders[0].product_price * ol.orders[0].product_count}">
-							<input type="hidden" class="product_id_input" value="${ol.orders[0].product_id}">
-						</td>
-						<td>${ol.order_state}</td>
-					</tr>							
-				</c:forEach>
-			</tbody>
-		</table>
-	</div>
-	</div>
-			
+	   <!-- </header> -->
+			<div class="content_subject"><h4>주문조회</h4></div>
+			<div class="content_main">
+				<!-- 상품 관련 -->
+				<div class="orderproducts_div">
+				<!-- 상품 종류 -->
+					<div class="products_kind_div">
+						주문내역 <span class="products_kind_div_kind">${fn:length(orderList)}</span>건
+					</div>
+					<!-- 상품 테이블 -->
+					<table class="products_subject_table">
+						<thead>
+							<tr>
+								<th>주문일자<br>[주문번호]</th>
+								<th>대표 이미지</th>
+								<th>구매 정보</th>
+								<th>결제 금액</th>
+								<th>주문 처리 상태</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach items="${orderList}" var="ol">
+								<tr class="products_table_tr">
+									<td><fmt:formatDate pattern="yyyy-MM-dd" value="${ol.orderDate}"/><br>[${ol.order_id}]</td>
+									<td class ="product_image">
+										<div id="uploadResult">
+										</div>
+									</td>
+									<td>${ol.orders[0].product_name} 외 ${fn:length(ol.orders) -1} 종</td>
+									<td class="products_table_price_td">
+										<fmt:formatNumber value="${ol.order_price_total_final}" pattern="#,### 원" />
+										<input type="hidden" class="product_price_input" value="${ol.orders[0].product_price}">
+										<input type="hidden" class="product_count_input" value="${ol.orders[0].product_count}">
+										<input type="hidden" class="product_priceTotal_input" value="${ol.orders[0].product_price * ol.orders[0].product_count}">
+										<input type="hidden" class="product_id_input" value="${ol.orders[0].product_id}">
+									</td>
+									<td>${ol.order_state}</td>
+								</tr>							
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div><!-- header.jsp container 끝 -->
 <%@ include file="includes/footer.jsp" %>

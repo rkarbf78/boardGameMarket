@@ -60,11 +60,9 @@
   	]]>
   	</select>
   	
-  	
   	<select id="getProduct" resultType="com.boardGameMarket.project.domain.ProductVO">
   		SELECT * FROM Product WHERE product_id = #{product_id}
   	</select>
-  	
   	
   	<insert id="product_registration" parameterType="com.boardGameMarket.project.domain.ProductVO">
   	
@@ -78,7 +76,6 @@
   		 (#{product_id},#{product_name},#{product_price},#{product_info},#{product_stock},
   		 #{product_sell},#{product_category_code},sysdate,sysdate)
   	</insert>
-  	
   	
   	<insert id="image_registration" parameterType="com.boardGameMarket.project.domain.AttachFileDTO">
   		INSERT INTO Product_image(product_id,fileName,uploadPath,uuid)
@@ -122,6 +119,5 @@
 				AND a.orderDate >= TO_DATE(#{startDay}, 'YYYY/MM/DD')
 				AND a.orderDate < TO_DATE(#{endDay}, 'YYYY/MM/DD') + 1 ORDER BY sell_date ASC ]]>
   	</select>
-  	
   	
   </mapper>

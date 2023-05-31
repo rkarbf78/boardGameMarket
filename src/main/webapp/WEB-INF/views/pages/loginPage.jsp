@@ -56,8 +56,9 @@
 				}
 				//최종 유효성 검사
 				if(name_check && phone_check){
-					alert("아디찾기 테스트 완료");
+					
 					searchData = {member_name:name ,member_phone:phone}
+					
 					$.ajax({
 						url : "/pages/idSearch",
 						data : searchData,
@@ -108,7 +109,9 @@
 				//최종 유효성 검사
 				if(id_check && mail_check && mail_code_check){
 					alert("비번찾기 테스트 완료");
+					
 					searchData = {member_id : id , member_email : mail}
+					
 					$.ajax({
 						url : "/pages/pwSearch",
 						data : searchData,
@@ -194,18 +197,14 @@
 			var form = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
 			return form.test(email);
 		}
-
-		
 		
 	}); //다큐멘트 끝@@@@@@@@@@@@@@@@@@@@@@@
-	
 	
 	/* 아이디 또는 비번찾기 동작(숨김, 등장) */
 	function showFindIdpw(className){
 		/* 컨텐츠 동작 */
 			/* 모두 숨기기 */
 			$(".find_idpw").css('display','none');
-		
 			/* 컨테츠 보이기 */
 			$(".find_idpw_" + className).css('display' , 'block');
 		/* 버튼 색상 변경 */
@@ -215,8 +214,6 @@
 				$(".find_idpw_btn_"+className).css('backgroundColor','#3c3838');
 		/* 주소 정보 선택 T/F */
 	}
-	
-
 </script>
 
 <style>
@@ -226,7 +223,6 @@
 	padding:0;
 	word-wrap:break-word;
 }
-
 .column.login {
 	width : 45%;
 	margin : 0 auto;
@@ -268,28 +264,24 @@
 	margin-top: 10px;
 
 }
-
-   /* The Modal (background) */
 .modal {
-	display: none; /* Hidden by default */
-	position: fixed; /* Stay in place */
-	z-index: 1; /* Sit on top */
+	display: none;
+	position: fixed;
+	z-index: 1; 
 	left: 0;
 	top: 0;
-	width: 100%; /* Full width */
-	height: 100%; /* Full height */
-	overflow: auto; /* Enable scroll if needed */
-	background-color: rgb(0,0,0); /* Fallback color */
-	background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+	width: 100%; 
+	height: 100%; 
+	overflow: auto; 
+	background-color: rgb(0,0,0); 
+	background-color: rgba(0,0,0,0.4);
 }
-    
-        /* Modal Content/Box */
 .modal-content {
 	background-color: #fefefe;
-	margin: 15% auto; /* 15% from the top and centered */
+	margin: 15% auto; 
 	padding: 20px;
 	border: 1px solid #888;
-	width: 30%; /* Could be more or less, depending on screen size */                       
+	width: 30%;                       
 }
 .find_idpw{
 	display: none;
@@ -365,102 +357,96 @@
 	width: 100%;
 	height: 100%;
 	position: relative;
-}
-  
+} 
 </style>
-
-		<!-- #masthead -->
-		<div id="content" class="site-content">						
-			<div id="secondary" class="column login">
-				<div class="login-area">
-					<aside class="login">
-						<h4 class="login-title">로그인 페이지</h4>
-						<form class="wpcf7" method="post" action="" id="login_form">
-							<div class="login_wrap">
-								<div class="id_wrap">
-									<div class="id_name">아이디</div>
-									<input type="text" name="member_id">
+	   <!-- </header> -->
+			<div id="content" class="site-content">						
+				<div id="secondary" class="column login">
+					<div class="login-area">
+						<aside class="login">
+							<h4 class="login-title">로그인 페이지</h4>
+							<form class="wpcf7" method="post" action="" id="login_form">
+								<div class="login_wrap">
+									<div class="id_wrap">
+										<div class="id_name">아이디</div>
+										<input type="text" name="member_id">
+									</div>
+									<div class="password_wrap">
+										<div class="password_name">비밀번호</div>
+										<input type="password" name="member_password">
+									</div>
+									<c:if test="${loginResult == 0}">
+										<div class="login_warn">사용자 ID 또는 비밀번호를 잘못 입력하셨습니다.</div>
+									</c:if>
+									<div class="login_button_wrap">
+										<input type="button" class="login_button" id="login_button" value="로그인">
+									</div>
 								</div>
-								<div class="password_wrap">
-									<div class="password_name">비밀번호</div>
-									<input type="password" name="member_password">
-								</div>
-								<c:if test="${loginResult == 0}">
-								<div class="login_warn">사용자 ID 또는 비밀번호를 잘못 입력하셨습니다.</div>
-								</c:if>
-								<div class="login_button_wrap">
-									<input type="button" class="login_button" id="login_button" value="로그인">
-								</div>
-							</div>
-						</form>
-						<div class="join_btn"><a href="/pages/joinPage">회원가입</a></div>
-						<div class="find_idpw_modal_btn">아이디/비밀번호 찾기</div>
-					</aside>
+							</form>
+							<div class="join_btn"><a href="/pages/joinPage">회원가입</a></div>
+							<div class="find_idpw_modal_btn">아이디/비밀번호 찾기</div>
+						</aside>
+					</div>
 				</div>
 			</div>
-		</div>
-		 <div id="myModal" class="modal">
-		      <!-- Modal content -->
-		      <div class="modal-content">    
-			    <div class="find_idpw_select_div">
-			     <div class="modal_close">
-			     	<i class="fa fa-times"></i>
-			     </div>
-					<button class="find_idpw_btn find_idpw_btn_1" onclick="showFindIdpw('1')" style="background-color: #3c3838;">아이디 찾기</button>
-					<button class="find_idpw_btn find_idpw_btn_2" onclick="showFindIdpw('2')">비밀번호 찾기</button>
-				</div>  
-		      	<div class="find_idpw_div_wrap">
-					<div class="find_idpw find_idpw_1" style="display: block">
-						<div class="findId_name">
-							이름
+			<div id="myModal" class="modal">
+				<div class="modal-content">
+					<div class="find_idpw_select_div">
+				    	<div class="modal_close">
+				    		<i class="fa fa-times"></i>
 						</div>
-						<div class="findId_name_input">
-							<input type="text" name="member_name" class="name_input"/>
-						</div>
-						<span class="final_name_ck">이름을 입력해주세요.</span>
-						<div class="findId_phone">
-							전화번호
-						</div>
-						<div class="findId_phone_input">
-							<input type="text" name="member_phone" class="phone_input" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="- 빼고 입력해 주세요"/>
-						</div>
-						<span class="final_phone_ck">전화번호를 입력해주세요.</span>
-					</div>
-					<div class="find_idpw find_idpw_2">
-						<div class="findPw_id">
-							아이디
-						</div>
-						<div class="findPw_id_input">
-							<input type="text" name="member_id" class="id_input"/>
-						</div>
-						<span class="final_id_ck">아이디를 입력해주세요.</span>
-							<div class="mail_wrap">
-									<div class="mail_name">이메일</div> 
-									<div class="mail_input_box">
-										<input type="text" name="member_email" class="mail_input">
-									</div>
-									<span class="final_mail_ck">이메일을 입력해주세요.</span>
-									<span class="mail_input_box_warn"></span>
-									<div class="mail_check_wrap">
-										<button class="mail_check_button">
-											인증번호 전송
-										</button>
-										<div class="mail_check_input_box"  id="mail_check_input_box_false">
-											<input type="text" class="mail_check_input" id="mail_check_input" disabled="disabled" placeholder="인증번호 입력칸">
-										</div>
-										<div class="clearfix"></div>
-										<span id="mail_check_input_box_warn"></span>
-									</div>
+						<button class="find_idpw_btn find_idpw_btn_1" onclick="showFindIdpw('1')" style="background-color: #3c3838;">아이디 찾기</button>
+						<button class="find_idpw_btn find_idpw_btn_2" onclick="showFindIdpw('2')">비밀번호 찾기</button>
+					</div>  
+			      	<div class="find_idpw_div_wrap">
+						<div class="find_idpw find_idpw_1" style="display: block">
+							<div class="findId_name">
+								이름
 							</div>
+							<div class="findId_name_input">
+								<input type="text" name="member_name" class="name_input"/>
+							</div>
+							<span class="final_name_ck">이름을 입력해주세요.</span>
+							<div class="findId_phone">
+								전화번호
+							</div>
+							<div class="findId_phone_input">
+								<input type="text" name="member_phone" class="phone_input" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="- 빼고 입력해 주세요"/>
+							</div>
+							<span class="final_phone_ck">전화번호를 입력해주세요.</span>
+						</div>
+						<div class="find_idpw find_idpw_2">
+							<div class="findPw_id">
+								아이디
+							</div>
+							<div class="findPw_id_input">
+								<input type="text" name="member_id" class="id_input"/>
+							</div>
+							<span class="final_id_ck">아이디를 입력해주세요.</span>
+							<div class="mail_wrap">
+								<div class="mail_name">이메일</div> 
+								<div class="mail_input_box">
+									<input type="text" name="member_email" class="mail_input">
+								</div>
+								<span class="final_mail_ck">이메일을 입력해주세요.</span>
+								<span class="mail_input_box_warn"></span>
+								<div class="mail_check_wrap">
+									<button class="mail_check_button">
+										인증번호 전송
+									</button>
+									<div class="mail_check_input_box"  id="mail_check_input_box_false">
+										<input type="text" class="mail_check_input" id="mail_check_input" disabled="disabled" placeholder="인증번호 입력칸">
+									</div>
+									<div class="clearfix"></div>
+									<span id="mail_check_input_box_warn"></span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal_search">
+				     	<span>조회</span>
 					</div>
 				</div>
-				<div class="modal_search">
-			     	<span>조회</span>
-				</div>
-		      </div>	 
-	    </div>
-        <!--End Modal-->
-		<!-- #content -->
-	</div>
-	<!-- .container -->
+			</div>
+		</div><!-- header.jsp container 끝 -->
 <%@ include file="includes/footer.jsp" %>

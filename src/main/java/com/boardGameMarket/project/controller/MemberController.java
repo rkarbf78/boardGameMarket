@@ -41,7 +41,6 @@ public class MemberController {
 	@Autowired
 	private JavaMailSender mailSender;
 	
-	
 	@GetMapping("/loginPage")
 	public String loginPage(Model model) {
 		List<CategoryVO> categoryList = p_service.categoryList();
@@ -101,8 +100,7 @@ public class MemberController {
 		//난수 생성
 		Random random = new Random();
 		int checkNum = random.nextInt(888888) + 111111;
-		log.info("인증번호 : " + checkNum);	
-		
+
 		String setFrom = "rkarbf78@naver.com";
 	    String toMail = email;
 	    String title = "인증 번호 이메일 입니다.";
@@ -159,7 +157,6 @@ public class MemberController {
 	@GetMapping("/idSearch")
 	@ResponseBody
 	public String memberIdSearch(MemberVO member) {
-		System.out.println(member);
 		String member_name = member.getMember_name();
 		String member_phone = member.getMember_phone();
 		return m_service.member_idSearch(member_name, member_phone);
@@ -168,7 +165,6 @@ public class MemberController {
 	@GetMapping("/pwSearch")
 	@ResponseBody
 	public String memberPwSearch(MemberVO member) {
-		System.out.println(member);
 		String member_id = member.getMember_id();
 		String member_email = member.getMember_email();
 		return m_service.member_pwSearch(member_id, member_email);

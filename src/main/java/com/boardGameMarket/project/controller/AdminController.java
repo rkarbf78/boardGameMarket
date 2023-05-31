@@ -39,9 +39,7 @@ public class AdminController {
 	
 	@GetMapping("/adminPage")
 	public void adminGET(Model model) {
-		log.info("관리자 페이지 이동");
 		List<CategoryVO> categoryList = p_service.categoryList();
-		
 		model.addAttribute("categoryList" , categoryList);
 	}
 	
@@ -65,10 +63,7 @@ public class AdminController {
 		 */
 		
 		List<CategoryVO> categoryList = p_service.categoryList();
-		
 		model.addAttribute("categoryList" , categoryList);
-		
-		
 	}
 	
 	

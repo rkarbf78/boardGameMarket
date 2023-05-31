@@ -59,5 +59,4 @@
   		SELECT rating FROM Product_Reply WHERE product_id = #{product_id} 
   	</select>
 
-  
   </mapper>

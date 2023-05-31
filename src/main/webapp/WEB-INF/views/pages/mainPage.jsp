@@ -221,7 +221,6 @@
 		  
 	});
 </script>
-
 <style>
 .image_wrap {
 	width : 100%;
@@ -259,13 +258,13 @@
 	margin-bottom: 0;
 }
 .recent_products{
-	position:absolute;
+	position : absolute;
 	width : 180px;
-	right : 22%;
 	top : 200px;
 	border : 1px solid #333;
 	border-top-width:2px;
 	text-align: center;
+	margin-left: 1000px;
 }
 .recent_products_title{
 	text-align: center;
@@ -311,113 +310,104 @@
     background: none;
 }
 </style>
-
-<div class="slide_div_wrap">
-	<div class="slide_div">
-		<div class="banner">
-			<a>
-				<img src="../resources/img/하나비_배너.jpg">
-				<input class="find_id" type="hidden" value="2"/>
-			</a>
-		</div>
-		<div class="banner">
-			<a>
-				<img src="../resources/img/레지스탕스.jpg">
-				<input class="find_id" type="hidden" value="3"/>
-			</a>
-		</div>
-		<div class="banner">
-			<a>
-				<img src="../resources/img/뱅_배너.jpg">
-				<input class="find_id" type="hidden" value="1"/>
-			</a>
-		</div>				
-	</div>	
-</div>
-
-	<div class="product_order_by">
-		<ul>
-			<li><a href="new" class="order_nav_1">신상품순</a></li>
-			<li><a href="best" class="order_nav_2">인기상품순</a></li>
-			<li><a href="high" class="order_nav_3">높은가격순</a></li>
-			<li><a href="row" class="order_nav_4">낮은가격순</a></li>
-		</ul>
-	</div>
-	
-		<!-- #masthead -->
-		<div id="content" class="site-content">
-			<div id="primary" class="content-area column full">
-				<main id="main" class="site-main">
-					<c:if test="${productListCheck != 'empty'}">
-						<div class="grid portfoliogrid">
-						<c:forEach var="list" items="${productList}">
-							<article class="hentry">
-								<header class="entry-header">
-									<div class="image_wrap" data-product_id="${list.image.product_id}" data-path="${list.image.uploadPath}" data-uuid="${list.image.uuid}" data-filename="${list.image.fileName}">
-										<div class="entry-thumbnail">
-											<input class="find_id" type="hidden" value='<c:out value="${list.product_id}"/>'>	
-											<img class="product_image">
-										</div>
-									</div>
-									<div class="entry-info">
-										<div class="entry-title">
-											<h4>${list.product_name}</h4>
-										</div>
-										<div class="entry-price">
-											￦ <fmt:formatNumber value="${list.product_price}" pattern="#,###"/>
-										</div>
-										<div class="entry-star">r</div>
-										<div class="entry-category">
-											<c:forEach items="${categoryList}" var="category">
-												<c:if test="${list.product_category_code == category.category_code}">
-													<p>${category.category_name}</p>
-												</c:if>
-											</c:forEach>
-										</div>
-									</div>				
-								</header>	
-							</article>	
-					</c:forEach>
+	   <!-- </header> -->
+			<div class="slide_div_wrap">
+				<div class="slide_div">
+					<div class="banner">
+						<a>
+							<img src="../resources/img/하나비_배너.jpg">
+							<input class="find_id" type="hidden" value="2"/>
+						</a>
 					</div>
-					<nav class="pagination">
-						<div class="pageMaker_wrap">
-							<ul class="pageMaker">
-								<c:if test="${pageMaker.prev}">
-									<li class="prev page-numbers">
-										<a href="${pageMaker.pageStart - 1}">이전</a>
-									</li>
-								</c:if>	
-								<c:forEach begin="${pageMaker.pageStart}" end="${pageMaker.pageEnd}" var="num">
-									<li class="page-numbers ${pageMaker.cri.pageNum == num ? 'current' : ''}">
-										<a href="${num}">${num}</a>
+					<div class="banner">
+						<a>
+							<img src="../resources/img/레지스탕스.jpg">
+							<input class="find_id" type="hidden" value="3"/>
+						</a>
+					</div>
+					<div class="banner">
+						<a>
+							<img src="../resources/img/뱅_배너.jpg">
+							<input class="find_id" type="hidden" value="1"/>
+						</a>
+					</div>				
+				</div>	
+			</div>
+			<div class="product_order_by">
+				<ul>
+					<li><a href="new" class="order_nav_1">신상품순</a></li>
+					<li><a href="best" class="order_nav_2">인기상품순</a></li>
+					<li><a href="high" class="order_nav_3">높은가격순</a></li>
+					<li><a href="row" class="order_nav_4">낮은가격순</a></li>
+				</ul>
+			</div>
+			<div id="content" class="site-content">
+				<div id="primary" class="content-area column full">
+					<main id="main" class="site-main">
+						<c:if test="${productListCheck != 'empty'}">
+							<div class="grid portfoliogrid">
+								<c:forEach var="list" items="${productList}">
+									<article class="hentry">
+										<header class="entry-header">
+											<div class="image_wrap" data-product_id="${list.image.product_id}" data-path="${list.image.uploadPath}" data-uuid="${list.image.uuid}" data-filename="${list.image.fileName}">
+												<div class="entry-thumbnail">
+													<input class="find_id" type="hidden" value='<c:out value="${list.product_id}"/>'>	
+													<img class="product_image">
+												</div>
+											</div>
+											<div class="entry-info">
+												<div class="entry-title">
+													<h4>${list.product_name}</h4>
+												</div>
+												<div class="entry-price">
+													￦ <fmt:formatNumber value="${list.product_price}" pattern="#,###"/>
+												</div>
+												<div class="entry-star">r</div>
+												<div class="entry-category">
+													<c:forEach items="${categoryList}" var="category">
+														<c:if test="${list.product_category_code == category.category_code}">
+															<p>${category.category_name}</p>
+														</c:if>
+													</c:forEach>
+												</div>
+											</div>				
+										</header>	
+									</article>	
 								</c:forEach>
-								
-								<c:if test="${pageMaker.next}">
-									<li class="next page-numbers">
-										<a href="${pageMaker.pageEnd + 1}">다음</a>
-									</li>
-								</c:if>
-							</ul>
-						</div>
-					</nav>
-					
-					<form id="moveForm" action="" method="get">  <!-- action 생략시 현재페이지에 요청함! -->
-						<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
-						<input type="hidden" name="amount" value="${pageMaker.cri.amount}">
-						<input type="hidden" name="keyword" value="${pageMaker.cri.keyword}">
-						<input type="hidden" name="page_category_code" value="${page_category_code}">											
-					</form>	
-					
-					</c:if>
-					<c:if test="${productListCheck == 'empty'}">
-						<div class="data_empty">
-							등록된 상품이 없습니다.
-						</div>
-					</c:if>	
-							
-				</main>
-					<!-- #main -->
-					
+							</div>
+							<nav class="pagination">
+								<div class="pageMaker_wrap">
+									<ul class="pageMaker">
+										<c:if test="${pageMaker.prev}">
+											<li class="prev page-numbers">
+												<a href="${pageMaker.pageStart - 1}">이전</a>
+											</li>
+										</c:if>	
+										<c:forEach begin="${pageMaker.pageStart}" end="${pageMaker.pageEnd}" var="num">
+											<li class="page-numbers ${pageMaker.cri.pageNum == num ? 'current' : ''}">
+												<a href="${num}">${num}</a>
+										</c:forEach>
+										<c:if test="${pageMaker.next}">
+											<li class="next page-numbers">
+												<a href="${pageMaker.pageEnd + 1}">다음</a>
+											</li>
+										</c:if>
+									</ul>
+								</div>
+							</nav>
+							<form id="moveForm" action="" method="get">  <!-- action 생략시 현재페이지에 요청함! -->
+								<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
+								<input type="hidden" name="amount" value="${pageMaker.cri.amount}">
+								<input type="hidden" name="keyword" value="${pageMaker.cri.keyword}">
+								<input type="hidden" name="page_category_code" value="${page_category_code}">											
+							</form>	
+						</c:if>
+						<c:if test="${productListCheck == 'empty'}">
+							<div class="data_empty">
+								등록된 상품이 없습니다.
+							</div>
+						</c:if>	
+					</main>			
 					<div class="recent_products">
 						<div class="recent_products_title">
 							<span>최근 본 상품</span>
@@ -428,7 +418,7 @@
 									<div class="recent_product">
 										<div class="recent_product_img">	
 											<div class="entry-thumbnail">
-											<input type="hidden" value="${product}" class="find_id"/>
+												<input type="hidden" value="${product}" class="find_id"/>
 												<div id="uploadResult">
 												</div>
 											</div>
@@ -437,17 +427,13 @@
 								</c:forEach>
 							</c:when>
 							<c:otherwise>
-							<div class="none_recent">
-								<span>최근 본 상품이 존재하지않습니다.</span>
-							</div>
+								<div class="none_recent">
+									<span>최근 본 상품이 존재하지않습니다.</span>
+								</div>
 							</c:otherwise>
 						</c:choose>			
-					</div>
-					
+					</div>			
+				</div>	
 			</div>
-				<!-- #primary -->
-		</div>
-			<!-- #content -->
-	</div>
-		<!-- .container -->
+		</div><!-- header.jsp container 끝 -->
 <%@ include file="includes/footer.jsp" %>

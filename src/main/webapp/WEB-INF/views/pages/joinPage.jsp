@@ -124,7 +124,6 @@
 					}
 				}
 			});
-			
 		});
 		
 		//인증번호 이메일 전송
@@ -175,6 +174,7 @@
 				mail_code_check = false;
 			}
 		});
+		
 		/* 비밀번호 확인 일치 유효성 검사 */
 		$(".password_check_input").on("propertychange change keyup paste input",function(){
 			var pw = $(".password_input").val();
@@ -191,6 +191,7 @@
 				password_same_exact_check = false;
 			}
 		});
+		
 	}); //document 끝
 	
 	function mailFormCheck(email){
@@ -268,7 +269,6 @@
 }
 .id_wrap,.pw_wrap,.pwck_wrap,.name_wrap,.phone_wrap,.mail_wrap,.address_wrap {
 	margin-bottom : 21px;
-
 }
 .address_input_2_wrap,.address_input_1_wrap,.mail_input_box {
 	margin : 0 0 0.5em 0;
@@ -299,14 +299,12 @@
 	color : red;
 	display : none;
 }
-/* 아이디 중복여부 색상 bottom*/
-
-/* 유효성 검사 문구*/
+/* 아이디 중복여부 색상 bottom */
+/* 유효성 검사 문구 */
 .final_id_ck,.final_pw_ck,.final_pwck_ck,.final_name_ck,.final_phone_ck,.final_mail_ck,.final_addr_ck{
 	display : none;
 	color: red;
 }
-
 /* 비밀번호 확인 일치 유효성검사 top */
 .pwck_input_re_1{
 	color : green;
@@ -322,108 +320,101 @@
 	margin : 0 auto;
 }
 </style>
-	<div id="content" class="site-content">						
-			<div id="secondary" class="column third">
-				<div class="widget-area">
-					<aside class="widget">
-						<h4 class="join-title">회원 가입</h4>
-						<form class="wpcf7" method="post" id="join_form">
-							<div class="form">
+	   <!-- </header> -->
+			<div id="content" class="site-content">						
+				<div id="secondary" class="column third">
+					<div class="widget-area">
+						<aside class="widget">
+							<h4 class="join-title">회원 가입</h4>
+							<form class="wpcf7" method="post" id="join_form">
+								<div class="form">
+									<div class="id_wrap">
+										<div class="id_name">아이디</div>
+										<div class="id_input_box">
+											<input type="text" name="member_id" class="id_input" oninput="this.value = this.value.replace(/[ㄱ-ㅎㅏ-ㅣ가-힣]/g, '');">
+										</div>
+										<span class="id_input_re_1">사용 가능한 아이디입니다.</span>
+										<span class="id_input_re_2">아이디가 이미 존재합니다.</span>
+										<span class="final_id_ck">아이디를 입력해주세요.</span>
+									</div>
+									<div class="pw_wrap">
+										<div class = "pw_name">비밀번호</div>
+										<div class="pw_input_box">
+											<input type="password" name="member_password" class="password_input">
+										</div>
+										<span class="final_pw_ck">비밀번호를 입력해주세요.</span>
+									</div>
+									<div class="pwck_wrap">
+										<div class = "pwck_name">비밀번호 확인</div>
+										<div class="pwck_input_box">
+											<input type="password" name="member_password_check" class="password_check_input">
+										</div>
+										<span class="final_pwck_ck">비밀번호 확인을 입력해주세요.</span>
+										<span class="pwck_input_re_1">비밀번호가 일치합니다.</span>
+										<span class="pwck_input_re_2">비밀번호가 일치하지 않습니다.</span>
+									</div>
+									<div class="name_wrap">
+										<div class = "name_name">이름</div>
+										<div class="name_input_box">
+											<input type="text" name="member_name" class="name_input">
+										</div>
+										<span class="final_name_ck">이름을 입력해주세요.</span>
+									</div>
+									<div class="phone_wrap">
+										<div class = "phone_name">전화번호</div>
+										<div class="phone_input_box">
+											<input type="text" name="member_phone" class="phone_input" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="- 빼고 입력해 주세요">
+										</div>
+										<span class="final_phone_ck">전화번호를 입력해주세요.</span>
+									</div>
+									<div class="mail_wrap">
+										<div class="mail_name">이메일</div> 
+										<div class="mail_input_box">
+											<input type="text" name="member_email" class="mail_input">
+										</div>
+										<span class="final_mail_ck">이메일을 입력해주세요.</span>
+										<span class="mail_input_box_warn"></span>
+										<div class="mail_check_wrap">
+											<div class="mail_check_button">
+												<span>인증번호 전송</span>
+											</div>
+											<div class="mail_check_input_box"  id="mail_check_input_box_false">
+												<input type="text" class="mail_check_input" disabled="disabled" placeholder="인증번호 입력란">
+											</div>
+											<div class="clearfix"></div>
+											<span id="mail_check_input_box_warn"></span>
+										</div>
+									</div>
+									<div class="address_wrap">
+										<div class="address_name">주소</div>
+										<div class="address_input_1_wrap">
+											<div class="address_button" onclick="daum_address_api()">
+												<span>주소 찾기</span>
+											</div>
+											<div class="address_input_1_box">
+												<input type="text" name="member_address.member_address1" class="address_input_1" readonly="readonly">
+											</div>
 							
-								<div class="id_wrap">
-									<div class="id_name">아이디</div>
-									<div class="id_input_box">
-										<input type="text" name="member_id" class="id_input" oninput="this.value = this.value.replace(/[ㄱ-ㅎㅏ-ㅣ가-힣]/g, '');">
-									</div>
-									<span class="id_input_re_1">사용 가능한 아이디입니다.</span>
-									<span class="id_input_re_2">아이디가 이미 존재합니다.</span>
-									<span class="final_id_ck">아이디를 입력해주세요.</span>
-								</div>
-								
-								<div class="pw_wrap">
-									<div class = "pw_name">비밀번호</div>
-									<div class="pw_input_box">
-										<input type="password" name="member_password" class="password_input">
-									</div>
-									<span class="final_pw_ck">비밀번호를 입력해주세요.</span>
-								</div>
-								<div class="pwck_wrap">
-									<div class = "pwck_name">비밀번호 확인</div>
-									<div class="pwck_input_box">
-										<input type="password" name="member_password_check" class="password_check_input">
-									</div>
-									<span class="final_pwck_ck">비밀번호 확인을 입력해주세요.</span>
-									<span class="pwck_input_re_1">비밀번호가 일치합니다.</span>
-									<span class="pwck_input_re_2">비밀번호가 일치하지 않습니다.</span>
-								</div>
-								<div class="name_wrap">
-									<div class = "name_name">이름</div>
-									<div class="name_input_box">
-										<input type="text" name="member_name" class="name_input">
-									</div>
-									<span class="final_name_ck">이름을 입력해주세요.</span>
-								</div>
-								<div class="phone_wrap">
-									<div class = "phone_name">전화번호</div>
-									<div class="phone_input_box">
-										<input type="text" name="member_phone" class="phone_input" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="- 빼고 입력해 주세요">
-									</div>
-									<span class="final_phone_ck">전화번호를 입력해주세요.</span>
-								</div>
-								<div class="mail_wrap">
-									<div class="mail_name">이메일</div> 
-									<div class="mail_input_box">
-										<input type="text" name="member_email" class="mail_input">
-									</div>
-									<span class="final_mail_ck">이메일을 입력해주세요.</span>
-									<span class="mail_input_box_warn"></span>
-									<div class="mail_check_wrap">
-										<div class="mail_check_button">
-											<span>인증번호 전송</span>
+											<div class="clearfix"></div>
 										</div>
-										<div class="mail_check_input_box"  id="mail_check_input_box_false">
-											<input type="text" class="mail_check_input" disabled="disabled" placeholder="인증번호 입력란">
+										<div class ="address_input_2_wrap">
+											<div class="address_input_2_box">
+												<input type="text" name="member_address.member_address2" class="address_input_2" readonly="readonly">
+											</div>
 										</div>
-										<div class="clearfix"></div>
-										<span id="mail_check_input_box_warn"></span>
+										<div class ="address_input_3_wrap">
+											<div class="address_input_3_box">
+												<input type="text"name="member_address.member_address3" class="address_input_3" readonly="readonly">
+											</div>
+										</div>
+										<span class="final_addr_ck">주소를 입력해주세요.</span>
 									</div>
 								</div>
-								<div class="address_wrap">
-									<div class="address_name">주소</div>
-									<div class="address_input_1_wrap">
-										<div class="address_button" onclick="daum_address_api()">
-											<span>주소 찾기</span>
-										</div>
-										<div class="address_input_1_box">
-											<input type="text" name="member_address.member_address1" class="address_input_1" readonly="readonly">
-										</div>
-						
-										<div class="clearfix"></div>
-									</div>
-									<div class ="address_input_2_wrap">
-										<div class="address_input_2_box">
-											<input type="text" name="member_address.member_address2" class="address_input_2" readonly="readonly">
-										</div>
-									</div>
-									<div class ="address_input_3_wrap">
-										<div class="address_input_3_box">
-											<input type="text"name="member_address.member_address3" class="address_input_3" readonly="readonly">
-										</div>
-									</div>
-									<span class="final_addr_ck">주소를 입력해주세요.</span>
-								</div>
-							</div>
 								<input type="button" class="join_button" id="join_button" value="등록">
-						</div>
-					</form>
-					<div class="done">								
-						Your message has been sent. Thank you!
+							</form>
+						</aside>
 					</div>
-					</aside>
 				</div>
 			</div>
-		</div>
-		<!-- #content -->
-	</div>
-	<!-- .container -->
+		</div><!-- header.jsp container 끝 -->
 <%@ include file="includes/footer.jsp" %>
