@@ -218,33 +218,32 @@ function chartMake(label_list, count_list) {
 	margin-bottom: 21px;
 }
 </style>
-	<div class="admin_nav_list">
-		<ul>
-			<li><a href="/pages/admin/productListPage" class="admin_nav_1">상품 관리</a></li>
-			<li><a href="/pages/admin/registerPage" class="admin_nav_2">상품 등록</a></li>
-			<li><a href="/pages/admin/memberListPage" class="admin_nav_3">회원 관리</a></li>
-		</ul>
-	</div>
-		<!-- #masthead -->
-		<div id="content" class="site-content">						
-			<div id="secondary" class="column third">
-				<div class="widget-area">
-					<aside class="widget">
-						<h4 class="widget-title">상품 조회</h4>
+	   <!-- </header> -->
+			<div class="admin_nav_list">
+				<ul>
+					<li><a href="/pages/admin/productListPage" class="admin_nav_1">상품 관리</a></li>
+					<li><a href="/pages/admin/registerPage" class="admin_nav_2">상품 등록</a></li>
+					<li><a href="/pages/admin/memberListPage" class="admin_nav_3">회원 관리</a></li>
+				</ul>
+			</div>
+			<div id="content" class="site-content">						
+				<div id="secondary" class="column third">
+					<div class="widget-area">
+						<aside class="widget">
+							<h4 class="widget-title">상품 조회</h4>
 							<div class="wpcf7">
-							<div class="form">
-								<div class="img_wrap">
-									<div class="form_section_title">
-										<label>상품 이미지</label>
-									</div>
-									<div class="form_section_content">
-										<div id="uploadResult">
+								<div class="form">
+									<div class="img_wrap">
+										<div class="form_section_title">
+											<label>상품 이미지</label>
 										</div>
-									</div>
-								</div>
-								
-								<div class="chart_wrap">
-									<label>상품 판매량 그래프</label>
+										<div class="form_section_content">
+											<div id="uploadResult">
+											</div>
+										</div>
+									</div>									
+									<div class="chart_wrap">
+										<label>상품 판매량 그래프</label>
 										<div class="input-group input-daterange">
 										<c:set var='ymd' value="<%=new java.util.Date()%>"/>
 										<c:set var='zmd' value="<%=new java.util.Date(new java.util.Date().getTime() - 60*60*24*1000*7)%>"/>
@@ -255,74 +254,67 @@ function chartMake(label_list, count_list) {
 											<button type="button" id="click-btn">조회</button>
 										</div>
 										<div class="chart_canvas" style="position: relative; height:250px; width:100%">
-												<canvas id="myChart"></canvas>
+											<canvas id="myChart"></canvas>
 										</div>
-								</div>
-								
-								<div class="name_wrap">
-									<label>상품이름</label>
-									<input type="text" name="product_name" value="${product.product_name}" readonly>
-								</div>
-								<div class="price_wrap">
-									<label>상품가격</label>
-									<input type="text" name="product_price" value="${product.product_price}" readonly>
-								</div>
-								<div class="info_wrap">
-									<label>상품정보</label>
-									<textarea name="product_info" rows="5" readonly>${product.product_info}</textarea>
-								</div>
-								<div class="category_wrap">
-									<label>상품 카테고리</label>
-									<div class="category_select_wrap">
-									<select class="category_select" name="product_category_code">
-										<option selected value ="${product.product_category_code}">
-											<c:forEach items="${categoryList}" var="category">
-												<c:if test="${product.product_category_code == category.category_code}">
-													${category.category_name}
-												</c:if>
-											</c:forEach>
-										</option>
-									</select>
+									</div>
+									<div class="name_wrap">
+										<label>상품이름</label>
+										<input type="text" name="product_name" value="${product.product_name}" readonly>
+									</div>
+									<div class="price_wrap">
+										<label>상품가격</label>
+										<input type="text" name="product_price" value="${product.product_price}" readonly>
+									</div>
+									<div class="info_wrap">
+										<label>상품정보</label>
+										<textarea name="product_info" rows="5" readonly>${product.product_info}</textarea>
+									</div>
+									<div class="category_wrap">
+										<label>상품 카테고리</label>
+										<div class="category_select_wrap">
+											<select class="category_select" name="product_category_code">
+												<option selected value ="${product.product_category_code}">
+													<c:forEach items="${categoryList}" var="category">
+														<c:if test="${product.product_category_code == category.category_code}">
+															${category.category_name}
+														</c:if>
+													</c:forEach>
+												</option>
+											</select>
+										</div>
+									</div>
+									<div class="stock_wrap">
+										<label>상품재고</label>
+										<input type="text" name="product_stock" value="${product.product_stock}" readonly>
+									</div>
+									<div class="sell_wrap">
+										<label>판매수량</label>
+										<input type="text" name="product_sell" value="${product.product_sell}" readonly>
+									</div>
+									<div class="updateDate_wrap">
+										<label>최근 수정 날짜</label>
+										<input type="text" name="product_updateDate" value="<fmt:formatDate value="${product.product_updateDate}" pattern="yyyy-MM-dd"/>" readonly/>
+									</div>
+									<div class="regDate_wrap">
+										<label>최초 등록 날짜</label>
+										<input type="text" name="product_regDate" value="<fmt:formatDate value="${product.product_regDate}" pattern="yyyy-MM-dd"/>" readonly/>
+									</div>
+									<div class="button_section">
+										<input type="button" id="modify_button" value="수정">
+										<input type="button" id="remove_button" value="삭제">
+										<input type="button" id="list_button" value="목록">
 									</div>
 								</div>
-								<div class="stock_wrap">
-									<label>상품재고</label>
-									<input type="text" name="product_stock" value="${product.product_stock}" readonly>
-								</div>
-								<div class="sell_wrap">
-									<label>판매수량</label>
-									<input type="text" name="product_sell" value="${product.product_sell}" readonly>
-								</div>
-								<div class="updateDate_wrap">
-									<label>최근 수정 날짜</label>
-									<input type="text" name="product_updateDate" value="<fmt:formatDate value="${product.product_updateDate}" pattern="yyyy-MM-dd"/>" readonly/>
-								</div>
-								<div class="regDate_wrap">
-									<label>최초 등록 날짜</label>
-									<input type="text" name="product_regDate" value="<fmt:formatDate value="${product.product_regDate}" pattern="yyyy-MM-dd"/>" readonly/>
-								</div>
-								<div class="button_section">
-									<input type="button" id="modify_button" value="수정">
-									<input type="button" id="remove_button" value="삭제">
-									<input type="button" id="list_button" value="목록">
-								</div>
 							</div>
-							</div>
-							
 							<form id="moveForm" action="" method="get">  <!-- action 생략시 현재페이지에 요청함! -->
 								<input type="hidden" name="pageNum" value="${cri.pageNum}">
 								<input type="hidden" name="amount" value="${cri.amount}">
 								<input type="hidden" name="keyword" value="${cri.keyword}">
 								<input type="hidden" name="product_id" value="${product.product_id}">				
 							</form>	
-						<div class="done">								
-							Your message has been sent. Thank you!
-						</div>
-					</aside>
+						</aside>
+					</div>
 				</div>
 			</div>
-		</div>
-		<!-- #content -->
-	</div>
-	<!-- .container -->
+		</div><!-- header.jsp container 끝 -->
 <%@ include file="../includes/footer.jsp" %>

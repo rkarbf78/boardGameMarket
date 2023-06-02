@@ -11,8 +11,6 @@ $(document).ready(function(){
 	/* 서버로 부터 전달받은 JSON 데이터를 Javascript 객체로 변환해주는 코드
 	let categoryList = JSON.parse('${categoryList}');*/
 
-	
-	
 	// 상품 등록 버튼
 	$("#modify_button").click(function(){
 		
@@ -238,7 +236,6 @@ $(document).ready(function(){
 .category_select_wrap{
 	margin-top : 2px
 }
-
 /* 유효성 검사 경고문구 top */
 .check_warn{
 	display : none;
@@ -250,92 +247,86 @@ $(document).ready(function(){
 #product_category_warn{
 	text-align : left;
 }
-
 /* 유효성 검사 경고문구 bottom */
 .admin_page{
 	color : black;
 }
 </style>
-	<div class="admin_nav_list">
-		<ul>
-			<li><a href="/pages/admin/productListPage" class="admin_nav_1">상품 관리</a></li>
-			<li><a href="/pages/admin/registerPage" class="admin_nav_2">상품 등록</a></li>
-			<li><a href="/pages/admin/memberListPage" class="admin_nav_3">회원 관리</a></li>
-		</ul>
-	</div>
-		<!-- #masthead -->
-		<div id="content" class="site-content">						
-			<div id="secondary" class="column third">
-				<div class="widget-area">
-					<aside class="widget">
-						<h4 class="widget-title">상품 수정</h4>
-						<form class="wpcf7" method="post" action="" id="modify_form">
-							<div class="form">
-								<div class="img_wrap">
-									<div class="form_section_title">
-										<label>상품 이미지</label>
-									</div>
-									<div class="form_section_content">
-										<input type="file" id="fileItem" name="uploadFile" style="height:30px;">
-										<div id="uploadResult">
+	   <!-- </header> -->
+			<div class="admin_nav_list">
+				<ul>
+					<li><a href="/pages/admin/productListPage" class="admin_nav_1">상품 관리</a></li>
+					<li><a href="/pages/admin/registerPage" class="admin_nav_2">상품 등록</a></li>
+					<li><a href="/pages/admin/memberListPage" class="admin_nav_3">회원 관리</a></li>
+				</ul>
+			</div>
+			<div id="content" class="site-content">						
+				<div id="secondary" class="column third">
+					<div class="widget-area">
+						<aside class="widget">
+							<h4 class="widget-title">상품 수정</h4>
+							<form class="wpcf7" method="post" action="" id="modify_form">
+								<div class="form">
+									<div class="img_wrap">
+										<div class="form_section_title">
+											<label>상품 이미지</label>
+										</div>
+										<div class="form_section_content">
+											<input type="file" id="fileItem" name="uploadFile" style="height:30px;">
+											<div id="uploadResult">
+											</div>
 										</div>
 									</div>
-								</div>
-								<div class="name_wrap">
-									<label>상품이름</label>
-									<input type="text" name="product_name" value="${product.product_name}">
-									<span class="check_warn product_name_warn">상품이름을 입력해주세요.</span>
-								</div>
-								<div class="price_wrap">
-									<label>상품가격</label>
-									<input type="text" name="product_price" value="${product.product_price}">
-									<span class="check_warn product_price_warn">상품가격을 입력해주세요.</span>
-								</div>
-								<div class="info_wrap">
-									<label>상품정보</label>
-									<textarea name="product_info" rows="5">${product.product_info}</textarea>
-									<span class="check_warn product_info_warn">상품정보를 입력해주세요.</span>
-								</div>
-								<div class="category_wrap">
-									<label>상품 카테고리</label>
-									<div class="category_select_wrap">
-									<select class="category_select" name="product_category_code">
-										<option value ="none">선택</option>
-										<c:forEach items="${categoryList}" var="category">
-											<c:choose>
-												<c:when test="${product.product_category_code == category.category_code}">
-													<option selected value ="${category.category_code}">${category.category_name}</option>		
-												</c:when>
-												<c:otherwise>
-													<option value ="${category.category_code}">${category.category_name}</option>
-												</c:otherwise>
-											</c:choose>
-										</c:forEach>
-									</select>
+									<div class="name_wrap">
+										<label>상품이름</label>
+										<input type="text" name="product_name" value="${product.product_name}">
+										<span class="check_warn product_name_warn">상품이름을 입력해주세요.</span>
 									</div>
-									<span class="check_warn product_category_warn" id="product_category_warn">상품 카테고리를 선택해주세요.</span>
+									<div class="price_wrap">
+										<label>상품가격</label>
+										<input type="text" name="product_price" value="${product.product_price}">
+										<span class="check_warn product_price_warn">상품가격을 입력해주세요.</span>
+									</div>
+									<div class="info_wrap">
+										<label>상품정보</label>
+										<textarea name="product_info" rows="5">${product.product_info}</textarea>
+										<span class="check_warn product_info_warn">상품정보를 입력해주세요.</span>
+									</div>
+									<div class="category_wrap">
+										<label>상품 카테고리</label>
+										<div class="category_select_wrap">
+										<select class="category_select" name="product_category_code">
+											<option value ="none">선택</option>
+											<c:forEach items="${categoryList}" var="category">
+												<c:choose>
+													<c:when test="${product.product_category_code == category.category_code}">
+														<option selected value ="${category.category_code}">${category.category_name}</option>		
+													</c:when>
+													<c:otherwise>
+														<option value ="${category.category_code}">${category.category_name}</option>
+													</c:otherwise>
+												</c:choose>
+											</c:forEach>
+										</select>
+										</div>
+										<span class="check_warn product_category_warn" id="product_category_warn">상품 카테고리를 선택해주세요.</span>
+									</div>
+									<div class="stock_wrap">
+										<label>상품재고</label>
+										<input type="text" name="product_stock" value="${product.product_stock}">
+										<span class="check_warn product_stock_warn">상품재고를 입력해주세요.</span>
+									</div>
+									<div class="sell_wrap">
+										<label>판매수량</label>
+										<input type="text" name="product_sell" value="${product.product_sell}">
+										<span class="check_warn product_sell_warn">상품 판매수량을 입력해주세요.</span>
+									</div>
+									<input type="button" id="modify_button" class="modify_button" value="수정 등록">
 								</div>
-								<div class="stock_wrap">
-									<label>상품재고</label>
-									<input type="text" name="product_stock" value="${product.product_stock}">
-									<span class="check_warn product_stock_warn">상품재고를 입력해주세요.</span>
-								</div>
-								<div class="sell_wrap">
-									<label>판매수량</label>
-									<input type="text" name="product_sell" value="${product.product_sell}">
-									<span class="check_warn product_sell_warn">상품 판매수량을 입력해주세요.</span>
-								</div>
-								<input type="button" id="modify_button" class="modify_button" value="수정 등록">
-							</div>
-						</form>
-						<div class="done">								
-							Your message has been sent. Thank you!
-						</div>
-					</aside>
+							</form>
+						</aside>
+					</div>
 				</div>
 			</div>
-		</div>
-		<!-- #content -->
-	</div>
-	<!-- .container -->
+		</div><!-- header.jsp container 끝 -->
 <%@ include file="../includes/footer.jsp" %>

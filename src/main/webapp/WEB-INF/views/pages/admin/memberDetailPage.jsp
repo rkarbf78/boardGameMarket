@@ -55,19 +55,19 @@ $(document).ready(function(){
 	margin : 0 0 0.5em 0;
 }
 </style>
-	<div class="admin_nav_list">
-		<ul>
-			<li><a href="/pages/admin/productListPage" class="admin_nav_1">상품 관리</a></li>
-			<li><a href="/pages/admin/registerPage" class="admin_nav_2">상품 등록</a></li>
-			<li><a href="/pages/admin/memberListPage" class="admin_nav_3">회원 관리</a></li>
-		</ul>
-	</div>
-		<!-- #masthead -->
-		<div id="content" class="site-content">						
-			<div id="secondary" class="column third">
-				<div class="widget-area">
-					<aside class="widget">
-						<h4 class="widget-title">회원 조회</h4>
+	   <!-- </header> -->
+			<div class="admin_nav_list">
+				<ul>
+					<li><a href="/pages/admin/productListPage" class="admin_nav_1">상품 관리</a></li>
+					<li><a href="/pages/admin/registerPage" class="admin_nav_2">상품 등록</a></li>
+					<li><a href="/pages/admin/memberListPage" class="admin_nav_3">회원 관리</a></li>
+				</ul>
+			</div>
+			<div id="content" class="site-content">						
+				<div id="secondary" class="column third">
+					<div class="widget-area">
+						<aside class="widget">
+							<h4 class="widget-title">회원 조회</h4>
 							<div class="wpcf7">
 							<div class="form">
 								<div class="id_wrap">
@@ -140,14 +140,9 @@ $(document).ready(function(){
 								<input type="hidden" name="keyword" value="${cri.keyword}">
 								<input type="hidden" name="member_id" value="${member.member_id}">				
 							</form>	
-						<div class="done">								
-							Your message has been sent. Thank you!
-						</div>
-					</aside>
+						</aside>
+					</div>
 				</div>
 			</div>
-		</div>
-		<!-- #content -->
-	</div>
-	<!-- .container -->
+		</div><!-- header.jsp container 끝 -->
 <%@ include file="../includes/footer.jsp" %>

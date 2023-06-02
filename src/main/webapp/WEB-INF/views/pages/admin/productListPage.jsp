@@ -111,7 +111,6 @@
 		
 	}); //다큐멘트레디 끝
 </script>
-
 <style>
 .pageMaker{
 	list-style: none;
@@ -194,7 +193,6 @@
 	bottom: 19px;
 	right: 5px;
 	cursor: pointer;
- 
 }
 .th_column_5 i{
 	font-size: 20px;
@@ -206,17 +204,17 @@
 	color : black;
 }
 </style>
-	<div class="admin_nav_list">
-		<ul>
-			<li><a href="/pages/admin/productListPage" class="admin_nav_1">상품 관리</a></li>
-			<li><a href="/pages/admin/registerPage" class="admin_nav_2">상품 등록</a></li>
-			<li><a href="/pages/admin/memberListPage" class="admin_nav_3">회원 관리</a></li>
-		</ul>
-	</div>
-		<!-- #masthead -->
-		<div id="content" class="site-content">
-			<div id="primary" class="content-area column full">
-				<h4 class="admin_page_name">상품 관리 페이지</h4>
+	   <!-- </header> -->
+			<div class="admin_nav_list">
+				<ul>
+					<li><a href="/pages/admin/productListPage" class="admin_nav_1">상품 관리</a></li>
+					<li><a href="/pages/admin/registerPage" class="admin_nav_2">상품 등록</a></li>
+					<li><a href="/pages/admin/memberListPage" class="admin_nav_3">회원 관리</a></li>
+				</ul>
+			</div>
+			<div id="content" class="site-content">
+				<div id="primary" class="content-area column full">
+					<h4 class="admin_page_name">상품 관리 페이지</h4>
 					<c:if test="${productListCheck != 'empty'}">
 						<div class="products_table_wrap">
 	                    	<table class="products_table">
@@ -256,46 +254,40 @@
 			                    		</tr>
 	                    		</c:forEach>
 	                    	</table>
-					</div>
-					<nav class="pagination">
-						<div class="pageMaker_wrap">
-							<ul class="pageMaker">
-								<c:if test="${pageMaker.prev}">
-									<li class="prev page-numbers">
-										<a href="${pageMaker.pageStart - 1}">이전</a>
-									</li>
-								</c:if>	
-								<c:forEach begin="${pageMaker.pageStart}" end="${pageMaker.pageEnd}" var="num">
-									<li class="page-numbers ${pageMaker.cri.pageNum == num ? "current" : ""}">
-										<a href="${num}">${num}</a>
-								</c:forEach>
-								
-								<c:if test="${pageMaker.next}">
-									<li class="next page-numbers">
-										<a href="${pageMaker.pageEnd + 1}">다음</a>
-									</li>
-								</c:if>
-							</ul>
 						</div>
-					</nav>
-					<form id="moveForm" action="" method="get">  <!-- action 생략시 현재페이지에 요청함! -->
-						<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
-						<input type="hidden" name="amount" value="${pageMaker.cri.amount}">
-						<input type="hidden" name="keyword" value="${pageMaker.cri.keyword}">
-						<input type="hidden" name="order_by" value="${pageMaker.cri.order_by}">										
-					</form>	
+						<nav class="pagination">
+							<div class="pageMaker_wrap">
+								<ul class="pageMaker">
+									<c:if test="${pageMaker.prev}">
+										<li class="prev page-numbers">
+											<a href="${pageMaker.pageStart - 1}">이전</a>
+										</li>
+									</c:if>	
+									<c:forEach begin="${pageMaker.pageStart}" end="${pageMaker.pageEnd}" var="num">
+										<li class="page-numbers ${pageMaker.cri.pageNum == num ? "current" : ""}">
+											<a href="${num}">${num}</a>
+									</c:forEach>		
+									<c:if test="${pageMaker.next}">
+										<li class="next page-numbers">
+											<a href="${pageMaker.pageEnd + 1}">다음</a>
+										</li>
+									</c:if>
+								</ul>
+							</div>
+						</nav>
+						<form id="moveForm" action="" method="get">  <!-- action 생략시 현재페이지에 요청함! -->
+							<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
+							<input type="hidden" name="amount" value="${pageMaker.cri.amount}">
+							<input type="hidden" name="keyword" value="${pageMaker.cri.keyword}">
+							<input type="hidden" name="order_by" value="${pageMaker.cri.order_by}">										
+						</form>	
 					</c:if>
 					<c:if test="${productListCheck == 'empty'}">
 						<div class="data_empty">
 							등록된 상품이 없습니다.
 						</div>
-					</c:if>			
-
-			
+					</c:if>
+				</div>
 			</div>
-				<!-- #primary -->
-		</div>
-			<!-- #content -->
-	</div>
-		<!-- .container -->
+		</div><!-- header.jsp container 끝 -->
 <%@ include file="../includes/footer.jsp" %>

@@ -234,79 +234,74 @@ $(document).ready(function(){
 	color : black;
 }
 </style>
-	<div class="admin_nav_list">
-		<ul>
-			<li><a href="/pages/admin/productListPage" class="admin_nav_1">상품 관리</a></li>
-			<li><a href="/pages/admin/registerPage" class="admin_nav_2">상품 등록</a></li>
-			<li><a href="/pages/admin/memberListPage" class="admin_nav_3">회원 관리</a></li>
-		</ul>
-	</div>
-		<!-- #masthead -->
-		<div id="content" class="site-content">						
-			<div id="secondary" class="column third">
-				<div class="widget-area">
-					<aside class="widget">
-						<h4 class="widget-title">상품 등록 페이지</h4>
-						<form class="wpcf7" method="post" action="" id="register_form">
-							<div class="form">
-								<div class="img_wrap">
-									<div class="form_section_title">
-										<label>상품 이미지</label>
-									</div>
-									<div class="form_section_content">
-										<input type="file" id="fileItem" name="uploadFile" style="height:30px;">
-										<div id="uploadResult">
+	   <!-- </header> -->
+			<div class="admin_nav_list">
+				<ul>
+					<li><a href="/pages/admin/productListPage" class="admin_nav_1">상품 관리</a></li>
+					<li><a href="/pages/admin/registerPage" class="admin_nav_2">상품 등록</a></li>
+					<li><a href="/pages/admin/memberListPage" class="admin_nav_3">회원 관리</a></li>
+				</ul>
+			</div>
+			<div id="content" class="site-content">						
+				<div id="secondary" class="column third">
+					<div class="widget-area">
+						<aside class="widget">
+							<h4 class="widget-title">상품 등록 페이지</h4>
+							<form class="wpcf7" method="post" action="" id="register_form">
+								<div class="form">
+									<div class="img_wrap">
+										<div class="form_section_title">
+											<label>상품 이미지</label>
+										</div>
+										<div class="form_section_content">
+											<input type="file" id="fileItem" name="uploadFile" style="height:30px;">
+											<div id="uploadResult">
+											</div>
 										</div>
 									</div>
-								</div>
-								<div class="name_wrap">
-									<label>상품이름</label>
-									<input type="text" name="product_name" placeholder="Name *">
-									<span class="check_warn product_name_warn">상품이름을 입력해주세요.</span>
-								</div>
-								<div class="price_wrap">
-									<label>상품가격</label>
-									<input type="text" name="product_price">
-									<span class="check_warn product_price_warn">상품가격을 입력해주세요.</span>
-								</div>
-								<div class="info_wrap">
-									<label>상품정보</label>
-									<textarea name="product_info" rows="5"></textarea>
-									<span class="check_warn product_info_warn">상품정보를 입력해주세요.</span>
-								</div>
-								<div class="category_wrap">
-									<label>상품 카테고리</label>
-									<div class="category_select_wrap">
-									<select class="category_select" name="product_category_code">
-										<option selected value ="none">선택</option>
-										<c:forEach items="${categoryList}" var="category">
-											<option value ="${category.category_code}">${category.category_name}</option>
-										</c:forEach>
-									</select>
+									<div class="name_wrap">
+										<label>상품이름</label>
+										<input type="text" name="product_name" placeholder="Name *">
+										<span class="check_warn product_name_warn">상품이름을 입력해주세요.</span>
 									</div>
-									<span class="check_warn product_category_warn" id="product_category_warn">상품 카테고리를 선택해주세요.</span>
+									<div class="price_wrap">
+										<label>상품가격</label>
+										<input type="text" name="product_price">
+										<span class="check_warn product_price_warn">상품가격을 입력해주세요.</span>
+									</div>
+									<div class="info_wrap">
+										<label>상품정보</label>
+										<textarea name="product_info" rows="5"></textarea>
+										<span class="check_warn product_info_warn">상품정보를 입력해주세요.</span>
+									</div>
+									<div class="category_wrap">
+										<label>상품 카테고리</label>
+										<div class="category_select_wrap">
+										<select class="category_select" name="product_category_code">
+											<option selected value ="none">선택</option>
+											<c:forEach items="${categoryList}" var="category">
+												<option value ="${category.category_code}">${category.category_name}</option>
+											</c:forEach>
+										</select>
+										</div>
+										<span class="check_warn product_category_warn" id="product_category_warn">상품 카테고리를 선택해주세요.</span>
+									</div>
+									<div class="stock_wrap">
+										<label>상품재고</label>
+										<input type="text" name="product_stock">
+										<span class="check_warn product_stock_warn">상품재고를 입력해주세요.</span>
+									</div>
+									<div class="sell_wrap">
+										<label>판매수량</label>
+										<input type="text" name="product_sell">
+										<span class="check_warn product_sell_warn">상품 판매수량을 입력해주세요.</span>
+									</div>
+									<input type="button" id="register_button" class="register_button" value="등록">
 								</div>
-								<div class="stock_wrap">
-									<label>상품재고</label>
-									<input type="text" name="product_stock">
-									<span class="check_warn product_stock_warn">상품재고를 입력해주세요.</span>
-								</div>
-								<div class="sell_wrap">
-									<label>판매수량</label>
-									<input type="text" name="product_sell">
-									<span class="check_warn product_sell_warn">상품 판매수량을 입력해주세요.</span>
-								</div>
-								<input type="button" id="register_button" class="register_button" value="등록">
-							</div>
-						</form>
-						<div class="done">								
-							Your message has been sent. Thank you!
-						</div>
-					</aside>
+							</form>
+						</aside>
+					</div>
 				</div>
 			</div>
-		</div>
-		<!-- #content -->
-	</div>
-	<!-- .container -->
+		</div><!-- header.jsp container 끝 -->
 <%@ include file="../includes/footer.jsp" %>
